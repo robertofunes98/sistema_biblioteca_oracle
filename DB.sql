@@ -6,13 +6,13 @@ create table autor(
 	id_autor int not null auto_increment,
 	nombre varchar(50) not null,
 	primary key pk_autor(id_autor)
-);
+) default charset= utf8;
 
 create table categoria(
 	id_categoria int not null auto_increment,
 	nombre varchar(50) not null,
 	primary key pk_categoria(id_categoria)
-);
+)default charset= utf8;
 
 create table libro(
 	id_libro varchar(10) not null,
@@ -23,4 +23,4 @@ create table libro(
 	primary key pk_libro(id_libro),
 	foreign key fk_libro_autor(id_autor) references autor(id_autor),
 	foreign key fk_libro_categoria(id_categoria) references categoria(id_categoria)
-);
+)default charset= utf8;
