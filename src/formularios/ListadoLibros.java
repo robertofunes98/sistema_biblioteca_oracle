@@ -6,13 +6,15 @@
 package formularios;
 
 import core.ConexionDB;
+import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -61,6 +63,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         tfBuscador = new javax.swing.JTextField();
         cbBuscarPor = new javax.swing.JComboBox<>();
         cbBuscador = new javax.swing.JComboBox<>();
+        btnEliminarLibro = new javax.swing.JButton();
 
         tblLibros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -76,6 +79,16 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblLibros.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tblLibrosFocusLost(evt);
+            }
+        });
+        tblLibros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLibrosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblLibros);
@@ -106,6 +119,13 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             }
         });
 
+        btnEliminarLibro.setText("Eliminar libro");
+        btnEliminarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarLibroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,7 +143,8 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(cbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tfBuscador)
-                            .addComponent(cbBuscador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(cbBuscador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnEliminarLibro))
                 .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -142,7 +163,9 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                         .addComponent(tfBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cbBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnEliminarLibro)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         pack();
@@ -220,8 +243,46 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_cbBuscadorItemStateChanged
 
+    private void tblLibrosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblLibrosFocusLost
+        // TODO add your handling code he
+    }//GEN-LAST:event_tblLibrosFocusLost
+
+    private void tblLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLibrosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblLibrosMouseClicked
+
+    private void btnEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarLibroActionPerformed
+        // TODO add your handling code here:
+        
+        JPanel pnlAdvertencia = new JPanel();
+        
+        JLabel lblAdvertencia = new JLabel();
+        
+        lblAdvertencia.setText("¿Esta seguro que desea eliminar el libro?\n Esta accion no se puede deshacer");
+        
+        lblAdvertencia.setForeground(Color.red);
+        
+        pnlAdvertencia.add(lblAdvertencia);
+        
+        int dialogResult = JOptionPane.showConfirmDialog (rootPane, pnlAdvertencia,"Warning", JOptionPane.YES_NO_OPTION);
+
+        if(dialogResult == JOptionPane.YES_OPTION){
+            try{
+              conexion.ejecutarComando("delete from libro where id_libro = '"+modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0)+"'");
+            }
+            catch(SQLException e)
+            {
+                JOptionPane.showMessageDialog(rootPane, "error: "+e);
+            }
+            cargarTabla();
+        }
+        
+        
+    }//GEN-LAST:event_btnEliminarLibroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEliminarLibro;
     private javax.swing.JComboBox<String> cbBuscador;
     private javax.swing.JComboBox<String> cbBuscarPor;
     private javax.swing.JLabel jLabel1;

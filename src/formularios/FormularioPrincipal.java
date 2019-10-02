@@ -5,6 +5,8 @@
  */
 package formularios;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author funes
@@ -16,6 +18,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
      */
     public FormularioPrincipal() {
         initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
