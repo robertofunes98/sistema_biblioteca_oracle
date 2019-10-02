@@ -6,10 +6,12 @@
 package formularios;
 
 import core.ConexionDB;
+import java.awt.event.ItemEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,6 +23,8 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     
     ConexionDB conexion;
     DefaultTableModel modeloLibros;
+    int tipoBusqueda = 0;//0=no buscar, 1=por id, 2=por nombre, 3=por autor, 4=por categoria
+    LinkedList<LinkedList<String>> alAutores;
 
     /**
      * Creates new form ListadoLibros
@@ -37,6 +41,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         
         modeloLibros=(DefaultTableModel) tblLibros.getModel();
         
+        ocultarBuscadores();
         cargarTabla();
     }
 
@@ -51,6 +56,11 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLibros = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tfBuscador = new javax.swing.JTextField();
+        cbBuscarPor = new javax.swing.JComboBox<>();
+        cbBuscador = new javax.swing.JComboBox<>();
 
         tblLibros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -70,33 +80,150 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblLibros);
 
+        jLabel1.setText("Libros");
+
+        jLabel2.setText("Buscar por:");
+
+        tfBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfBuscadorKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfBuscadorKeyTyped(evt);
+            }
+        });
+
+        cbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No buscar", "id libro", "nombre", "autor", "categoria" }));
+        cbBuscarPor.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbBuscarPorItemStateChanged(evt);
+            }
+        });
+
+        cbBuscador.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbBuscadorItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(192, 192, 192)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(205, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 778, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfBuscador)
+                            .addComponent(cbBuscador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(cbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(111, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbBuscarPorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbBuscarPorItemStateChanged
+        // TODO add your handling code here:
+        if(evt.getStateChange() ==  ItemEvent.SELECTED)
+        {
+            switch(cbBuscarPor.getSelectedIndex())
+            {
+                case 0:
+                    cargarTabla();
+                    ocultarBuscadores();
+                    tipoBusqueda=0;
+                    break;
+                case 1:
+                    ocultarBuscadores();
+                    tfBuscador.setVisible(true);
+                    tipoBusqueda=1;
+                    break;
+                case 2:
+                    ocultarBuscadores();
+                    tfBuscador.setVisible(true);
+                    tipoBusqueda=2;
+                    break;
+                case 3:
+                    ocultarBuscadores();
+                    cbBuscador.setVisible(true);
+                    cargarAutores();
+                    tipoBusqueda=3;
+                    break;
+                case 4:
+                    ocultarBuscadores();
+                    cbBuscador.setVisible(true);
+                    tipoBusqueda=4;
+                    break;
+            }
+            SwingUtilities.updateComponentTreeUI(this);
+        }
+    }//GEN-LAST:event_cbBuscarPorItemStateChanged
+
+    private void tfBuscadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscadorKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_tfBuscadorKeyTyped
+
+    private void tfBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscadorKeyReleased
+        // TODO add your handling code here:
+        switch(tipoBusqueda)
+        {
+            case 1:
+                buscarPorId(tfBuscador.getText());
+                break;
+            case 2:
+                buscarPorNombre(tfBuscador.getText());
+                break;
+        }
+    }//GEN-LAST:event_tfBuscadorKeyReleased
+
+    private void cbBuscadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbBuscadorItemStateChanged
+        // TODO add your handling code here:
+        if(evt.getStateChange() ==  ItemEvent.SELECTED)
+        {
+            buscarPorAutor(Integer.parseInt(alAutores.get(cbBuscador.getSelectedIndex()).get(0)));
+        }
+    }//GEN-LAST:event_cbBuscadorItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbBuscador;
+    private javax.swing.JComboBox<String> cbBuscarPor;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblLibros;
+    private javax.swing.JTextField tfBuscador;
     // End of variables declaration//GEN-END:variables
 
     private void cargarTabla() {
+        limpiarTabla();
         try{
             ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on categoria.id_categoria = libro.id_categoria");
 
@@ -107,7 +234,100 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 modeloLibros.addRow(aux.toArray());
             }
         }
-        catch(Exception e)
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        }
+    }
+
+    private void ocultarBuscadores() {
+        tfBuscador.setVisible(false);
+        cbBuscador.setVisible(false);
+    }
+    
+    
+
+    private void buscarPorNombre(String nombre) {
+        try{
+            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+                    + "from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on "
+                    + "categoria.id_categoria = libro.id_categoria where libro.nombre LIKE '"+nombre+"%'");
+
+            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
+            
+            limpiarTabla();
+
+            for(LinkedList<String> aux : alResultados)
+            {
+                modeloLibros.addRow(aux.toArray());
+            }
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        }
+    }
+
+    private void limpiarTabla() {
+        modeloLibros.setRowCount(0);
+    }
+
+    private void buscarPorId(String idLibro) {
+        try{
+            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+                    + "from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on "
+                    + "categoria.id_categoria = libro.id_categoria where libro.id_libro LIKE '"+idLibro+"%'");
+
+            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
+            
+            limpiarTabla();
+
+            for(LinkedList<String> aux : alResultados)
+            {
+                modeloLibros.addRow(aux.toArray());
+            }
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        }
+    }
+
+    private void cargarAutores() {
+        try{
+            ResultSet rsResultado=conexion.ejecutar("select * from autor ORDER BY nombre ASC");
+
+            alAutores=conexion.convertirRsToArrayList(rsResultado);
+            
+            cbBuscador.removeAllItems();
+
+            for(LinkedList<String> aux : alAutores)
+            {
+                cbBuscador.addItem(aux.get(1));
+            }
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        }
+    }
+
+    private void buscarPorAutor(int idAutor) {
+        try{
+            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+                    + "from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on "
+                    + "categoria.id_categoria = libro.id_categoria where libro.id_autor ="+idAutor);
+
+            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
+            
+            limpiarTabla();
+
+            for(LinkedList<String> aux : alResultados)
+            {
+                modeloLibros.addRow(aux.toArray());
+            }
+        }
+        catch(SQLException e)
         {
             JOptionPane.showMessageDialog(rootPane, "error: "+e);
         }
