@@ -24,7 +24,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     ConexionDB conexion;
     DefaultTableModel modeloLibros;
     int tipoBusqueda = 0;//0=no buscar, 1=por id, 2=por nombre, 3=por autor, 4=por categoria
-    LinkedList<LinkedList<String>> alAutores;
+    LinkedList<LinkedList<String>> alAutores, alCategorias;
 
     /**
      * Creates new form ListadoLibros
@@ -178,6 +178,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 case 4:
                     ocultarBuscadores();
                     cbBuscador.setVisible(true);
+                    cargarCategorias();
                     tipoBusqueda=4;
                     break;
             }
@@ -207,7 +208,15 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if(evt.getStateChange() ==  ItemEvent.SELECTED)
         {
-            buscarPorAutor(Integer.parseInt(alAutores.get(cbBuscador.getSelectedIndex()).get(0)));
+            switch(tipoBusqueda)
+            {
+                case 3:
+                    buscarPorAutor(Integer.parseInt(alAutores.get(cbBuscador.getSelectedIndex()).get(0)));
+                    break;
+                case 4:
+                    buscarPorCategoria(Integer.parseInt(alCategorias.get(cbBuscador.getSelectedIndex()).get(0)));
+            }
+            
         }
     }//GEN-LAST:event_cbBuscadorItemStateChanged
 
@@ -317,6 +326,46 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
                     + "from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on "
                     + "categoria.id_categoria = libro.id_categoria where libro.id_autor ="+idAutor);
+
+            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
+            
+            limpiarTabla();
+
+            for(LinkedList<String> aux : alResultados)
+            {
+                modeloLibros.addRow(aux.toArray());
+            }
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        }
+    }
+
+    private void cargarCategorias() {
+        try{
+            ResultSet rsResultado=conexion.ejecutar("select * from categoria ORDER BY nombre ASC");
+
+            alCategorias=conexion.convertirRsToArrayList(rsResultado);
+            
+            cbBuscador.removeAllItems();
+
+            for(LinkedList<String> aux : alCategorias)
+            {
+                cbBuscador.addItem(aux.get(1));
+            }
+        }
+        catch(SQLException e)
+        {
+            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        }
+    }
+
+    private void buscarPorCategoria(int idcategoria) {
+        try{
+            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+                    + "from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on "
+                    + "categoria.id_categoria = libro.id_categoria where libro.id_categoria ="+idcategoria);
 
             LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
             
