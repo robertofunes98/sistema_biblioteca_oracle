@@ -7,10 +7,16 @@ package formularios;
 
 import core.ConexionDB;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.ItemEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,7 +32,8 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     ConexionDB conexion;
     DefaultTableModel modeloLibros;
     int tipoBusqueda = 0;//0=no buscar, 1=por id, 2=por nombre, 3=por autor, 4=por categoria
-    LinkedList<LinkedList<String>> alAutores, alCategorias;
+    LinkedList<LinkedList<String>> alAutores, alCategorias, alLibros;
+
 
     /**
      * Creates new form ListadoLibros
@@ -64,6 +71,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         cbBuscarPor = new javax.swing.JComboBox<>();
         cbBuscador = new javax.swing.JComboBox<>();
         btnEliminarLibro = new javax.swing.JButton();
+        btnModificarLibro = new javax.swing.JButton();
 
         tblLibros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -126,6 +134,13 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModificarLibro.setText("Modificar libro");
+        btnModificarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarLibroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,7 +159,10 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                                 .addComponent(cbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tfBuscador)
                             .addComponent(cbBuscador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btnEliminarLibro))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnEliminarLibro)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModificarLibro)))
                 .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -164,7 +182,9 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(cbBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(btnEliminarLibro)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminarLibro)
+                    .addComponent(btnModificarLibro))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
 
@@ -280,9 +300,29 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnEliminarLibroActionPerformed
 
+    private void btnModificarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibroActionPerformed
+        // TODO add your handling code here:
+        
+        ModificarLibroDialog jDialog = new ModificarLibroDialog(FormularioPrincipal.contex, true, modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0).toString(), 
+                modeloLibros.getValueAt(tblLibros.getSelectedRow(), 1).toString(), 
+                Integer.parseInt(modeloLibros.getValueAt(tblLibros.getSelectedRow(), 4).toString()),
+                alLibros.get(tblLibros.getSelectedRow()).get(5), alLibros.get(tblLibros.getSelectedRow()).get(6));
+        jDialog.setLocationRelativeTo(this);
+        jDialog.setVisible(true);
+        
+        jDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                cargarTabla();
+            }
+        });
+    
+    }//GEN-LAST:event_btnModificarLibroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminarLibro;
+    private javax.swing.JButton btnModificarLibro;
     private javax.swing.JComboBox<String> cbBuscador;
     private javax.swing.JComboBox<String> cbBuscarPor;
     private javax.swing.JLabel jLabel1;
@@ -295,13 +335,13 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     private void cargarTabla() {
         limpiarTabla();
         try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on categoria.id_categoria = libro.id_categoria");
+            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on categoria.id_categoria = libro.id_categoria");
 
-            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
+            alLibros=conexion.convertirRsToArrayList(rsResultado);
 
-            for(LinkedList<String> aux : alResultados)
+            for(LinkedList<String> aux : alLibros)
             {
-                modeloLibros.addRow(aux.toArray());
+                modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
             }
         }
         catch(SQLException e)

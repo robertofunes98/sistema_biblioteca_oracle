@@ -6,6 +6,7 @@
 package formularios;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,12 +14,15 @@ import javax.swing.JFrame;
  */
 public class FormularioPrincipal extends javax.swing.JFrame {
 
+    public static JFrame contex;
     /**
      * Creates new form frmFormularioPrincipal
      */
     public FormularioPrincipal() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        contex=this;
+   
     }
 
     /**
