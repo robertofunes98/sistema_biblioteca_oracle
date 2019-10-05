@@ -25,7 +25,6 @@ public class Encriptacion {
     private final static String metodoCifrado = "AES/CBC/PKCS5Padding";
     
     private static String llavePrivada="$2y$12$l";
-    private static String prueba;
     
  
     /**

@@ -33,7 +33,7 @@ create table libro(
 	foreign key fk_libro_categoria(id_categoria) references categoria(id_categoria)
 )default charset= utf8;
 
-insert into usuario values(null, "admin", "admin", 1);
+insert into usuario values(null, "admin", "NFZDYXgzUTMvdnBkbnF6QWVtd1hRdz09OjoAAAAAAAAAAAAAAAAAAAAAOjokMmEkMTAkbA==", 1);
 
 insert into autor values(null, "Platón");
 insert into autor values(null, "Shakespeare");
