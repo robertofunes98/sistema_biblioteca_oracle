@@ -40,6 +40,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         opcListadoLibros = new javax.swing.JMenuItem();
+        opcAgregarLibros = new javax.swing.JMenuItem();
         opcSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -80,6 +81,14 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(opcListadoLibros);
+
+        opcAgregarLibros.setText("Agregar Libros");
+        opcAgregarLibros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcAgregarLibrosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(opcAgregarLibros);
 
         opcSalir.setText("Salir");
         opcSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -128,6 +137,15 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_opcSalirActionPerformed
 
+    private void opcAgregarLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcAgregarLibrosActionPerformed
+        // TODO add your handling code here:
+        AgregarLibros frmAgregarLibros = new AgregarLibros();
+        frmAgregarLibros.setClosable(true);
+        frmAgregarLibros.setResizable(false);
+        dpPrincipal.add(frmAgregarLibros);
+        frmAgregarLibros.setVisible(true);
+    }//GEN-LAST:event_opcAgregarLibrosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dpPrincipal;
     private javax.swing.JMenu jMenu1;
@@ -135,6 +153,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem opcAgregarLibros;
     private javax.swing.JMenuItem opcListadoLibros;
     private javax.swing.JMenuItem opcSalir;
     // End of variables declaration//GEN-END:variables

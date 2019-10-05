@@ -6,6 +6,7 @@
 package formularios;
 
 import core.ConexionDB;
+import core.Variables;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -32,7 +33,7 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
         initComponents();
         
         try{
-            conexion=new ConexionDB("jdbc:mysql://localhost:3306/oina_biblioteca", "root", "mysql");
+            conexion=new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
         }
         catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e)
         {
@@ -149,7 +150,7 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
                 +ftfCantidadLibros.getText()+", id_autor="+alAutores.get(cbAutor.getSelectedIndex()).get(0)+", id_categoria="
                 +alCategorias.get(cbCategoria.getSelectedIndex()).get(0)+" where id_libro='"+idLibro+"'");
 
-            JOptionPane.showMessageDialog(this, "Libro modificado existosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Libro modificado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             
             this.dispose();
         }

@@ -7,6 +7,7 @@ package formularios;
 
 import core.ConexionDB;
 import core.Encriptacion;
+import core.Variables;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -30,7 +31,7 @@ public class Logeo extends javax.swing.JFrame {
     public Logeo() {
         initComponents();
         try{
-            conexion=new ConexionDB("jdbc:mysql://localhost:3306/oina_biblioteca", "root", "mysql");
+            conexion=new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
         }
         catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e)
         {

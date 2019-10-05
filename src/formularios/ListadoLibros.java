@@ -6,6 +6,7 @@
 package formularios;
 
 import core.ConexionDB;
+import core.Variables;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -41,7 +42,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     public ListadoLibros() {
         initComponents();
         try{
-            conexion=new ConexionDB("jdbc:mysql://localhost:3306/oina_biblioteca", "root", "mysql");
+            conexion=new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
         }
         catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e)
         {
