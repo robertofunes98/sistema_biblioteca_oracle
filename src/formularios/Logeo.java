@@ -8,6 +8,9 @@ package formularios;
 import core.ConexionDB;
 import core.Encriptacion;
 import core.Variables;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -30,6 +33,8 @@ public class Logeo extends javax.swing.JFrame {
      */
     public Logeo() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.getContentPane().setBackground(Color.WHITE);
         try{
             conexion=new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
         }
@@ -48,31 +53,50 @@ public class Logeo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        pnlLogin = new javax.swing.JPanel();
         tfUsuario = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         ptfClave = new javax.swing.JPasswordField();
-        btnLogin = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
+        lblFondoLogin = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
-        jLabel1.setText("Usuario:");
-
+        jLabel2.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel2.setText("Sistema de biblioteca Nueva Acropolis Santa Ana");
 
-        jLabel3.setText("Contraseña");
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jLabel4.setText("jLabel4");
 
+        pnlLogin.setBorder(null);
+        pnlLogin.setLayout(null);
+        pnlLogin.add(tfUsuario);
+        tfUsuario.setBounds(120, 260, 220, 28);
+        pnlLogin.add(ptfClave);
+        ptfClave.setBounds(120, 310, 220, 28);
+
+        lblError.setForeground(new java.awt.Color(255, 0, 0));
+        lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pnlLogin.add(lblError);
+        lblError.setBounds(120, 430, 255, 30);
+
+        lblFondoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login011.jpg"))); // NOI18N
+        pnlLogin.add(lblFondoLogin);
+        lblFondoLogin.setBounds(80, 70, 340, 420);
+
+        btnLogin.setBackground(new java.awt.Color(255, 255, 255));
+        btnLogin.setForeground(new java.awt.Color(0, 0, 153));
         btnLogin.setText("Iniciar sesion");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
-
-        lblError.setForeground(new java.awt.Color(255, 0, 0));
-        lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pnlLogin.add(btnLogin);
+        btnLogin.setBounds(118, 360, 260, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,45 +105,23 @@ public class Logeo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(81, 81, 81)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addComponent(jLabel3))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tfUsuario)
-                                        .addComponent(ptfClave)
-                                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(33, 33, 33)
-                                        .addComponent(jLabel1)))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lblError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel2)))
+                .addContainerGap(41, Short.MAX_VALUE))
+            .addComponent(pnlLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblError)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(ptfClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnLogin)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addComponent(pnlLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE))
         );
 
         pack();
@@ -162,6 +164,11 @@ public class Logeo extends javax.swing.JFrame {
     
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    @Override
+    public Image getIconImage(){
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("images/icono.png"));
+        return retValue;
+    }
     /**
      * @param args the command line arguments
      */
@@ -196,13 +203,16 @@ public class Logeo extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblError;
+    private javax.swing.JLabel lblFondoLogin;
+    private javax.swing.JPanel pnlLogin;
     private javax.swing.JPasswordField ptfClave;
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
