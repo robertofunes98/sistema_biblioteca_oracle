@@ -5,21 +5,37 @@
  */
 package formularios;
 
+import core.ConexionDB;
 import core.Encriptacion;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author funes
  */
 public class Logeo extends javax.swing.JFrame {
-
+    
+    ConexionDB conexion;
+    LinkedList<LinkedList<String>> alResultados;
+    
     /**
      * Creates new form Logeo
      */
     public Logeo() {
         initComponents();
+        try{
+            conexion=new ConexionDB("jdbc:mysql://localhost:3306/oina_biblioteca", "root", "mysql");
+        }
+        catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e)
+        {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
     }
 
     /**
@@ -31,36 +47,31 @@ public class Logeo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfEncriptar = new javax.swing.JTextField();
-        btnDesencriptar = new javax.swing.JButton();
-        btnEncriptar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taDesencriptar = new javax.swing.JTextArea();
-        lblTextoSinEncriptar = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tfUsuario = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        ptfClave = new javax.swing.JPasswordField();
+        btnLogin = new javax.swing.JButton();
+        lblError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tfEncriptar.setText("jTextField1");
+        jLabel1.setText("Usuario:");
 
-        btnDesencriptar.setText("jButton1");
-        btnDesencriptar.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Sistema de biblioteca Nueva Acropolis Santa Ana");
+
+        jLabel3.setText("Contraseña");
+
+        btnLogin.setText("Iniciar sesion");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDesencriptarActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
-        btnEncriptar.setText("jButton1");
-        btnEncriptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEncriptarActionPerformed(evt);
-            }
-        });
-
-        taDesencriptar.setColumns(20);
-        taDesencriptar.setRows(5);
-        jScrollPane1.setViewportView(taDesencriptar);
-
-        lblTextoSinEncriptar.setText("jLabel1");
+        lblError.setForeground(new java.awt.Color(255, 0, 0));
+        lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,64 +80,86 @@ public class Logeo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(btnEncriptar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(tfEncriptar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnDesencriptar)
-                .addGap(116, 116, 116))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(329, 329, 329)
-                .addComponent(lblTextoSinEncriptar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addComponent(jLabel3))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(tfUsuario)
+                                        .addComponent(ptfClave)
+                                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(33, 33, 33)
+                                        .addComponent(jLabel1)))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(tfEncriptar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
-                        .addComponent(btnEncriptar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(lblTextoSinEncriptar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(btnDesencriptar)
-                .addGap(50, 50, 50))
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblError)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(ptfClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnLogin)
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEncriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncriptarActionPerformed
-        try {
-            // TODO add your handling code here
-
-            taDesencriptar.setText(Encriptacion.encrypt(tfEncriptar.getText()));
-        } catch (Exception ex) {
-            Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        if(tfUsuario.getText().equals("") || ptfClave.getPassword().equals(""))
+            lblError.setText("No puede dejar campos en blanco");
+        else
+        {
+            try 
+            {
+                ResultSet rsResultado=conexion.ejecutar("Select * from usuario where nombre='"+tfUsuario.getText() +"'");
+                
+                alResultados=conexion.convertirRsToArrayList(rsResultado);
+                
+                if(alResultados.size()==0)
+                    lblError.setText("<html>El usuario no existe en la base de datos. <br>Por favor contacte al administrador.</html>");
+                else
+                {
+                    if((new String(ptfClave.getPassword())).equals(Encriptacion.decrypt(alResultados.get(0).get(2))))
+                    {
+                        new FormularioPrincipal().setVisible(true);
+                        this.dispose();
+                    }
+                    else
+                    {
+                        lblError.setText("<html>La contraseña es incorrecta. <br>Por favor contacte al administrador.</html>");
+                    }
+                }
+                    
+            }
+            catch (Exception ex) 
+            {
+                Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    }//GEN-LAST:event_btnEncriptarActionPerformed
-
-    private void btnDesencriptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesencriptarActionPerformed
-        try {
-            // TODO add your handling code here:
-            lblTextoSinEncriptar.setText(Encriptacion.decrypt(taDesencriptar.getText()));
-        } catch (Exception ex) {
-            Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnDesencriptarActionPerformed
+        
+    
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,11 +197,12 @@ public class Logeo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDesencriptar;
-    private javax.swing.JButton btnEncriptar;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblTextoSinEncriptar;
-    private javax.swing.JTextArea taDesencriptar;
-    private javax.swing.JTextField tfEncriptar;
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblError;
+    private javax.swing.JPasswordField ptfClave;
+    private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 }
