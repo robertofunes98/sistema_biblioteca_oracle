@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,14 +26,13 @@ public class Logeo extends javax.swing.JFrame {
     
     ConexionDB conexion;
     LinkedList<LinkedList<String>> alResultados;
-    
+        
     /**
      * Creates new form Logeo
      */
     public Logeo() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(Color.WHITE);
+        initConfig();
         try{
             conexion=new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
         }
@@ -42,6 +40,11 @@ public class Logeo extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+    }
+    
+    private void initConfig(){
+        this.setLocationRelativeTo(null);
+        this.getContentPane().setBackground(Color.WHITE);
     }
 
     /**

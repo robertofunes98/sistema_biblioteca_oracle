@@ -106,7 +106,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Libros");
+        jLabel1.setText("Listado de Libros");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/libros_32x32.png"))); // NOI18N
 
@@ -344,49 +344,53 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     private void btnEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarLibroActionPerformed
         // TODO add your handling code here:
         
-        JPanel pnlAdvertencia = new JPanel();
-        
-        JLabel lblAdvertencia = new JLabel();
-        
-        lblAdvertencia.setText("¿Esta seguro que desea eliminar el libro?\n Esta accion no se puede deshacer");
-        
-        lblAdvertencia.setForeground(Color.red);
-        
-        pnlAdvertencia.add(lblAdvertencia);
-        
-        int dialogResult = JOptionPane.showConfirmDialog (rootPane, pnlAdvertencia,"Warning", JOptionPane.YES_NO_OPTION);
+        if (tblLibros.getSelectedRows().length > 0) {
+            JPanel pnlAdvertencia = new JPanel();
 
-        if(dialogResult == JOptionPane.YES_OPTION){
-            try{
-              conexion.ejecutarComando("delete from libro where id_libro = '"+modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0)+"'");
+            JLabel lblAdvertencia = new JLabel();
+
+            lblAdvertencia.setText("¿Esta seguro que desea eliminar el libro?\n Esta accion no se puede deshacer");
+
+            lblAdvertencia.setForeground(Color.red);
+
+            pnlAdvertencia.add(lblAdvertencia);
+
+            int dialogResult = JOptionPane.showConfirmDialog(rootPane, pnlAdvertencia, "Warning", JOptionPane.YES_NO_OPTION);
+
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                try {
+                    conexion.ejecutarComando("delete from libro where id_libro = '" + modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0) + "'");
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(rootPane, "error: " + e);
+                }
+                cargarTabla();
             }
-            catch(SQLException e)
-            {
-                JOptionPane.showMessageDialog(rootPane, "error: "+e);
-            }
-            cargarTabla();
+
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "No se ha seleccionado ningún registro", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-        
-        
+
     }//GEN-LAST:event_btnEliminarLibroActionPerformed
 
     private void btnModificarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibroActionPerformed
         // TODO add your handling code here:
-        
-        ModificarLibroDialog jDialog = new ModificarLibroDialog(FormularioPrincipal.contex, true, modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0).toString(), 
-                modeloLibros.getValueAt(tblLibros.getSelectedRow(), 1).toString(), 
-                Integer.parseInt(modeloLibros.getValueAt(tblLibros.getSelectedRow(), 4).toString()),
-                alLibros.get(tblLibros.getSelectedRow()).get(5), alLibros.get(tblLibros.getSelectedRow()).get(6));
-        jDialog.setLocationRelativeTo(this);
-        jDialog.setVisible(true);
-        
-        jDialog.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                cargarTabla();
-            }
-        });
-    
+        if (tblLibros.getSelectedRows().length > 0) {
+            ModificarLibroDialog jDialog = new ModificarLibroDialog(FormularioPrincipal.contex, true, modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0).toString(),
+                    modeloLibros.getValueAt(tblLibros.getSelectedRow(), 1).toString(),
+                    Integer.parseInt(modeloLibros.getValueAt(tblLibros.getSelectedRow(), 4).toString()),
+                    alLibros.get(tblLibros.getSelectedRow()).get(5), alLibros.get(tblLibros.getSelectedRow()).get(6));
+            jDialog.setLocationRelativeTo(this);
+            jDialog.setVisible(true);
+
+            jDialog.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    cargarTabla();
+                }
+            });
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No se ha seleccionado ningún registro", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnModificarLibroActionPerformed
 
 
