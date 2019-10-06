@@ -64,6 +64,7 @@ public class Logeo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
+        setResizable(false);
 
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel2.setText("Sistema de biblioteca Nueva Acropolis Santa Ana");
