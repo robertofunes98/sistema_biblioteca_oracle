@@ -8,7 +8,6 @@ package formularios;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,6 +48,8 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         opcListadoLibros = new javax.swing.JMenuItem();
         opcAgregarLibros = new javax.swing.JMenuItem();
+        opcListadoAutoresCategorias = new javax.swing.JMenuItem();
+        opcAgregarAutoresCategorias = new javax.swing.JMenuItem();
         opcSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -99,6 +100,22 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(opcAgregarLibros);
+
+        opcListadoAutoresCategorias.setText("Listado de Autores/Categorías");
+        opcListadoAutoresCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcListadoAutoresCategoriasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(opcListadoAutoresCategorias);
+
+        opcAgregarAutoresCategorias.setText("Agregar Autores/Categorías");
+        opcAgregarAutoresCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcAgregarAutoresCategoriasActionPerformed(evt);
+            }
+        });
+        jMenu1.add(opcAgregarAutoresCategorias);
 
         opcSalir.setText("Salir");
         opcSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +173,24 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         frmAgregarLibros.setVisible(true);
     }//GEN-LAST:event_opcAgregarLibrosActionPerformed
 
+    private void opcAgregarAutoresCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcAgregarAutoresCategoriasActionPerformed
+        // TODO add your handling code here:
+        AgregarAutoresCategorias frmAgregar = new AgregarAutoresCategorias();
+        frmAgregar.setClosable(true);
+        frmAgregar.setResizable(false);
+        dpPrincipal.add(frmAgregar);
+        frmAgregar.setVisible(true);
+    }//GEN-LAST:event_opcAgregarAutoresCategoriasActionPerformed
+
+    private void opcListadoAutoresCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcListadoAutoresCategoriasActionPerformed
+        // TODO add your handling code here:
+        ListadoAutoresCategorias frmAgregar = new ListadoAutoresCategorias();
+        frmAgregar.setClosable(true);
+        frmAgregar.setResizable(false);
+        dpPrincipal.add(frmAgregar);
+        frmAgregar.setVisible(true);
+    }//GEN-LAST:event_opcListadoAutoresCategoriasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dpPrincipal;
     private javax.swing.JMenu jMenu1;
@@ -163,7 +198,9 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem opcAgregarAutoresCategorias;
     private javax.swing.JMenuItem opcAgregarLibros;
+    private javax.swing.JMenuItem opcListadoAutoresCategorias;
     private javax.swing.JMenuItem opcListadoLibros;
     private javax.swing.JMenuItem opcSalir;
     // End of variables declaration//GEN-END:variables

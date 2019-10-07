@@ -8,16 +8,12 @@ package formularios;
 import core.ConexionDB;
 import core.Variables;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -41,9 +37,6 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
      */
     public ListadoLibros() {
         initComponents();
-        
-        //this.getContentPane().setBackground(hex2rgb("#4b6c8d"));
-        //this.getContentPane().setBackground(new Color(75,108,141));
         
         try{
             conexion=new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
@@ -559,16 +552,5 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         {
             JOptionPane.showMessageDialog(rootPane, "error: "+e);
         }
-    }
-    
-    private Color hex2rgb(String colorStr){
-        System.out.println(Integer.valueOf(colorStr.substring(1,3), 16));
-        System.out.println(Integer.valueOf(colorStr.substring(3,5), 16));
-        System.out.println(Integer.valueOf(colorStr.substring(5,7), 16));
-        return new Color(
-                Integer.valueOf(colorStr.substring(1,3), 16),
-                Integer.valueOf(colorStr.substring(3,5), 16),
-                Integer.valueOf(colorStr.substring(5,7), 16)
-        );
     }
 }

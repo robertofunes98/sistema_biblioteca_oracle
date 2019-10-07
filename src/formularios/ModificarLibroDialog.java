@@ -7,7 +7,6 @@ package formularios;
 
 import core.ConexionDB;
 import core.Variables;
-import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;

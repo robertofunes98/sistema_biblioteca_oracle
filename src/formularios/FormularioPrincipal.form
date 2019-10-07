@@ -30,6 +30,22 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcAgregarLibrosActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opcListadoAutoresCategorias">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listado de Autores/Categor&#xed;as"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcListadoAutoresCategoriasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opcAgregarAutoresCategorias">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Agregar Autores/Categor&#xed;as"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcAgregarAutoresCategoriasActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="opcSalir">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salir"/>
