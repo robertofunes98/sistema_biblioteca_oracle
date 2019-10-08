@@ -8,6 +8,7 @@ package formularios;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,7 +52,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         opcListadoAutoresCategorias = new javax.swing.JMenuItem();
         opcAgregarAutoresCategorias = new javax.swing.JMenuItem();
         opcSalir = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        opcAcercaDe = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -127,8 +128,13 @@ public class FormularioPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Ayuda");
-        jMenuBar1.add(jMenu2);
+        opcAcercaDe.setText("Acerca de");
+        opcAcercaDe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                opcAcercaDeMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(opcAcercaDe);
 
         setJMenuBar(jMenuBar1);
 
@@ -161,7 +167,9 @@ public class FormularioPrincipal extends javax.swing.JFrame {
 
     private void opcSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcSalirActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        int opcion=JOptionPane.showConfirmDialog(rootPane, "Realmente quiere salir?","Salir",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        if(opcion==JOptionPane.YES_OPTION)
+            this.dispose();
     }//GEN-LAST:event_opcSalirActionPerformed
 
     private void opcAgregarLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcAgregarLibrosActionPerformed
@@ -191,13 +199,22 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         frmAgregar.setVisible(true);
     }//GEN-LAST:event_opcListadoAutoresCategoriasActionPerformed
 
+    private void opcAcercaDeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcAcercaDeMouseClicked
+        // TODO add your handling code here:
+        AcercaDe frmAcercaDe = new AcercaDe();
+        frmAcercaDe.setClosable(true);
+        frmAcercaDe.setResizable(false);
+        dpPrincipal.add(frmAcercaDe);
+        frmAcercaDe.setVisible(true);
+    }//GEN-LAST:event_opcAcercaDeMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dpPrincipal;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu opcAcercaDe;
     private javax.swing.JMenuItem opcAgregarAutoresCategorias;
     private javax.swing.JMenuItem opcAgregarLibros;
     private javax.swing.JMenuItem opcListadoAutoresCategorias;
