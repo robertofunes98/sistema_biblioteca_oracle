@@ -11,6 +11,8 @@ import core.Variables;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -40,6 +42,7 @@ public class Logeo extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+        
     }
     
     private void initConfig(){
@@ -75,12 +78,17 @@ public class Logeo extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
         jLabel4.setText("jLabel4");
 
-        pnlLogin.setBorder(null);
         pnlLogin.setLayout(null);
         pnlLogin.add(tfUsuario);
-        tfUsuario.setBounds(120, 260, 220, 28);
+        tfUsuario.setBounds(120, 260, 220, 24);
+
+        ptfClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ptfClaveKeyPressed(evt);
+            }
+        });
         pnlLogin.add(ptfClave);
-        ptfClave.setBounds(120, 310, 220, 28);
+        ptfClave.setBounds(120, 310, 220, 22);
 
         lblError.setForeground(new java.awt.Color(255, 0, 0));
         lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -133,40 +141,14 @@ public class Logeo extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        if(tfUsuario.getText().equals("") || ptfClave.getPassword().equals(""))
-            lblError.setText("No puede dejar campos en blanco");
-        else
-        {
-            try 
-            {
-                ResultSet rsResultado=conexion.ejecutar("Select * from usuario where nombre='"+tfUsuario.getText() +"'");
-                
-                alResultados=conexion.convertirRsToArrayList(rsResultado);
-                
-                if(alResultados.size()==0)
-                    lblError.setText("<html>El usuario no existe en la base de datos. <br>Por favor contacte al administrador.</html>");
-                else
-                {
-                    if((new String(ptfClave.getPassword())).equals(Encriptacion.decrypt(alResultados.get(0).get(2))))
-                    {
-                        new FormularioPrincipal().setVisible(true);
-                        this.dispose();
-                    }
-                    else
-                    {
-                        lblError.setText("<html>La contraseña es incorrecta. <br>Por favor contacte al administrador.</html>");
-                    }
-                }
-                    
-            }
-            catch (Exception ex) 
-            {
-                Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-    
+            login();
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void ptfClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ptfClaveKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER)
+            login();
+    }//GEN-LAST:event_ptfClaveKeyPressed
 
     @Override
     public Image getIconImage(){
@@ -207,9 +189,6 @@ public class Logeo extends javax.swing.JFrame {
             }
         });
     }
-    
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel2;
@@ -220,4 +199,40 @@ public class Logeo extends javax.swing.JFrame {
     private javax.swing.JPasswordField ptfClave;
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private void login() {
+        if(tfUsuario.getText().equals("") || ptfClave.getPassword().equals(""))
+            lblError.setText("No puede dejar campos en blanco");
+        else
+        {
+            try 
+            {
+                ResultSet rsResultado=conexion.ejecutar("Select * from usuario where nombre='"+tfUsuario.getText() +"'");
+                
+                alResultados=conexion.convertirRsToArrayList(rsResultado);
+                
+                if(alResultados.size()==0)
+                    lblError.setText("<html>El usuario no existe en la base de datos. <br>Por favor contacte al administrador.</html>");
+                else
+                {
+                    if((new String(ptfClave.getPassword())).equals(Encriptacion.decrypt(alResultados.get(0).get(2))))
+                    {
+                        new FormularioPrincipal().setVisible(true);
+                        this.dispose();
+                    }
+                    else
+                    {
+                        lblError.setText("<html>La contraseña es incorrecta. <br>Por favor contacte al administrador.</html>");
+                    }
+                }
+                    
+            }
+            catch (Exception ex) 
+            {
+                Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+  
 }
