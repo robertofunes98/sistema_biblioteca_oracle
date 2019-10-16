@@ -43,12 +43,17 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         }
         catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e)
         {
-            
+            JOptionPane.showInternalMessageDialog(rootPane, "Error en la conexion a la base de datos. Contacte a su administrador", "Error",JOptionPane.ERROR_MESSAGE);
         }
         
         modeloLibros=(DefaultTableModel) tblLibros.getModel();
         
-        ocultarBuscadores();
+        tblLibros.getColumnModel().getColumn(0).setPreferredWidth(65);
+        tblLibros.getColumnModel().getColumn(1).setPreferredWidth(415);
+        tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
+        tblLibros.getColumnModel().getColumn(3).setPreferredWidth(75);
+        tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
+        
         cargarTabla();
     }
 
@@ -150,6 +155,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblLibros.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tblLibros.setRowHeight(32);
         tblLibros.setSelectionBackground(new java.awt.Color(0, 153, 153));
         tblLibros.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -232,7 +238,8 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEliminarLibro)
                         .addGap(18, 18, 18)
-                        .addComponent(btnModificarLibro))
+                        .addComponent(btnModificarLibro)
+                        .addGap(326, 326, 326))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

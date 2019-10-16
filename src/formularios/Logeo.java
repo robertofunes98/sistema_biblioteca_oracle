@@ -13,11 +13,16 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,7 +47,6 @@ public class Logeo extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
     }
     
     private void initConfig(){
@@ -60,7 +64,7 @@ public class Logeo extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
         pnlLogin = new javax.swing.JPanel();
         tfUsuario = new javax.swing.JTextField();
         ptfClave = new javax.swing.JPasswordField();
@@ -75,12 +79,17 @@ public class Logeo extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel2.setText("Sistema de biblioteca Nueva Acropolis Santa Ana");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-        jLabel4.setText("jLabel4");
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo_na_rezised.png"))); // NOI18N
 
         pnlLogin.setLayout(null);
+
+        tfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfUsuarioActionPerformed(evt);
+            }
+        });
         pnlLogin.add(tfUsuario);
-        tfUsuario.setBounds(120, 260, 220, 24);
+        tfUsuario.setBounds(120, 190, 230, 30);
 
         ptfClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -88,16 +97,16 @@ public class Logeo extends javax.swing.JFrame {
             }
         });
         pnlLogin.add(ptfClave);
-        ptfClave.setBounds(120, 310, 220, 22);
+        ptfClave.setBounds(120, 240, 230, 30);
 
         lblError.setForeground(new java.awt.Color(255, 0, 0));
         lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pnlLogin.add(lblError);
-        lblError.setBounds(120, 430, 255, 30);
+        lblError.setBounds(120, 330, 255, 30);
 
         lblFondoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login011.jpg"))); // NOI18N
         pnlLogin.add(lblFondoLogin);
-        lblFondoLogin.setBounds(80, 70, 340, 420);
+        lblFondoLogin.setBounds(80, 10, 340, 400);
 
         btnLogin.setBackground(new java.awt.Color(255, 255, 255));
         btnLogin.setForeground(new java.awt.Color(0, 0, 153));
@@ -108,32 +117,32 @@ public class Logeo extends javax.swing.JFrame {
             }
         });
         pnlLogin.add(btnLogin);
-        btnLogin.setBounds(118, 360, 260, 40);
+        btnLogin.setBounds(120, 290, 260, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel2)))
-                .addContainerGap(41, Short.MAX_VALUE))
             .addComponent(pnlLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(166, 166, 166))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel2)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(pnlLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -149,6 +158,10 @@ public class Logeo extends javax.swing.JFrame {
         if(evt.getKeyCode()==KeyEvent.VK_ENTER)
             login();
     }//GEN-LAST:event_ptfClaveKeyPressed
+
+    private void tfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfUsuarioActionPerformed
 
     @Override
     public Image getIconImage(){
@@ -192,9 +205,9 @@ public class Logeo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblFondoLogin;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JPanel pnlLogin;
     private javax.swing.JPasswordField ptfClave;
     private javax.swing.JTextField tfUsuario;
