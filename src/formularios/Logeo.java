@@ -228,9 +228,9 @@ public class Logeo extends javax.swing.JFrame {
                     lblError.setText("<html>El usuario no existe en la base de datos. <br>Por favor contacte al administrador.</html>");
                 else
                 {
-                    if((new String(ptfClave.getPassword())).equals(Encriptacion.decrypt(alResultados.get(0).get(2))))
+                    if((new String(ptfClave.getPassword())).equals(Encriptacion.decrypt(alResultados.get(0).get(1))))
                     {
-                        new FormularioPrincipal().setVisible(true);
+                        new FormularioPrincipal(Integer.parseInt(alResultados.get(0).get(2))).setVisible(true);
                         this.dispose();
                     }
                     else

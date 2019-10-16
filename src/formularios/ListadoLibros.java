@@ -55,6 +55,8 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
         
         cargarTabla();
+        
+        ocultarBuscadores();
     }
 
     /**

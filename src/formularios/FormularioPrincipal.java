@@ -17,14 +17,19 @@ import javax.swing.JOptionPane;
 public class FormularioPrincipal extends javax.swing.JFrame {
 
     public static JFrame contex;
+    private int tipousuario;
+    
     /**
      * Creates new form frmFormularioPrincipal
      */
-    public FormularioPrincipal() {
+    public FormularioPrincipal(int tipoUsuarioR) {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         contex=this;
-   
+        tipousuario=tipoUsuarioR;
+        if(tipousuario==0)
+            opcAdministracion.setVisible(false);
+        
     }
     
     @Override
@@ -51,6 +56,8 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         opcListadoAutoresCategorias = new javax.swing.JMenuItem();
         opcAgregarAutoresCategorias = new javax.swing.JMenuItem();
         opcSalir = new javax.swing.JMenuItem();
+        opcAdministracion = new javax.swing.JMenu();
+        opcAgregarusuario = new javax.swing.JMenuItem();
         opcAcercaDe = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -112,6 +119,18 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         jMenu1.add(opcSalir);
 
         jMenuBar1.add(jMenu1);
+
+        opcAdministracion.setText("Administración");
+
+        opcAgregarusuario.setText("Usuarios");
+        opcAgregarusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcAgregarusuarioActionPerformed(evt);
+            }
+        });
+        opcAdministracion.add(opcAgregarusuario);
+
+        jMenuBar1.add(opcAdministracion);
 
         opcAcercaDe.setText("Acerca de");
         opcAcercaDe.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -189,14 +208,25 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         frmAcercaDe.setVisible(true);
     }//GEN-LAST:event_opcAcercaDeMouseClicked
 
+    private void opcAgregarusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcAgregarusuarioActionPerformed
+        // TODO add your handling code here:
+        FormularioAgregarusuarios frm = new FormularioAgregarusuarios();
+        frm.setClosable(true);
+        frm.setResizable(false);
+        dpPrincipal.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_opcAgregarusuarioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dpPrincipal;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu opcAcercaDe;
+    private javax.swing.JMenu opcAdministracion;
     private javax.swing.JMenuItem opcAgregarAutoresCategorias;
     private javax.swing.JMenuItem opcAgregarLibros;
+    private javax.swing.JMenuItem opcAgregarusuario;
     private javax.swing.JMenuItem opcListadoAutoresCategorias;
     private javax.swing.JMenuItem opcListadoLibros;
     private javax.swing.JMenuItem opcSalir;

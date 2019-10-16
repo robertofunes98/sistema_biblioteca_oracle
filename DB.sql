@@ -3,11 +3,10 @@ create database oina_biblioteca;
 use oina_biblioteca;
 
 create table usuario(
-	id_usuario int not null auto_increment,
 	nombre varchar(15) not null,
 	clave varchar(200) not null,
 	tipo_usuario int not null comment "0=usuario, 1=admin",
-	primary key pk_usuario(id_usuario)
+	primary key pk_usuario(nombre)
 );
 
 create table autor(
@@ -33,7 +32,7 @@ create table libro(
 	foreign key fk_libro_categoria(id_categoria) references categoria(id_categoria)
 )default charset= utf8;
 
-insert into usuario values(null, "admin", "NFZDYXgzUTMvdnBkbnF6QWVtd1hRdz09OjoAAAAAAAAAAAAAAAAAAAAAOjokMmEkMTAkbA==", 1);
+insert into usuario values("admin", "NFZDYXgzUTMvdnBkbnF6QWVtd1hRdz09OjoAAAAAAAAAAAAAAAAAAAAAOjokMmEkMTAkbA==", 1);
 
 insert into autor values(null, "Platón");
 insert into autor values(null, "Shakespeare");
