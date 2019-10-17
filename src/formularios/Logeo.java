@@ -11,6 +11,8 @@ import core.Variables;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -24,6 +26,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -33,6 +36,12 @@ public class Logeo extends javax.swing.JFrame {
     
     ConexionDB conexion;
     LinkedList<LinkedList<String>> alResultados;
+    boolean conected=false;
+    
+    Timer timer;
+
+
+
         
     /**
      * Creates new form Logeo
@@ -42,11 +51,26 @@ public class Logeo extends javax.swing.JFrame {
         initConfig();
         try{
             conexion=new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
+            conected=true;
         }
         catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e)
         {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al conectar a la base de datos. Contacte a su administrador. Info: "+e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            conected=false;
         }
+        
+        timer = new Timer (1000, new ActionListener ()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if(!conected)
+                    dispose();
+                else
+                    timer.stop();
+             }
+        });
+        
+        timer.start();
     }
     
     private void initConfig(){
