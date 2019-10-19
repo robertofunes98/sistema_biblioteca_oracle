@@ -16,10 +16,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,6 +82,11 @@ public class Logeo extends javax.swing.JFrame {
     private void initConfig(){
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.WHITE);
+        
+        revisarArchivosConfiguracion();
+        
+        
+        
     }
 
     /**
@@ -268,6 +279,68 @@ public class Logeo extends javax.swing.JFrame {
             {
                 Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+
+    private void revisarArchivosConfiguracion() {
+
+        String[] aArchivos=new String[]{System.getProperty("user.dir")+"\\archivos\\DB.txt",System.getProperty("user.dir")+"\\archivos\\USER.txt",
+        System.getProperty("user.dir")+"\\archivos\\PASS.txt"};
+        
+         try {
+             File file = new File(System.getProperty("user.dir")+"\\archivos");
+             if(!file.exists())
+                 file.mkdir();
+             
+             for(int i=0; i<aArchivos.length; i++)
+             {
+                file = new File(aArchivos[i]);
+                // Si el archivo no existe es creado
+                if (!file.exists())
+                {
+                    file.createNewFile();
+                    
+                    FileWriter fw = new FileWriter(file);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    switch(i)
+                    {
+                        case 0:
+                            bw.write("localhost:3306/oina_biblioteca");
+                            break;
+                        case 1:
+                            bw.write("root");
+                            break;
+                        case 2:
+                            bw.write("mysql");
+                            break; 
+                    }
+                    bw.close();
+                }
+                
+                
+                FileReader fr = new FileReader (file);
+                BufferedReader br = new BufferedReader(fr);
+
+                switch(i)
+                {
+                    case 0:
+                        Variables.urlDB = br.readLine();
+                        Variables.rutaDB=Variables.configuracionDriver+Variables.urlDB;
+                        break;
+                    case 1:
+                        Variables.userDB = br.readLine();
+                        break;
+                    case 2:
+                        Variables.claveDB = br.readLine();
+                        break; 
+                }
+                br.close();
+                    
+                
+             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

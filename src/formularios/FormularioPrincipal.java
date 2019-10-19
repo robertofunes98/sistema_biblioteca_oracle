@@ -58,6 +58,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         opcSalir = new javax.swing.JMenuItem();
         opcAdministracion = new javax.swing.JMenu();
         opcAgregarusuario = new javax.swing.JMenuItem();
+        opcConfiguracionAvanzada = new javax.swing.JMenuItem();
         opcAcercaDe = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -129,6 +130,14 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             }
         });
         opcAdministracion.add(opcAgregarusuario);
+
+        opcConfiguracionAvanzada.setText("Configuración avanzada (Precaución)");
+        opcConfiguracionAvanzada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcConfiguracionAvanzadaActionPerformed(evt);
+            }
+        });
+        opcAdministracion.add(opcConfiguracionAvanzada);
 
         jMenuBar1.add(opcAdministracion);
 
@@ -217,6 +226,18 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_opcAgregarusuarioActionPerformed
 
+    private void opcConfiguracionAvanzadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcConfiguracionAvanzadaActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "<html>Cuidado. Esta funcion contiene opciones de configuración avanzadas que podrían dejar disfuncional el sistema. <br>"
+                + "Es solo para usuarios con conocimientos en bases de datos y redes. Por favor pida asistencia a su administrador para <br>"
+                + "manipular esta opción.","Advertencia",JOptionPane.WARNING_MESSAGE);
+        FormularioConfiguracionAvanzada frm = new FormularioConfiguracionAvanzada();
+        frm.setClosable(true);
+        frm.setResizable(false);
+        dpPrincipal.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_opcConfiguracionAvanzadaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dpPrincipal;
     private javax.swing.JMenu jMenu1;
@@ -227,6 +248,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem opcAgregarAutoresCategorias;
     private javax.swing.JMenuItem opcAgregarLibros;
     private javax.swing.JMenuItem opcAgregarusuario;
+    private javax.swing.JMenuItem opcConfiguracionAvanzada;
     private javax.swing.JMenuItem opcListadoAutoresCategorias;
     private javax.swing.JMenuItem opcListadoLibros;
     private javax.swing.JMenuItem opcSalir;
