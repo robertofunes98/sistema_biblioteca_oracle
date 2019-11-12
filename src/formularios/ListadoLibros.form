@@ -26,7 +26,8 @@
                       <Component id="btnEliminarLibro" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnModificarLibro" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="326" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnModificarLibro1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
@@ -46,8 +47,9 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnModificarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnEliminarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnModificarLibro1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="16" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -324,5 +326,20 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="btnModificarLibro1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/print_32_32.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Imprimir reporte"/>
+        <Property name="name" type="java.lang.String" value="btnImprimirReporte" noResource="true"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarLibro1ActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

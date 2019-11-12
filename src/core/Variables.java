@@ -14,4 +14,6 @@ public class Variables {
     public static String configuracionDriver="jdbc:mysql://", urlDB;
 
     public static String rutaDB=configuracionDriver+urlDB,userDB,claveDB;
+    
+    public static UserModel user;
 }

@@ -3,7 +3,7 @@
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
   <jar>D:\Descargas\Estudio\Unicaes\POE\Sistema-de-biblioteca-Nueva-Acropolis-Santa-Ana\dist\Sistema-de-biblioteca-Nueva-Acropolis-Santa-Ana.jar</jar>
-  <outfile>D:\Descargas\Estudio\Unicaes\POE\Sistema-de-biblioteca-Nueva-Acropolis-Santa-Ana\sistema.exe</outfile>
+  <outfile>D:\Descargas\Estudio\Unicaes\POE\Sistema-de-biblioteca-Nueva-Acropolis-Santa-Ana\Proyecto exe mas instalador\sistema.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>

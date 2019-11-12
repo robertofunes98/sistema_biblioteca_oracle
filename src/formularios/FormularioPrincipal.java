@@ -5,6 +5,7 @@
  */
 package formularios;
 
+import core.Variables;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -22,12 +23,11 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form frmFormularioPrincipal
      */
-    public FormularioPrincipal(int tipoUsuarioR) {
+    public FormularioPrincipal() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         contex=this;
-        tipousuario=tipoUsuarioR;
-        if(tipousuario==0)
+        if(Variables.user.tipoUsuario==0)
             opcAdministracion.setVisible(false);
         
     }

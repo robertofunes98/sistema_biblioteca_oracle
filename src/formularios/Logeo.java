@@ -7,6 +7,7 @@ package formularios;
 
 import core.ConexionDB;
 import core.Encriptacion;
+import core.UserModel;
 import core.Variables;
 import java.awt.Color;
 import java.awt.Image;
@@ -265,7 +266,8 @@ public class Logeo extends javax.swing.JFrame {
                 {
                     if((new String(ptfClave.getPassword())).equals(Encriptacion.decrypt(alResultados.get(0).get(1))))
                     {
-                        new FormularioPrincipal(Integer.parseInt(alResultados.get(0).get(2))).setVisible(true);
+                        Variables.user=new UserModel(alResultados.get(0).get(0),Integer.parseInt(alResultados.get(0).get(2)));
+                        new FormularioPrincipal().setVisible(true);
                         this.dispose();
                     }
                     else

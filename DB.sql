@@ -25,6 +25,7 @@ create table libro(
 	id_libro varchar(10) not null,
 	nombre varchar(50) not null,
 	cantidad int not null,
+	precio double not null,
 	id_autor int not null,
 	id_categoria int not null,
 	primary key pk_libro(id_libro),
@@ -40,5 +41,5 @@ insert into autor values(null, "Shakespeare");
 insert into categoria values(null, "Filosofía");
 insert into categoria values(null, "Tragedia");
 
-insert into libro values("F-001","La República - Tomo 1",1,1,1);
-insert into libro values("T-001","Hamlet",1,2,2);
+insert into libro values("F-001","La República - Tomo 1",1,60.58,1,1);
+insert into libro values("T-001","Hamlet",1,89.26,2,2);

@@ -11,14 +11,50 @@ import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.export.Exporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import net.sf.jasperreports.export.SimpleXlsExporterConfiguration;
+import net.sf.jasperreports.export.SimpleXlsxExporterConfiguration;
+import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -46,13 +82,31 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             JOptionPane.showInternalMessageDialog(rootPane, "Error en la conexion a la base de datos. Contacte a su administrador", "Error",JOptionPane.ERROR_MESSAGE);
         }
         
-        modeloLibros=(DefaultTableModel) tblLibros.getModel();
+        if(Variables.user.tipoUsuario==1)
+        {
+            modeloLibros=(DefaultTableModel) tblLibros.getModel();
+            
+            modeloLibros.addColumn("Precio");
         
-        tblLibros.getColumnModel().getColumn(0).setPreferredWidth(65);
-        tblLibros.getColumnModel().getColumn(1).setPreferredWidth(415);
-        tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
-        tblLibros.getColumnModel().getColumn(3).setPreferredWidth(75);
-        tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
+            tblLibros.getColumnModel().getColumn(0).setPreferredWidth(65);
+            tblLibros.getColumnModel().getColumn(1).setPreferredWidth(360);
+            tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
+            tblLibros.getColumnModel().getColumn(3).setPreferredWidth(75);
+            tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
+            tblLibros.getColumnModel().getColumn(5).setPreferredWidth(55);
+        }
+        else
+        {
+            modeloLibros=(DefaultTableModel) tblLibros.getModel();
+        
+            tblLibros.getColumnModel().getColumn(0).setPreferredWidth(65);
+            tblLibros.getColumnModel().getColumn(1).setPreferredWidth(415);
+            tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
+            tblLibros.getColumnModel().getColumn(3).setPreferredWidth(75);
+            tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
+        }
+        
+        
         
         cargarTabla();
         
@@ -81,6 +135,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         tfBuscador = new javax.swing.JTextField();
         cbBuscarPor = new javax.swing.JComboBox<>();
         cbBuscador = new javax.swing.JComboBox<>();
+        btnModificarLibro1 = new javax.swing.JButton();
 
         btnEliminarLibro.setBackground(new java.awt.Color(255, 255, 255));
         btnEliminarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basura_32x32.png"))); // NOI18N
@@ -230,6 +285,16 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
+        btnModificarLibro1.setBackground(new java.awt.Color(255, 255, 255));
+        btnModificarLibro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print_32_32.png"))); // NOI18N
+        btnModificarLibro1.setText("Imprimir reporte");
+        btnModificarLibro1.setName("btnImprimirReporte"); // NOI18N
+        btnModificarLibro1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarLibro1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,7 +306,8 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                         .addComponent(btnEliminarLibro)
                         .addGap(18, 18, 18)
                         .addComponent(btnModificarLibro)
-                        .addGap(326, 326, 326))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnModificarLibro1))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -256,8 +322,9 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificarLibro)
-                    .addComponent(btnEliminarLibro))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(btnEliminarLibro)
+                    .addComponent(btnModificarLibro1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -395,10 +462,127 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnModificarLibroActionPerformed
 
+    private void btnModificarLibro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibro1ActionPerformed
+        // TODO add your handling code here:
+        final String URL = "src\\reportes\\reporte_libros.jrxml";
+        /*try{
+            JasperPrint jasperPrint = JasperFillManager.fillReport(URL, null,conexion.conexion);
+           
+
+            //JRPdfExporter exp = new JRPdfExporter();
+
+            //JRXlsExporter exp = new JRXlsExporter();
+            
+            JRXlsxExporter exp= new JRXlsxExporter();
+
+            exp.setExporterInput(new SimpleExporterInput(jasperPrint));
+            
+            
+            File archivoElegido=new File("");
+            JFileChooser fc = new JFileChooser();
+            //Mostrar la ventana para abrir archivo y recoger la respuesta
+            //En el parámetro del showOpenDialog se indica la ventana
+            //  al que estará asociado. Con el valor this se asocia a la
+            //  ventana que la abre.
+            int respuesta = fc.showOpenDialog(this);
+            //Comprobar si se ha pulsado Aceptar
+            if (respuesta == JFileChooser.APPROVE_OPTION) {
+                //Crear un objeto File con el archivo elegido
+                archivoElegido = fc.getSelectedFile();
+            }
+
+            exp.setExporterOutput(new SimpleOutputStreamExporterOutput(archivoElegido.getAbsolutePath()+".xlsx"));
+
+
+            SimpleXlsxExporterConfiguration conf = new SimpleXlsxExporterConfiguration();
+
+            //SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
+
+            exp.setConfiguration(conf);
+        
+            exp.exportReport();
+            
+            JOptionPane.showConfirmDialog(rootPane, "El reporte fue impreso en "+archivoElegido.getAbsolutePath()+".xlsx");
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(rootPane, "Error: "+ex, "Error", JOptionPane.ERROR_MESSAGE);
+        }*/
+        
+        
+        try {
+            //Crear el mapa de parametros
+            Map<String,Object> parameters = new HashMap<String,Object>();
+
+            parameters.put("logo_na","src\\reportes\\");
+            InputStream reportStream = new FileInputStream(URL);//new FileInputStream("reporte.jrxml");
+
+            //Iniciar reporte
+            JasperReport report = JasperCompileManager.compileReport(reportStream);
+            JasperPrint jasperPrint = new JasperPrint();
+
+            //Llenar el reporte donde se le pasa en el tercer argumento el mapa ya creado
+            JasperFillManager.fillReportToFile(report, "src/reportes/reporte.jrprint", (Map<String,Object>)parameters,conexion.conexion);
+            
+            reportStream.close();
+
+            jasperPrint=(JasperPrint)JRLoader.loadObjectFromFile("src/reportes/reporte.jrprint");
+            
+
+            //Generar PDF
+            /*List listJasper = new ArrayList();
+            listJasper.add(JRLoader.loadObjectFromFile("src/reportes/reporte.jrprint"));
+            JRPdfExporter exp = new JRPdfExporter();
+            exp.setParameter(JRExporterParameter.JASPER_PRINT_LIST, listJasper);
+            exp.setParameter(JRPdfExporterParameter.IS_CREATING_BATCH_MODE_BOOKMARKS, Boolean.TRUE);
+            exp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "src/reportes/reporte.pdf");
+            exp.exportReport();
+            */
+            
+            //generar xlsx
+            JRXlsxExporter exp= new JRXlsxExporter();
+
+            exp.setExporterInput(new SimpleExporterInput(jasperPrint));
+            
+            
+            File archivoElegido=new File("");
+            JFileChooser fc = new JFileChooser();
+            //Mostrar la ventana para abrir archivo y recoger la respuesta
+            //En el parámetro del showOpenDialog se indica la ventana
+            //  al que estará asociado. Con el valor this se asocia a la
+            //  ventana que la abre.
+            int respuesta = fc.showOpenDialog(this);
+            //Comprobar si se ha pulsado Aceptar
+            if (respuesta == JFileChooser.APPROVE_OPTION) {
+                //Crear un objeto File con el archivo elegido
+                archivoElegido = fc.getSelectedFile();
+            }
+
+            exp.setExporterOutput(new SimpleOutputStreamExporterOutput(archivoElegido.getAbsolutePath()+".xlsx"));
+
+
+            SimpleXlsxExporterConfiguration conf = new SimpleXlsxExporterConfiguration();
+
+            //SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
+
+            exp.setConfiguration(conf);
+        
+            exp.exportReport();
+            
+            JOptionPane.showMessageDialog(rootPane, "El reporte fue impreso en "+archivoElegido.getAbsolutePath()+".xlsx");
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_btnModificarLibro1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminarLibro;
     private javax.swing.JButton btnModificarLibro;
+    private javax.swing.JButton btnModificarLibro1;
     private javax.swing.JComboBox<String> cbBuscador;
     private javax.swing.JComboBox<String> cbBuscarPor;
     private javax.swing.JLabel jLabel1;
@@ -415,13 +599,16 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     private void cargarTabla() {
         limpiarTabla();
         try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on categoria.id_categoria = libro.id_categoria");
+            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria, libro.precio from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on categoria.id_categoria = libro.id_categoria");
 
             alLibros=conexion.convertirRsToArrayList(rsResultado);
 
             for(LinkedList<String> aux : alLibros)
             {
-                modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
+                if(Variables.user.tipoUsuario==1)
+                    modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4),"$"+aux.get(7)});
+                else
+                    modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
             }
         }
         catch(SQLException e)
