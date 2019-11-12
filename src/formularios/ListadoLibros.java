@@ -37,14 +37,19 @@ import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JRSortField;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignSortField;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.engine.type.SortFieldTypeEnum;
+import net.sf.jasperreports.engine.type.SortOrderEnum;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.export.Exporter;
@@ -464,7 +469,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void btnModificarLibro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibro1ActionPerformed
         // TODO add your handling code here:
-        final String URL = "src\\reportes\\reporte_libros.jrxml";
+        final String URL = "src\\reportes\\reporte_libros_con_precio.jrxml";
         /*try{
             JasperPrint jasperPrint = JasperFillManager.fillReport(URL, null,conexion.conexion);
            
@@ -515,6 +520,32 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             Map<String,Object> parameters = new HashMap<String,Object>();
 
             parameters.put("logo_na","src\\reportes\\");
+            
+            parameters.put("ordenPrincipal","categoria.nombre DESC");
+            
+            
+          
+            /*List<JRSortField> sortList = new ArrayList<JRSortField>();
+            
+            
+            JRDesignSortField sortField = new JRDesignSortField();
+            
+            sortField.setName("nombre");
+
+            
+            sortField.setOrder(SortOrderEnum.ASCENDING);
+            
+            
+            sortField.setType(SortFieldTypeEnum.FIELD);
+            
+            
+            sortList.add(sortField);
+            
+            
+            //add other sortfields here
+            parameters.put(JRParameter.SORT_FIELDS, sortList);*/
+            
+            
             InputStream reportStream = new FileInputStream(URL);//new FileInputStream("reporte.jrxml");
 
             //Iniciar reporte
