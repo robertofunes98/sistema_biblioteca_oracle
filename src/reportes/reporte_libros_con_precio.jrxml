@@ -43,18 +43,9 @@
 		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="funes"/>
 		<parameter name="orden" class="java.lang.String"/>
+		<parameter name="sentencia" class="java.lang.String"/>
 		<queryString>
-			<![CDATA[SELECT libro.nombre,
-	libro.cantidad,
-	autor.nombre as 'Autor',
-	categoria.nombre as 'Categoria',
-	CONCAT('$',libro.precio) as ' Precio '
-FROM libro
-	inner join autor ON 
-	 autor.id_autor = libro.id_autor 
-	inner join categoria ON 
-	 categoria.id_categoria = libro.id_categoria
-	 ORDER BY    $P!{orden} ]]>
+			<![CDATA[$P!{sentencia}]]>
 		</queryString>
 		<field name="nombre" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="nombre"/>
@@ -72,12 +63,13 @@ FROM libro
 			<property name="com.jaspersoft.studio.field.label" value="Categoria"/>
 			<property name="com.jaspersoft.studio.field.tree.path" value="categoria"/>
 		</field>
-		<field name="Precio " class="java.lang.String">
+		<field name="Precio" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="Precio "/>
 		</field>
 	</subDataset>
 	<parameter name="logo_na" class="java.lang.String"/>
 	<parameter name="ordenPrincipal" class="java.lang.String"/>
+	<parameter name="sentenciaPrincipal" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT libro.nombre,
 	libro.cantidad,
@@ -89,7 +81,7 @@ FROM libro
 	 autor.id_autor = libro.id_autor 
 	inner join categoria ON 
 	 categoria.id_categoria = libro.id_categoria
-	 ORDER BY   $P{ordenPrincipal} ]]>
+	 ORDER BY   $P{ordenPrincipal}]]>
 	</queryString>
 	<field name="nombre" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
@@ -163,97 +155,122 @@ FROM libro
 					<property name="com.jaspersoft.studio.components.autoresize.next" value="true"/>
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Dataset1" uuid="93bc8d0d-f011-4526-bc29-6f6cc25172b8">
+					<datasetRun subDataset="Dataset1" uuid="bf06ea5e-ea94-4b0a-a89a-2416e2977070">
 						<datasetParameter name="orden">
 							<datasetParameterExpression><![CDATA[$P{ordenPrincipal}]]></datasetParameterExpression>
 						</datasetParameter>
+						<datasetParameter name="sentencia">
+							<datasetParameterExpression><![CDATA[$P{sentenciaPrincipal}]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="116" uuid="01bc1256-c162-4385-8f59-b1c332ba687e">
-						<jr:tableHeader style="Table_TH" height="30"/>
-						<jr:tableFooter style="Table_TH" height="30"/>
-						<jr:columnHeader style="Table_CH" height="30">
+					<jr:column width="155" uuid="01bc1256-c162-4385-8f59-b1c332ba687e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="Table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="116" height="30" uuid="a0554104-c097-4947-89e9-8c904d73dd52"/>
-								<textElement textAlignment="Center"/>
-								<text><![CDATA[nombre]]></text>
+								<reportElement x="0" y="0" width="155" height="30" uuid="a0554104-c097-4947-89e9-8c904d73dd52"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nombre]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:columnFooter style="Table_CH" height="30" rowSpan="1"/>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="116" height="30" uuid="d5e8f7cc-e404-4b59-b01e-09e1bb10d108"/>
-								<textElement textAlignment="Center"/>
+								<reportElement x="0" y="0" width="155" height="30" uuid="d5e8f7cc-e404-4b59-b01e-09e1bb10d108"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="116" uuid="4c92ff94-5d2f-4ec4-b2ab-4bb7f2423481">
-						<jr:tableHeader style="Table_TH" height="30"/>
-						<jr:tableFooter style="Table_TH" height="30"/>
-						<jr:columnHeader style="Table_CH" height="30">
+					<jr:column width="83" uuid="4c92ff94-5d2f-4ec4-b2ab-4bb7f2423481">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="Table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="116" height="30" uuid="c810eafe-55d7-495d-bd68-dd33c31dd7a6"/>
-								<textElement textAlignment="Center"/>
-								<text><![CDATA[cantidad]]></text>
+								<reportElement x="0" y="0" width="83" height="30" uuid="c810eafe-55d7-495d-bd68-dd33c31dd7a6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Cantidad]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:columnFooter style="Table_CH" height="30" rowSpan="1"/>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="116" height="30" uuid="351d0ade-b287-4517-8fe4-1267265fc205"/>
+								<reportElement x="0" y="0" width="83" height="30" uuid="351d0ade-b287-4517-8fe4-1267265fc205"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="116" uuid="84807201-8cbf-483e-ba0c-3ea00ae2ca8a">
-						<jr:tableHeader style="Table_TH" height="30"/>
-						<jr:tableFooter style="Table_TH" height="30"/>
-						<jr:columnHeader style="Table_CH" height="30">
+					<jr:column width="135" uuid="84807201-8cbf-483e-ba0c-3ea00ae2ca8a">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="Table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="116" height="30" uuid="5ca89068-8290-45b3-ac1b-282ce3728d5a"/>
+								<reportElement x="0" y="0" width="135" height="30" uuid="5ca89068-8290-45b3-ac1b-282ce3728d5a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
 								<text><![CDATA[Autor]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:columnFooter style="Table_CH" height="30" rowSpan="1"/>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="116" height="30" uuid="3bb694d8-409e-438c-9ea9-44bb16c059cb"/>
+								<reportElement x="0" y="0" width="135" height="30" uuid="3bb694d8-409e-438c-9ea9-44bb16c059cb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{Autor}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="116" uuid="9114fb4d-3411-4d2c-9726-5075971e74fb">
-						<jr:tableHeader style="Table_TH" height="30"/>
-						<jr:tableFooter style="Table_TH" height="30"/>
-						<jr:columnHeader style="Table_CH" height="30">
+					<jr:column width="121" uuid="9114fb4d-3411-4d2c-9726-5075971e74fb">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="Table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="116" height="30" uuid="8215d294-6e42-4dd2-810f-d0dcdb422b70"/>
+								<reportElement x="0" y="0" width="121" height="30" uuid="8215d294-6e42-4dd2-810f-d0dcdb422b70"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
 								<text><![CDATA[Categoria]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:columnFooter style="Table_CH" height="30" rowSpan="1"/>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="116" height="30" uuid="371778d3-f5f9-4442-82d5-e02459524ef6"/>
+								<reportElement x="0" y="0" width="121" height="30" uuid="371778d3-f5f9-4442-82d5-e02459524ef6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{Categoria}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="116" uuid="e1024b04-d876-47a0-949a-7d2757863050">
-						<jr:tableHeader style="Table_TH" height="30"/>
-						<jr:tableFooter style="Table_TH" height="30"/>
-						<jr:columnHeader style="Table_CH" height="30">
+					<jr:column width="86" uuid="e1024b04-d876-47a0-949a-7d2757863050">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="Table_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="116" height="30" uuid="81a23cd3-6a67-4243-bb2d-56e67fc7ec71"/>
+								<reportElement x="0" y="0" width="86" height="30" uuid="81a23cd3-6a67-4243-bb2d-56e67fc7ec71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
 								<text><![CDATA[Precio ]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:columnFooter style="Table_CH" height="30"/>
+						<jr:columnFooter style="Table_CH" height="30" rowSpan="1"/>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="116" height="30" uuid="eb8e05f2-172e-4ece-bb53-187b79558af1"/>
-								<textFieldExpression><![CDATA[$F{Precio }]]></textFieldExpression>
+								<reportElement x="0" y="0" width="86" height="30" uuid="eb8e05f2-172e-4ece-bb53-187b79558af1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{Precio}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>

@@ -11,56 +11,14 @@ import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JRSortField;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JRDesignSortField;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
-import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
-import net.sf.jasperreports.engine.type.SortFieldTypeEnum;
-import net.sf.jasperreports.engine.type.SortOrderEnum;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.export.Exporter;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
-import net.sf.jasperreports.export.SimpleXlsExporterConfiguration;
-import net.sf.jasperreports.export.SimpleXlsxExporterConfiguration;
-import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
-import net.sf.jasperreports.view.JasperViewer;
-
 /**
  *
  * @author funes
@@ -140,7 +98,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         tfBuscador = new javax.swing.JTextField();
         cbBuscarPor = new javax.swing.JComboBox<>();
         cbBuscador = new javax.swing.JComboBox<>();
-        btnModificarLibro1 = new javax.swing.JButton();
+        btnAbrirDialogoImpresion = new javax.swing.JButton();
 
         btnEliminarLibro.setBackground(new java.awt.Color(255, 255, 255));
         btnEliminarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basura_32x32.png"))); // NOI18N
@@ -290,13 +248,13 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        btnModificarLibro1.setBackground(new java.awt.Color(255, 255, 255));
-        btnModificarLibro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print_32_32.png"))); // NOI18N
-        btnModificarLibro1.setText("Imprimir reporte");
-        btnModificarLibro1.setName("btnImprimirReporte"); // NOI18N
-        btnModificarLibro1.addActionListener(new java.awt.event.ActionListener() {
+        btnAbrirDialogoImpresion.setBackground(new java.awt.Color(255, 255, 255));
+        btnAbrirDialogoImpresion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print_32_32.png"))); // NOI18N
+        btnAbrirDialogoImpresion.setText("Imprimir reporte");
+        btnAbrirDialogoImpresion.setName("btnImprimirReporte"); // NOI18N
+        btnAbrirDialogoImpresion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarLibro1ActionPerformed(evt);
+                btnAbrirDialogoImpresionActionPerformed(evt);
             }
         });
 
@@ -312,7 +270,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnModificarLibro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnModificarLibro1))
+                        .addComponent(btnAbrirDialogoImpresion))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -328,7 +286,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificarLibro)
                     .addComponent(btnEliminarLibro)
-                    .addComponent(btnModificarLibro1))
+                    .addComponent(btnAbrirDialogoImpresion))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -467,153 +425,20 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnModificarLibroActionPerformed
 
-    private void btnModificarLibro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibro1ActionPerformed
+    private void btnAbrirDialogoImpresionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirDialogoImpresionActionPerformed
         // TODO add your handling code here:
-        final String URL = "src\\reportes\\reporte_libros_con_precio.jrxml";
-        /*try{
-            JasperPrint jasperPrint = JasperFillManager.fillReport(URL, null,conexion.conexion);
-           
-
-            //JRPdfExporter exp = new JRPdfExporter();
-
-            //JRXlsExporter exp = new JRXlsExporter();
-            
-            JRXlsxExporter exp= new JRXlsxExporter();
-
-            exp.setExporterInput(new SimpleExporterInput(jasperPrint));
-            
-            
-            File archivoElegido=new File("");
-            JFileChooser fc = new JFileChooser();
-            //Mostrar la ventana para abrir archivo y recoger la respuesta
-            //En el parámetro del showOpenDialog se indica la ventana
-            //  al que estará asociado. Con el valor this se asocia a la
-            //  ventana que la abre.
-            int respuesta = fc.showOpenDialog(this);
-            //Comprobar si se ha pulsado Aceptar
-            if (respuesta == JFileChooser.APPROVE_OPTION) {
-                //Crear un objeto File con el archivo elegido
-                archivoElegido = fc.getSelectedFile();
-            }
-
-            exp.setExporterOutput(new SimpleOutputStreamExporterOutput(archivoElegido.getAbsolutePath()+".xlsx"));
-
-
-            SimpleXlsxExporterConfiguration conf = new SimpleXlsxExporterConfiguration();
-
-            //SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
-
-            exp.setConfiguration(conf);
         
-            exp.exportReport();
-            
-            JOptionPane.showConfirmDialog(rootPane, "El reporte fue impreso en "+archivoElegido.getAbsolutePath()+".xlsx");
-        }
-        catch(Exception ex)
-        {
-            JOptionPane.showMessageDialog(rootPane, "Error: "+ex, "Error", JOptionPane.ERROR_MESSAGE);
-        }*/
-        
-        
-        try {
-            //Crear el mapa de parametros
-            Map<String,Object> parameters = new HashMap<String,Object>();
+        ImprimirReporteDialog jDialog = new ImprimirReporteDialog(FormularioPrincipal.contex, true);
+        jDialog.setLocationRelativeTo(this);
+        jDialog.setVisible(true);
 
-            parameters.put("logo_na","src\\reportes\\");
-            
-            parameters.put("ordenPrincipal","categoria.nombre DESC");
-            
-            
-          
-            /*List<JRSortField> sortList = new ArrayList<JRSortField>();
-            
-            
-            JRDesignSortField sortField = new JRDesignSortField();
-            
-            sortField.setName("nombre");
-
-            
-            sortField.setOrder(SortOrderEnum.ASCENDING);
-            
-            
-            sortField.setType(SortFieldTypeEnum.FIELD);
-            
-            
-            sortList.add(sortField);
-            
-            
-            //add other sortfields here
-            parameters.put(JRParameter.SORT_FIELDS, sortList);*/
-            
-            
-            InputStream reportStream = new FileInputStream(URL);//new FileInputStream("reporte.jrxml");
-
-            //Iniciar reporte
-            JasperReport report = JasperCompileManager.compileReport(reportStream);
-            JasperPrint jasperPrint = new JasperPrint();
-
-            //Llenar el reporte donde se le pasa en el tercer argumento el mapa ya creado
-            JasperFillManager.fillReportToFile(report, "src/reportes/reporte.jrprint", (Map<String,Object>)parameters,conexion.conexion);
-            
-            reportStream.close();
-
-            jasperPrint=(JasperPrint)JRLoader.loadObjectFromFile("src/reportes/reporte.jrprint");
-            
-
-            //Generar PDF
-            /*List listJasper = new ArrayList();
-            listJasper.add(JRLoader.loadObjectFromFile("src/reportes/reporte.jrprint"));
-            JRPdfExporter exp = new JRPdfExporter();
-            exp.setParameter(JRExporterParameter.JASPER_PRINT_LIST, listJasper);
-            exp.setParameter(JRPdfExporterParameter.IS_CREATING_BATCH_MODE_BOOKMARKS, Boolean.TRUE);
-            exp.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, "src/reportes/reporte.pdf");
-            exp.exportReport();
-            */
-            
-            //generar xlsx
-            JRXlsxExporter exp= new JRXlsxExporter();
-
-            exp.setExporterInput(new SimpleExporterInput(jasperPrint));
-            
-            
-            File archivoElegido=new File("");
-            JFileChooser fc = new JFileChooser();
-            //Mostrar la ventana para abrir archivo y recoger la respuesta
-            //En el parámetro del showOpenDialog se indica la ventana
-            //  al que estará asociado. Con el valor this se asocia a la
-            //  ventana que la abre.
-            int respuesta = fc.showOpenDialog(this);
-            //Comprobar si se ha pulsado Aceptar
-            if (respuesta == JFileChooser.APPROVE_OPTION) {
-                //Crear un objeto File con el archivo elegido
-                archivoElegido = fc.getSelectedFile();
-            }
-
-            exp.setExporterOutput(new SimpleOutputStreamExporterOutput(archivoElegido.getAbsolutePath()+".xlsx"));
-
-
-            SimpleXlsxExporterConfiguration conf = new SimpleXlsxExporterConfiguration();
-
-            //SimplePdfExporterConfiguration conf = new SimplePdfExporterConfiguration();
-
-            exp.setConfiguration(conf);
-        
-            exp.exportReport();
-            
-            JOptionPane.showMessageDialog(rootPane, "El reporte fue impreso en "+archivoElegido.getAbsolutePath()+".xlsx");
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-    }//GEN-LAST:event_btnModificarLibro1ActionPerformed
+    }//GEN-LAST:event_btnAbrirDialogoImpresionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAbrirDialogoImpresion;
     private javax.swing.JButton btnEliminarLibro;
     private javax.swing.JButton btnModificarLibro;
-    private javax.swing.JButton btnModificarLibro1;
     private javax.swing.JComboBox<String> cbBuscador;
     private javax.swing.JComboBox<String> cbBuscarPor;
     private javax.swing.JLabel jLabel1;
