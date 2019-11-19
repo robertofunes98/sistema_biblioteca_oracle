@@ -7,12 +7,15 @@ package formularios;
 
 import core.ConexionDB;
 import core.Variables;
+import java.awt.event.ItemEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +31,9 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
     ConexionDB conexion;
     LinkedList<LinkedList<String>> alAutores, alCategorias,alLibros;
     DefaultTableModel modeloLibros;
+    
+    boolean insertarCategoriaNueva=false, insertarNuevoAutor=false;
+    
     
     public AgregarLibros(){
         initComponents();
@@ -49,6 +55,37 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
         tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
         tblLibros.getColumnModel().getColumn(3).setPreferredWidth(75);
         tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
+        
+        
+        txtAgregarCategoria.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+              cboxCategoria.setSelectedIndex(0);
+              insertarCategoriaNueva=true;
+            }
+            public void removeUpdate(DocumentEvent e) {
+               cboxCategoria.setSelectedIndex(0);
+               insertarCategoriaNueva=true;
+            }
+            public void insertUpdate(DocumentEvent e) {
+               cboxCategoria.setSelectedIndex(0);
+               insertarCategoriaNueva=true;
+            }
+        });
+        
+        txtAgregarAutor.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+              cboxAutor.setSelectedIndex(0);
+              insertarNuevoAutor=true;
+            }
+            public void removeUpdate(DocumentEvent e) {
+               cboxAutor.setSelectedIndex(0);
+              insertarNuevoAutor=true;
+            }
+            public void insertUpdate(DocumentEvent e) {
+              cboxAutor.setSelectedIndex(0);
+              insertarNuevoAutor=true;
+            }
+        });
     }
     
     private void cargarTabla(int opcion, String busqueda) {
@@ -131,7 +168,8 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
         txtNombre.setText("");
         cboxAutor.setSelectedIndex(0);
         cboxCategoria.setSelectedIndex(0);
-        spnCantidad.setValue(1);
+        spnCantidad.setValue(0);
+        spnPrecio.setValue(0.00);
     }
 
     /**
@@ -159,9 +197,20 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLibros = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        spnPrecio = new javax.swing.JSpinner();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtAgregarCategoria = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        txtAgregarAutor = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         btnAgregarLibro = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(75, 108, 141));
@@ -210,6 +259,19 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
             }
         });
 
+        cboxAutor.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxAutorItemStateChanged(evt);
+            }
+        });
+
+        cboxCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxCategoriaItemStateChanged(evt);
+            }
+        });
+
+        spnCantidad.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         spnCantidad.setRequestFocusEnabled(false);
 
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -238,6 +300,9 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel2.setText("Código");
 
+        jLabel11.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel11.setText("Precio");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -246,26 +311,32 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2)
-                .addGap(62, 62, 62)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel3)
-                .addGap(67, 67, 67)
+                .addGap(48, 48, 48)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addGap(63, 63, 63)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel4)
-                .addGap(24, 24, 24))
+                .addGap(38, 38, 38)
+                .addComponent(jLabel11)
+                .addGap(38, 38, 38))
         );
 
         tblLibros.setBorder(new javax.swing.border.MatteBorder(null));
@@ -301,7 +372,45 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblLibros);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Libros");
+
+        spnPrecio.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 0.01d));
+        spnPrecio.setRequestFocusEnabled(false);
+
+        jLabel10.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("$");
+
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Seleccionar");
+
+        txtAgregarCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAgregarCategoriaKeyReleased(evt);
+            }
+        });
+
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("o");
+
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Agregar");
+
+        txtAgregarAutor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAgregarAutorKeyReleased(evt);
+            }
+        });
+
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Agregar");
+
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("o");
+
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Seleccionar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -309,21 +418,51 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboxAutor, 0, 250, Short.MAX_VALUE)
-                    .addComponent(txtNombre)
-                    .addComponent(cboxCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cboxAutor, javax.swing.GroupLayout.Alignment.LEADING, 0, 178, Short.MAX_VALUE)
+                                    .addComponent(cboxCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                        .addGap(52, 52, 52)
+                                        .addComponent(jLabel12)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel13)
+                                        .addGap(2, 2, 2)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(66, 66, 66)
+                                                .addComponent(jLabel14))
+                                            .addComponent(txtAgregarAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtAgregarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(spnPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(6, 6, 6))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabel17)
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel15)
+                        .addGap(72, 72, 72)))
+                .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel1)))
-                .addContainerGap(8, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,21 +471,40 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                        .addComponent(cboxAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(cboxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cboxAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtAgregarAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel15))
+                                .addGap(46, 46, 46)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(26, 26, 26))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAgregarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(spnPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -382,7 +540,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarLibro)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -395,14 +553,82 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
         int indiceAutor = cboxAutor.getSelectedIndex();
         int indiceCategoria = cboxCategoria.getSelectedIndex();
         String sCantidad = String.valueOf(spnCantidad.getValue());
-        if(!codigo.isEmpty() && !nombre.isEmpty() && indiceAutor>0 && indiceCategoria>0){
+        String sPrecio = String.valueOf(spnPrecio.getValue());
+        
+        if(txtAgregarAutor.getText().trim().isEmpty() && insertarNuevoAutor)
+            JOptionPane.showMessageDialog(rootPane, "No puede dejar en blanco el nombre del autor si desea agregar uno nuevo", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        else if(txtAgregarCategoria.getText().trim().isEmpty() && insertarCategoriaNueva)
+            JOptionPane.showMessageDialog(rootPane, "No puede dejar en blanco el nombre de la categoria si desea agregar una nueva", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        else if(!codigo.isEmpty() && !nombre.isEmpty() && (indiceAutor>0 || insertarNuevoAutor) && (indiceCategoria>0 || insertarCategoriaNueva)){
             try {
                 if(codigoExistente(codigo)){
                     JOptionPane.showMessageDialog(rootPane, "El código " + codigo + " ya está en uso, por favor digite uno nuevo", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }else{
-                    String idAutor = alAutores.get(indiceAutor - 1).get(0);
-                    String idCategoria = alCategorias.get(indiceCategoria - 1).get(0);
-                    String sql = "INSERT INTO libro(id_libro, nombre, cantidad, id_autor, id_categoria) VALUES ('"+codigo+"','"+nombre+"','"+sCantidad+"','"+idAutor+"','"+idCategoria+"')";
+                    
+                    String idAutor = null,idCategoria=null;
+                    
+                    if(insertarCategoriaNueva)
+                    {
+                        String nombreCategoria = txtAgregarCategoria.getText().trim();
+        
+                        try {
+                            String sql = "INSERT INTO categoria(nombre) VALUES ('" + nombreCategoria + "')";
+                            int filasAfectadas = conexion.ejecutarComando(sql);
+                            if (filasAfectadas > 0) {
+                                JOptionPane.showMessageDialog(rootPane, "La categoría ha sido agregada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
+                                txtAgregarCategoria.setText("");
+                                
+                                ResultSet rsResultados=conexion.ejecutar("SELECT MAX(id_categoria) AS id FROM categoria");
+                                
+                                rsResultados.next();
+                                
+                                idCategoria=rsResultados.getString(1);
+                                
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Lo sentimos, ha ocurrido un error", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                            }
+
+                        } catch (SQLException ex) {
+                            Logger.getLogger(AgregarLibros.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        
+                    }
+                    
+                    if(insertarNuevoAutor)
+                    {
+                        String nombreAutor = txtAgregarAutor.getText().trim();
+        
+                        try {
+                            String sql = "INSERT INTO autor(nombre) VALUES ('" + nombreAutor + "')";
+                            int filasAfectadas = conexion.ejecutarComando(sql);
+                            if (filasAfectadas > 0) {
+                                JOptionPane.showMessageDialog(rootPane, "El autor ha sido agregado con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
+                                txtAgregarAutor.setText("");
+                                
+                                ResultSet rsResultados=conexion.ejecutar("SELECT MAX(id_autor) AS id FROM autor");
+                                
+                                rsResultados.next();
+                                
+                                idAutor=rsResultados.getString(1);
+                            } else {
+                                JOptionPane.showMessageDialog(rootPane, "Lo sentimos, ha ocurrido un error", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                            }
+
+                        } catch (SQLException ex) {
+                            Logger.getLogger(AgregarLibros.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        
+                    }
+                    
+                    if(!insertarCategoriaNueva)
+                        idCategoria = alCategorias.get(indiceCategoria - 1).get(0);
+                    
+                    
+                    if(!insertarNuevoAutor)
+                        idAutor = alAutores.get(indiceAutor - 1).get(0);
+                    
+                    
+                    String sql = "INSERT INTO libro(id_libro, nombre, cantidad, id_autor, id_categoria, precio) VALUES ('"+codigo+"','"+nombre+"','"+sCantidad+"','"+idAutor+"','"+idCategoria+"','"+sPrecio+"')";
                     int filasAfectadas = conexion.ejecutarComando(sql);
                     if(filasAfectadas>0){
                         JOptionPane.showMessageDialog(rootPane, "El libro ha sido agregado con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -442,12 +668,46 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
         cargarTabla(1,txtNombre.getText());
     }//GEN-LAST:event_txtNombreKeyReleased
 
+    private void txtAgregarCategoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAgregarCategoriaKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAgregarCategoriaKeyReleased
+
+    private void cboxCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxCategoriaItemStateChanged
+        // TODO add your handling code here:
+        if(evt.getStateChange() == ItemEvent.SELECTED && cboxCategoria.getSelectedIndex()!=0)
+        {
+            txtAgregarAutor.setText("");
+            insertarCategoriaNueva=false;
+        }
+    }//GEN-LAST:event_cboxCategoriaItemStateChanged
+
+    private void txtAgregarAutorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAgregarAutorKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAgregarAutorKeyReleased
+
+    private void cboxAutorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxAutorItemStateChanged
+        // TODO add your handling code here:
+        if(evt.getStateChange() == ItemEvent.SELECTED && cboxAutor.getSelectedIndex()!=0)
+        {
+            txtAgregarCategoria.setText("");
+            insertarNuevoAutor=false;
+        }
+    }//GEN-LAST:event_cboxAutorItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarLibro;
     private javax.swing.JComboBox<String> cboxAutor;
     private javax.swing.JComboBox<String> cboxCategoria;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -461,7 +721,10 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner spnCantidad;
+    private javax.swing.JSpinner spnPrecio;
     private javax.swing.JTable tblLibros;
+    private javax.swing.JTextField txtAgregarAutor;
+    private javax.swing.JTextField txtAgregarCategoria;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
