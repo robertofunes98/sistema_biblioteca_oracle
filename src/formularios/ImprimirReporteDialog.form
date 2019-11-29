@@ -176,13 +176,14 @@
         <Component class="javax.swing.JComboBox" name="cbColumnas">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="6">
+              <StringArray count="7">
                 <StringItem index="0" value="--Seleccione uno--"/>
-                <StringItem index="1" value="Nombre"/>
-                <StringItem index="2" value="Cantidad"/>
-                <StringItem index="3" value="Autor"/>
-                <StringItem index="4" value="Categoria"/>
-                <StringItem index="5" value="Precio"/>
+                <StringItem index="1" value="C&#xf3;digo"/>
+                <StringItem index="2" value="Nombre"/>
+                <StringItem index="3" value="Cantidad"/>
+                <StringItem index="4" value="Autor"/>
+                <StringItem index="5" value="Categoria"/>
+                <StringItem index="6" value="Precio"/>
               </StringArray>
             </Property>
           </Properties>

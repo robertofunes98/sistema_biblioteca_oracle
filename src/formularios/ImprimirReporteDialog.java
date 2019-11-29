@@ -17,13 +17,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReportsContext;
+import net.sf.jasperreports.engine.design.JRCompiler;
+import net.sf.jasperreports.engine.design.JRJdtCompiler;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
@@ -120,7 +128,7 @@ public class ImprimirReporteDialog extends javax.swing.JDialog {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Imprimir reporte");
 
-        cbColumnas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione uno--", "Nombre", "Cantidad", "Autor", "Categoria", "Precio" }));
+        cbColumnas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione uno--", "Código", "Nombre", "Cantidad", "Autor", "Categoria", "Precio" }));
 
         cbOrden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione uno--", "Ascencente", "Descendente" }));
 
@@ -258,28 +266,31 @@ public class ImprimirReporteDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "Por favor seleccione orden ascendente o descendente","Error",JOptionPane.ERROR_MESSAGE);
         else
         {
-            final String URL, ORDER_BY, ORDENAMIENTO_ASC_DESC;
+            final String URL, ORDER_BY, ORDENAMIENTO_ASC_DESC,INICIO_URL="src";
             
             if(chbIncluirPrecio.isSelected())
-                URL = "src\\reportes\\reporte_libros_con_precio.jrxml";
+                URL = INICIO_URL+"\\reportes\\reporte_libros_con_precio.jrxml";
             else
-                URL = "src\\reportes\\reporte_libros_sin_precio.jrxml";
+                URL = INICIO_URL+"\\reportes\\reporte_libros_sin_precio.jrxml";
             
             switch(cbColumnas.getSelectedIndex())
             {
                 case 1:
-                    ORDER_BY="libro.nombre";
+                    ORDER_BY="libro.id_libro";
                     break;
                 case 2:
-                    ORDER_BY="libro.cantidad";
+                    ORDER_BY="libro.nombre";
                     break;
                 case 3:
-                    ORDER_BY="autor.nombre";
+                    ORDER_BY="libro.cantidad";
                     break;
                 case 4:
-                    ORDER_BY="categoria.nombre";
+                    ORDER_BY="autor.nombre";
                     break;
                 case 5:
+                    ORDER_BY="categoria.nombre";
+                    break;
+                case 6:
                     ORDER_BY="libro.precio";
                     break;
                 default:
@@ -295,27 +306,58 @@ public class ImprimirReporteDialog extends javax.swing.JDialog {
             //Generando reporte
             try {
                 //Crear el mapa de parametros
-                Map<String,Object> parameters = new HashMap<String,Object>();
+                Map<String,Object> parameters = new HashMap<>();
 
-                parameters.put("logo_na","src\\reportes\\");
+                parameters.put("logo_na",INICIO_URL+"\\reportes\\");
 
-                parameters.put("sentenciaPrincipal","SELECT libro.nombre, libro.cantidad, autor.nombre as 'Autor', categoria.nombre as 'Categoria', "
-                        + "CONCAT('$',libro.precio)  as 'Precio' FROM libro inner join autor ON autor.id_autor = libro.id_autor inner join categoria ON  "
+                parameters.put("sentenciaPrincipal","SELECT libro.id_libro, libro.nombre, libro.cantidad, autor.nombre as 'Autor', categoria.nombre as 'Categoria', "
+                        + "CONCAT('$',libro.precio)  as 'Precio', CONCAT('$',libro.precio * libro.cantidad) as 'Precio total' FROM libro inner join autor ON autor.id_autor = libro.id_autor inner join categoria ON  "
                         + "categoria.id_categoria = libro.id_categoria ORDER BY "+ORDER_BY+" "+ORDENAMIENTO_ASC_DESC);
+                
+                        
+                parameters.put(JRParameter.IS_IGNORE_PAGINATION, !formato.equals("pdf"));
 
                 //Genrando JasperPrint para generar reporte
                 InputStream reportStream = new FileInputStream(URL);
 
                 //Iniciar reporte
-                JasperReport report = JasperCompileManager.compileReport(reportStream);
-                JasperPrint jasperPrint = new JasperPrint();
-
+                
+                File xml = new File(URL);
+                JasperDesign jasperDesign = JRXmlLoader.load(xml);
+                
+                //MyClassLoader cl = MyClassLoader.getInstance();
+                
+                 JasperReportsContext jrc = DefaultJasperReportsContext.getInstance();
+                
+                
+                JRCompiler compiler = new JRJdtCompiler(jrc);
+                //Thread.currentThread().setContextClassLoader(cl);
+                
+                JasperReport jasperReport = compiler.compileReport(jasperDesign);
+                
                 //Llenar el reporte donde se le pasa en el tercer argumento el mapa ya creado
-                JasperFillManager.fillReportToFile(report, "src/reportes/reporte.jrprint", (Map<String,Object>)parameters,conexion.conexion);
+                JasperFillManager.fillReportToFile(jasperReport, INICIO_URL+"/reportes/reporte.jrprint", (Map<String,Object>)parameters,conexion.conexion);
 
                 reportStream.close();
 
-                jasperPrint=(JasperPrint)JRLoader.loadObjectFromFile("src/reportes/reporte.jrprint");
+                JasperPrint jasperPrint=(JasperPrint)JRLoader.loadObjectFromFile(INICIO_URL+"/reportes/reporte.jrprint");
+                
+                
+                /*JasperReport report = JasperCompileManager.compileReportToFile(URL);
+                
+                
+                JasperPrint jasperPrint = new JasperPrint();
+
+                //Llenar el reporte donde se le pasa en el tercer argumento el mapa ya creado
+                JasperFillManager.fillReportToFile(INICIO_URL+"\\reportes\\reporte_libros.jasper",INICIO_URL+"\\reportes\\reporte_libros.jrprint", (Map<String,Object>)parameters,conexion.conexion);
+
+                
+                //JasperPrintManager.printReport("src\\reportes\\reporte_libros.jrprint", false);
+                
+                
+                reportStream.close();
+
+                jasperPrint=(JasperPrint)JRLoader.loadObjectFromFile(INICIO_URL+"\\reportes\\reporte_libros.jrprint");*/
                 
                 if(formato.equals("pdf"))
                 {
@@ -378,7 +420,7 @@ public class ImprimirReporteDialog extends javax.swing.JDialog {
                 }
             }
             catch (Exception e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(rootPane, e.toString());
             }
         }
     }

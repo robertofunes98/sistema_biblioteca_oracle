@@ -355,7 +355,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
 
             JLabel lblAdvertencia = new JLabel();
 
-            lblAdvertencia.setText("¿Esta seguro que desea eliminar el autor?\n Esta accion no se puede deshacer");
+            lblAdvertencia.setText("¿Esta seguro que desea eliminar el autor?\n Esta accion eliminara todos los libros asociados a el y no se puede deshacer");
 
             lblAdvertencia.setForeground(Color.red);
 
@@ -434,7 +434,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
 
             JLabel lblAdvertencia = new JLabel();
 
-            lblAdvertencia.setText("¿Esta seguro que desea eliminar la categoría?\n Esta accion no se puede deshacer");
+            lblAdvertencia.setText("¿Esta seguro que desea eliminar la categoría?\n Esta accion eliminara todos los libros asociados a el y no se puede deshacer");
 
             lblAdvertencia.setForeground(Color.red);
 

@@ -29,8 +29,8 @@ create table libro(
 	id_autor int not null,
 	id_categoria int not null,
 	primary key pk_libro(id_libro),
-	foreign key fk_libro_autor(id_autor) references autor(id_autor),
-	foreign key fk_libro_categoria(id_categoria) references categoria(id_categoria)
+	foreign key fk_libro_autor(id_autor) references autor(id_autor) on update cascade on delete cascade,
+	foreign key fk_libro_categoria(id_categoria) references categoria(id_categoria) on update cascade on delete cascade
 )default charset= utf8;
 
 insert into usuario values("admin", "NFZDYXgzUTMvdnBkbnF6QWVtd1hRdz09OjoAAAAAAAAAAAAAAAAAAAAAOjokMmEkMTAkbA==", 1);

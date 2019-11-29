@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 public class FormularioPrincipal extends javax.swing.JFrame {
 
     public static JFrame contex;
-    private int tipousuario;
     
     /**
      * Creates new form frmFormularioPrincipal
@@ -28,7 +27,14 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         contex=this;
         if(Variables.user.tipoUsuario==0)
+        {
             opcAdministracion.setVisible(false);
+            opcAgregarAutoresCategorias.setVisible(false);
+            opcListadoAutoresCategorias.setVisible(false);
+            opcAgregarAutoresCategorias.setVisible(false);
+            opcAgregarLibros.setVisible(false);
+        }
+            
         
     }
     

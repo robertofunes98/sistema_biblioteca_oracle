@@ -51,8 +51,8 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
         modeloLibros=(DefaultTableModel) tblLibros.getModel();
         
         tblLibros.getColumnModel().getColumn(0).setPreferredWidth(65);
-        tblLibros.getColumnModel().getColumn(1).setPreferredWidth(415);
-        tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
+        tblLibros.getColumnModel().getColumn(1).setPreferredWidth(280);
+        tblLibros.getColumnModel().getColumn(2).setPreferredWidth(150);
         tblLibros.getColumnModel().getColumn(3).setPreferredWidth(75);
         tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
         
@@ -633,6 +633,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
                     if(filasAfectadas>0){
                         JOptionPane.showMessageDialog(rootPane, "El libro ha sido agregado con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
                         limpiarControles();
+                        cargarComboBoxes();
                     }else{
                         JOptionPane.showMessageDialog(rootPane, "Lo sentimos, ha ocurrido un error", "Advertencia", JOptionPane.WARNING_MESSAGE);
                     } 

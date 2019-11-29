@@ -20,6 +20,7 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
 
     String idLibro, nombreLibro, idAutor, idCategoria;
     Integer cantidadLibros;
+    double precio;
     
     ConexionDB conexion;
     
@@ -28,7 +29,7 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
     /**
      * Creates new form Prueba
      */
-    public ModificarLibroDialog(java.awt.Frame parent, boolean modal, String idLibroR, String nombreLibroR, int cantidadLibrosR, String idAutorR, String idCategoriaR) {
+    public ModificarLibroDialog(java.awt.Frame parent, boolean modal, String idLibroR, String nombreLibroR, int cantidadLibrosR, String idAutorR, String idCategoriaR, double precioR) {
         super(parent, modal);
         initComponents();
         
@@ -47,6 +48,7 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
         idAutor=idAutorR;
         idCategoria=idCategoriaR;
         cantidadLibros=cantidadLibrosR;
+        precio=precioR;
         
         cargarDatos();
     }
@@ -68,11 +70,14 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         tfIdLibro = new javax.swing.JTextField();
         tfNombreLibro = new javax.swing.JTextField();
-        ftfCantidadLibros = new javax.swing.JFormattedTextField();
         cbAutor = new javax.swing.JComboBox<>();
         cbCategoria = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        spnPrecio = new javax.swing.JSpinner();
+        spnCantidadLibros = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -105,6 +110,9 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel5.setText("Categoria:");
 
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel6.setText("Precio:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,7 +124,8 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -124,18 +133,28 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel1)
-                .addGap(59, 59, 59)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel2)
-                .addGap(56, 56, 56)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel3)
-                .addGap(67, 67, 67)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel5)
-                .addGap(38, 38, 38))
+                .addGap(38, 38, 38)
+                .addComponent(jLabel6)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        ftfCantidadLibros.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jLabel10.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("$");
+
+        spnPrecio.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, null, 0.01d));
+        spnPrecio.setRequestFocusEnabled(false);
+
+        spnCantidadLibros.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        spnCantidadLibros.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -143,29 +162,45 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfIdLibro)
-                    .addComponent(tfNombreLibro)
-                    .addComponent(cbAutor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ftfCantidadLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 77, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfIdLibro)
+                            .addComponent(tfNombreLibro)
+                            .addComponent(cbAutor, 0, 300, Short.MAX_VALUE)
+                            .addComponent(cbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spnCantidadLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(spnPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(249, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(tfIdLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
                 .addComponent(tfNombreLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(ftfCantidadLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(18, 18, 18)
+                .addComponent(spnCantidadLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(cbAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spnPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,9 +227,9 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
     private void btnModificarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibroActionPerformed
         // TODO add your handling code here:
         try{
-            conexion.ejecutarComando("update libro set id_libro = '"+tfIdLibro.getText()+"', nombre = '"+tfNombreLibro.getText()+"', cantidad="
-                +ftfCantidadLibros.getText()+", id_autor="+alAutores.get(cbAutor.getSelectedIndex()).get(0)+", id_categoria="
-                +alCategorias.get(cbCategoria.getSelectedIndex()).get(0)+" where id_libro='"+idLibro+"'");
+            conexion.ejecutarComando("update libro set id_libro = '"+tfIdLibro.getText()+"', nombre = '"+tfNombreLibro.getText()+"', cantidad='"
+                +spnCantidadLibros.getValue()+"', id_autor="+alAutores.get(cbAutor.getSelectedIndex()).get(0)+", id_categoria="
+                +alCategorias.get(cbCategoria.getSelectedIndex()).get(0)+", precio='"+spnPrecio.getValue()+"' where id_libro='"+idLibro+"'");
 
             JOptionPane.showMessageDialog(this, "Libro modificado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             
@@ -215,21 +250,25 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnModificarLibro;
     private javax.swing.JComboBox<String> cbAutor;
     private javax.swing.JComboBox<String> cbCategoria;
-    private javax.swing.JFormattedTextField ftfCantidadLibros;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JSpinner spnCantidadLibros;
+    private javax.swing.JSpinner spnPrecio;
     private javax.swing.JTextField tfIdLibro;
     private javax.swing.JTextField tfNombreLibro;
     // End of variables declaration//GEN-END:variables
     private void cargarDatos() {
         tfIdLibro.setText(idLibro);
         tfNombreLibro.setText(nombreLibro);
-        ftfCantidadLibros.setText(cantidadLibros.toString());
+        spnCantidadLibros.setValue(cantidadLibros);
+        spnPrecio.setValue(precio);
         
         try{
             ResultSet rsResultado=conexion.ejecutar("select * from autor ORDER BY nombre ASC");
