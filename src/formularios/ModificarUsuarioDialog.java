@@ -78,21 +78,26 @@ public class ModificarUsuarioDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(100, 133, 166));
+        jPanel2.setBackground(new java.awt.Color(233, 242, 241));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jPanel1.setBackground(new java.awt.Color(1, 64, 46));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(233, 242, 241));
         jLabel2.setText("Nombre");
 
-        jLabel3.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(233, 242, 241));
         jLabel3.setText("Clave");
 
-        jLabel4.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(233, 242, 241));
         jLabel4.setText("Tipo de usuario");
 
-        jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(233, 242, 241));
         jLabel5.setText("Repita la clave");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -105,7 +110,7 @@ public class ModificarUsuarioDialog extends javax.swing.JDialog {
                     .addComponent(jLabel5)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
@@ -125,25 +130,39 @@ public class ModificarUsuarioDialog extends javax.swing.JDialog {
                 .addContainerGap(205, Short.MAX_VALUE))
         );
 
+        tfNombre.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tfNombre.setForeground(new java.awt.Color(1, 64, 46));
         tfNombre.setEnabled(false);
 
+        cbTipoUsuario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cbTipoUsuario.setForeground(new java.awt.Color(1, 64, 46));
         cbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione una opcion--", "Usuario", "Administrador" }));
 
-        btnModificarUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        btnModificarUsuario.setBackground(new java.awt.Color(1, 64, 46));
+        btnModificarUsuario.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnModificarUsuario.setForeground(new java.awt.Color(233, 242, 241));
         btnModificarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
         btnModificarUsuario.setText("Modificar usuario");
+        btnModificarUsuario.setBorder(null);
         btnModificarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarUsuarioActionPerformed(evt);
             }
         });
 
+        chbModificarClave.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
         chbModificarClave.setText("Modificar clave");
         chbModificarClave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 chbModificarClaveMouseClicked(evt);
             }
         });
+
+        tfClave.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tfClave.setForeground(new java.awt.Color(1, 64, 46));
+
+        tfClaveRepetir.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tfClaveRepetir.setForeground(new java.awt.Color(1, 64, 46));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -152,10 +171,6 @@ public class ModificarUsuarioDialog extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnModificarUsuario)
-                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,7 +181,11 @@ public class ModificarUsuarioDialog extends javax.swing.JDialog {
                             .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfClaveRepetir, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnModificarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +202,7 @@ public class ModificarUsuarioDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(cbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnModificarUsuario))
+                .addComponent(btnModificarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

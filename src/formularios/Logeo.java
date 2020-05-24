@@ -99,87 +99,118 @@ public class Logeo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlLogin = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
-        pnlLogin = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         tfUsuario = new javax.swing.JTextField();
         ptfClave = new javax.swing.JPasswordField();
-        lblError = new javax.swing.JLabel();
-        lblFondoLogin = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
+        lblError = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(233, 242, 241));
         setIconImage(getIconImage());
+        setUndecorated(true);
         setResizable(false);
+        setSize(new java.awt.Dimension(500, 464));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel2.setText("Sistema de biblioteca Nueva Acropolis Santa Ana");
-
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo_na_rezised.png"))); // NOI18N
-
+        pnlLogin.setBackground(new java.awt.Color(255, 255, 255));
         pnlLogin.setLayout(null);
 
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(1, 64, 46));
+        jLabel2.setText("Nueva Acropolis Santa Ana");
+        pnlLogin.add(jLabel2);
+        jLabel2.setBounds(150, 80, 330, 31);
+
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo-Nueva-Acrópolis.jpg"))); // NOI18N
+        pnlLogin.add(lblLogo);
+        lblLogo.setBounds(20, 20, 120, 120);
+
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(1, 64, 46));
+        jLabel3.setText("Sistema de Biblioteca");
+        pnlLogin.add(jLabel3);
+        jLabel3.setBounds(190, 50, 260, 31);
+
+        jPanel1.setBackground(new java.awt.Color(233, 242, 241));
+        jPanel1.setForeground(new java.awt.Color(233, 242, 241));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tfUsuario.setBackground(new java.awt.Color(233, 242, 241));
+        tfUsuario.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tfUsuario.setBorder(null);
         tfUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfUsuarioActionPerformed(evt);
             }
         });
-        pnlLogin.add(tfUsuario);
-        tfUsuario.setBounds(120, 190, 230, 30);
+        jPanel1.add(tfUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 200, 30));
 
+        ptfClave.setBackground(new java.awt.Color(233, 242, 241));
+        ptfClave.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        ptfClave.setBorder(null);
         ptfClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 ptfClaveKeyPressed(evt);
             }
         });
-        pnlLogin.add(ptfClave);
-        ptfClave.setBounds(120, 240, 230, 30);
+        jPanel1.add(ptfClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 200, 30));
 
-        lblError.setForeground(new java.awt.Color(255, 0, 0));
-        lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pnlLogin.add(lblError);
-        lblError.setBounds(120, 330, 255, 30);
-
-        lblFondoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login011.jpg"))); // NOI18N
-        pnlLogin.add(lblFondoLogin);
-        lblFondoLogin.setBounds(80, 10, 340, 400);
-
-        btnLogin.setBackground(new java.awt.Color(255, 255, 255));
-        btnLogin.setForeground(new java.awt.Color(0, 0, 153));
-        btnLogin.setText("Iniciar sesion");
+        btnLogin.setBackground(new java.awt.Color(1, 64, 46));
+        btnLogin.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogin.setText("Iniciar Sesion");
+        btnLogin.setBorder(null);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
-        pnlLogin.add(btnLogin);
-        btnLogin.setBounds(120, 290, 260, 40);
+        jPanel1.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 110, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(166, 166, 166))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel2)
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        lblError.setForeground(new java.awt.Color(255, 0, 0));
+        lblError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 255, 30));
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(1, 64, 46));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/padlock.png"))); // NOI18N
+        jLabel4.setText("Contraseña:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(1, 64, 46));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user (3).png"))); // NOI18N
+        jLabel6.setText("Usuario:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 420, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 420, 20));
+
+        pnlLogin.add(jPanel1);
+        jPanel1.setBounds(0, 150, 530, 320);
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(1, 64, 46));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cross.png"))); // NOI18N
+        jLabel5.setText("Salir");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        pnlLogin.add(jLabel5);
+        jLabel5.setBounds(420, 10, 70, 24);
+
+        getContentPane().add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 463));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -198,6 +229,10 @@ public class Logeo extends javax.swing.JFrame {
     private void tfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfUsuarioActionPerformed
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        dispose();
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     @Override
     public Image getIconImage(){
@@ -241,8 +276,14 @@ public class Logeo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblError;
-    private javax.swing.JLabel lblFondoLogin;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JPanel pnlLogin;
     private javax.swing.JPasswordField ptfClave;
