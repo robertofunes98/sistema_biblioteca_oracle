@@ -106,7 +106,7 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel1.setBackground(new java.awt.Color(52, 128, 118));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/autor_32x32.png"))); // NOI18N
@@ -253,7 +253,7 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblusuarios);
 
-        btnAgregarUsuario.setBackground(new java.awt.Color(1, 64, 46));
+        btnAgregarUsuario.setBackground(new java.awt.Color(52, 128, 118));
         btnAgregarUsuario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnAgregarUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar_32x32.png"))); // NOI18N
@@ -265,7 +265,7 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        btnModificarLibro.setBackground(new java.awt.Color(1, 64, 46));
+        btnModificarLibro.setBackground(new java.awt.Color(52, 128, 118));
         btnModificarLibro.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnModificarLibro.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
@@ -277,7 +277,7 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        btnEliminarLibro.setBackground(new java.awt.Color(1, 64, 46));
+        btnEliminarLibro.setBackground(new java.awt.Color(52, 128, 118));
         btnEliminarLibro.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnEliminarLibro.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basura_32x32.png"))); // NOI18N

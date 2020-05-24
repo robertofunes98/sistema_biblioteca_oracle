@@ -119,7 +119,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnEliminarLibro.setBackground(new java.awt.Color(1, 64, 46));
+        btnEliminarLibro.setBackground(new java.awt.Color(52, 128, 118));
         btnEliminarLibro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnEliminarLibro.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basura_32x32.png"))); // NOI18N
@@ -131,7 +131,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             }
         });
 
-        btnModificarLibro.setBackground(new java.awt.Color(1, 64, 46));
+        btnModificarLibro.setBackground(new java.awt.Color(52, 128, 118));
         btnModificarLibro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnModificarLibro.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
@@ -143,7 +143,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel1.setBackground(new java.awt.Color(52, 128, 118));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -295,7 +295,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        btnAbrirDialogoImpresion.setBackground(new java.awt.Color(1, 64, 46));
+        btnAbrirDialogoImpresion.setBackground(new java.awt.Color(52, 128, 118));
         btnAbrirDialogoImpresion.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnAbrirDialogoImpresion.setForeground(new java.awt.Color(255, 255, 255));
         btnAbrirDialogoImpresion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print_32_32.png"))); // NOI18N

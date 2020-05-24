@@ -78,7 +78,7 @@ public class FormularioConfiguracionAvanzada extends javax.swing.JInternalFrame 
         tfClaveDB.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tfClaveDB.setForeground(new java.awt.Color(1, 64, 46));
 
-        btnActualizarUrl.setBackground(new java.awt.Color(1, 64, 46));
+        btnActualizarUrl.setBackground(new java.awt.Color(52, 128, 118));
         btnActualizarUrl.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnActualizarUrl.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarUrl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/actualizar_32x32.png"))); // NOI18N
@@ -90,7 +90,7 @@ public class FormularioConfiguracionAvanzada extends javax.swing.JInternalFrame 
             }
         });
 
-        btnActualizarUsuario.setBackground(new java.awt.Color(1, 64, 46));
+        btnActualizarUsuario.setBackground(new java.awt.Color(52, 128, 118));
         btnActualizarUsuario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnActualizarUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/actualizar_32x32.png"))); // NOI18N
@@ -102,7 +102,7 @@ public class FormularioConfiguracionAvanzada extends javax.swing.JInternalFrame 
             }
         });
 
-        btnActualizarClave.setBackground(new java.awt.Color(1, 64, 46));
+        btnActualizarClave.setBackground(new java.awt.Color(52, 128, 118));
         btnActualizarClave.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnActualizarClave.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarClave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/actualizar_32x32.png"))); // NOI18N

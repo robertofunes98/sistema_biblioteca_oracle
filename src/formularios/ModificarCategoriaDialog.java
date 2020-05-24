@@ -65,7 +65,7 @@ public class ModificarCategoriaDialog extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(233, 242, 241));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jPanel5.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel5.setBackground(new java.awt.Color(52, 128, 118));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N

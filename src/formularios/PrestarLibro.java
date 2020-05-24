@@ -115,7 +115,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel1.setBackground(new java.awt.Color(52, 128, 118));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -237,7 +237,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         });
         jPanel2.add(cbOrdenarPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 96, -1));
 
-        btnModificarLibro.setBackground(new java.awt.Color(1, 64, 46));
+        btnModificarLibro.setBackground(new java.awt.Color(52, 128, 118));
         btnModificarLibro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnModificarLibro.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
