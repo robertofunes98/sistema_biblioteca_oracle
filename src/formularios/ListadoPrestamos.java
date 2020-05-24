@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author funes
  */
-public class ListadoLibros extends javax.swing.JInternalFrame {
+public class ListadoPrestamos extends javax.swing.JInternalFrame {
     
     ConexionDB conexion;
     DefaultTableModel modeloLibros;
@@ -34,7 +34,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     /**
      * Creates new form ListadoLibros
      */
-    public ListadoLibros() {
+    public ListadoPrestamos() {
         initComponents();
         
         try{
@@ -74,9 +74,9 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         }
         
         
-        
+        //TODO: temp
         cargarTabla();
-        
+        //TODO: temp
         ocultarBuscadores();
         
         //ocultando objetos a usuarios

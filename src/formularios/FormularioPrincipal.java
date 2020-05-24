@@ -61,6 +61,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         opcAgregarLibros = new javax.swing.JMenuItem();
         opcListadoAutoresCategorias = new javax.swing.JMenuItem();
         opcAgregarAutoresCategorias = new javax.swing.JMenuItem();
+        opcListadoPrestamos = new javax.swing.JMenuItem();
         opcSalir = new javax.swing.JMenuItem();
         opcAdministracion = new javax.swing.JMenu();
         opcAgregarusuario = new javax.swing.JMenuItem();
@@ -116,6 +117,14 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(opcAgregarAutoresCategorias);
+
+        opcListadoPrestamos.setText("Listado de prestamos");
+        opcListadoPrestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcListadoPrestamosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(opcListadoPrestamos);
 
         opcSalir.setText("Salir");
         opcSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -244,6 +253,15 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_opcConfiguracionAvanzadaActionPerformed
 
+    private void opcListadoPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcListadoPrestamosActionPerformed
+        // TODO add your handling code here:
+        ListadoPrestamos frm = new ListadoPrestamos();
+        frm.setClosable(true);
+        frm.setResizable(false);
+        dpPrincipal.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_opcListadoPrestamosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dpPrincipal;
     private javax.swing.JMenu jMenu1;
@@ -257,6 +275,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem opcConfiguracionAvanzada;
     private javax.swing.JMenuItem opcListadoAutoresCategorias;
     private javax.swing.JMenuItem opcListadoLibros;
+    private javax.swing.JMenuItem opcListadoPrestamos;
     private javax.swing.JMenuItem opcSalir;
     // End of variables declaration//GEN-END:variables
 }

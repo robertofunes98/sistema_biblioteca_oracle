@@ -74,9 +74,9 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         }
         
         
-        
+        //TODO: temp
         cargarTabla();
-        
+        //TODO: temp
         ocultarBuscadores();
         
         //ocultando objetos a usuarios
