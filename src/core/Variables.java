@@ -11,7 +11,7 @@ package core;
  */
 public class Variables {
     //public static String rutaDB="jdbc:mysql://localhost:3308/oina_biblioteca",userDB="root",claveDB="";
-    public static String configuracionDriver="jdbc:mysql://", urlDB;
+    public static String configuracionDriver="jdbc:oracle:thin:", urlDB;
 
     public static String rutaDB=configuracionDriver+urlDB,userDB,claveDB;
     
