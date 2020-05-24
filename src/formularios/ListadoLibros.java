@@ -519,7 +519,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     private void cargarTabla() {
         limpiarTabla();
         try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as 'Precio total' from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria");
+            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria");
 
             alLibros=conexion.convertirRsToArrayList(rsResultado);
 
@@ -540,7 +540,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     private void cargarTabla(int tipoOrden) {
         limpiarTabla();
         String sql="select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
-                        + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as 'Precio total' from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor "
+                        + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor "
                         + "INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria ";
         
         switch(tipoOrden)

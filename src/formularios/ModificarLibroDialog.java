@@ -248,7 +248,7 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
     private void btnModificarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibroActionPerformed
         // TODO add your handling code here:
         try{
-            conexion.ejecutarComando("update libro set id_libro = '"+tfIdLibro.getText()+"', nombre = '"+tfNombreLibro.getText()+"', cantidad='"
+            conexion.ejecutarComando("update oina_libro set id_libro = '"+tfIdLibro.getText()+"', nombre = '"+tfNombreLibro.getText()+"', cantidad='"
                 +spnCantidadLibros.getValue()+"', id_autor="+alAutores.get(cbAutor.getSelectedIndex()).get(0)+", id_categoria="
                 +alCategorias.get(cbCategoria.getSelectedIndex()).get(0)+", precio='"+spnPrecio.getValue()+"' where id_libro='"+idLibro+"'");
 
@@ -292,7 +292,7 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
         spnPrecio.setValue(precio);
         
         try{
-            ResultSet rsResultado=conexion.ejecutar("select * from autor ORDER BY nombre ASC");
+            ResultSet rsResultado=conexion.ejecutar("select * from oina_autor ORDER BY nombre ASC");
 
             alAutores=conexion.convertirRsToArrayList(rsResultado);
             
@@ -314,7 +314,7 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
         }
         
         try{
-            ResultSet rsResultado=conexion.ejecutar("select * from categoria ORDER BY nombre ASC");
+            ResultSet rsResultado=conexion.ejecutar("select * from oina_categoria ORDER BY nombre ASC");
 
             alCategorias=conexion.convertirRsToArrayList(rsResultado);
             
