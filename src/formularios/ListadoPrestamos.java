@@ -83,7 +83,6 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
         if(Variables.user.tipoUsuario==0)
         {
             btnAbrirDialogoImpresion.setVisible(false);
-            btnEliminarLibro.setVisible(false);
             btnModificarLibro.setVisible(false);
         }
     }
@@ -97,7 +96,6 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnEliminarLibro = new javax.swing.JButton();
         btnModificarLibro = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -114,18 +112,9 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
         cbOrdenarPor = new javax.swing.JComboBox<>();
         btnAbrirDialogoImpresion = new javax.swing.JButton();
 
-        btnEliminarLibro.setBackground(new java.awt.Color(255, 255, 255));
-        btnEliminarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basura_32x32.png"))); // NOI18N
-        btnEliminarLibro.setText("Eliminar libro");
-        btnEliminarLibro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarLibroActionPerformed(evt);
-            }
-        });
-
         btnModificarLibro.setBackground(new java.awt.Color(255, 255, 255));
         btnModificarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
-        btnModificarLibro.setText("Modificar libro");
+        btnModificarLibro.setText("Modificar prestamo");
         btnModificarLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarLibroActionPerformed(evt);
@@ -138,7 +127,7 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Listado de Libros");
+        jLabel1.setText("Listado de prestamos");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/libros_32x32.png"))); // NOI18N
 
@@ -299,10 +288,8 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEliminarLibro)
-                        .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnModificarLibro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAbrirDialogoImpresion))
@@ -320,7 +307,6 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificarLibro)
-                    .addComponent(btnEliminarLibro)
                     .addComponent(btnAbrirDialogoImpresion))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -408,37 +394,6 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tblLibrosMouseClicked
 
-    private void btnEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarLibroActionPerformed
-        // TODO add your handling code here:
-        
-        if (tblLibros.getSelectedRows().length > 0) {
-            JPanel pnlAdvertencia = new JPanel();
-
-            JLabel lblAdvertencia = new JLabel();
-
-            lblAdvertencia.setText("¿Esta seguro que desea eliminar el libro?\n Esta accion no se puede deshacer");
-
-            lblAdvertencia.setForeground(Color.red);
-
-            pnlAdvertencia.add(lblAdvertencia);
-
-            int dialogResult = JOptionPane.showConfirmDialog(rootPane, pnlAdvertencia, "Warning", JOptionPane.YES_NO_OPTION);
-
-            if (dialogResult == JOptionPane.YES_OPTION) {
-                try {
-                    conexion.ejecutarComando("delete from libro where id_libro = '" + modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0) + "'");
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(rootPane, "error: " + e);
-                }
-                cargarTabla();
-            }
-
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "No se ha seleccionado ningún registro", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }
-
-    }//GEN-LAST:event_btnEliminarLibroActionPerformed
-
     private void btnModificarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibroActionPerformed
         // TODO add your handling code here:
         if (tblLibros.getSelectedRows().length > 0) {
@@ -481,7 +436,6 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbrirDialogoImpresion;
-    private javax.swing.JButton btnEliminarLibro;
     private javax.swing.JButton btnModificarLibro;
     private javax.swing.JComboBox<String> cbBuscador;
     private javax.swing.JComboBox<String> cbBuscarPor;

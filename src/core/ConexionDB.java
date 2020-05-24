@@ -21,7 +21,7 @@ public class ConexionDB{
         clave=claveR;
         
         //instanciando la conexion.
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
         conexion=DriverManager.getConnection(db,usuario,clave);
     }
 

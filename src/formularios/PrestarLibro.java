@@ -82,9 +82,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         //ocultando objetos a usuarios
         if(Variables.user.tipoUsuario==0)
         {
-            btnAbrirDialogoImpresion.setVisible(false);
-            btnEliminarLibro.setVisible(false);
-            btnModificarLibro.setVisible(false);
+            btnPrestarLibro.setVisible(false);
         }
     }
 
@@ -111,7 +109,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         cbBuscador = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         cbOrdenarPor = new javax.swing.JComboBox<>();
-        btnModificarLibro = new javax.swing.JButton();
+        btnPrestarLibro = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -239,18 +237,18 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         });
         jPanel2.add(cbOrdenarPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 96, -1));
 
-        btnModificarLibro.setBackground(new java.awt.Color(1, 64, 46));
-        btnModificarLibro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        btnModificarLibro.setForeground(new java.awt.Color(255, 255, 255));
-        btnModificarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
-        btnModificarLibro.setText("Prestar libro");
-        btnModificarLibro.setBorder(null);
-        btnModificarLibro.addActionListener(new java.awt.event.ActionListener() {
+        btnPrestarLibro.setBackground(new java.awt.Color(1, 64, 46));
+        btnPrestarLibro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnPrestarLibro.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrestarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
+        btnPrestarLibro.setText("Prestar libro");
+        btnPrestarLibro.setBorder(null);
+        btnPrestarLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarLibroActionPerformed(evt);
+                btnPrestarLibroActionPerformed(evt);
             }
         });
-        jPanel2.add(btnModificarLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 136, 37));
+        jPanel2.add(btnPrestarLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 136, 37));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -366,7 +364,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_cbOrdenarPorItemStateChanged
 
-    private void btnModificarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibroActionPerformed
+    private void btnPrestarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarLibroActionPerformed
         // TODO add your handling code here:
         if (tblLibros.getSelectedRows().length > 0) {
             ModificarLibroDialog jDialog = new ModificarLibroDialog(FormularioPrincipal.contex, true, modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0).toString(),
@@ -386,11 +384,11 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "No se ha seleccionado ningún registro", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_btnModificarLibroActionPerformed
+    }//GEN-LAST:event_btnPrestarLibroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnModificarLibro;
+    private javax.swing.JButton btnPrestarLibro;
     private javax.swing.JComboBox<String> cbBuscador;
     private javax.swing.JComboBox<String> cbBuscarPor;
     private javax.swing.JComboBox<String> cbOrdenarPor;

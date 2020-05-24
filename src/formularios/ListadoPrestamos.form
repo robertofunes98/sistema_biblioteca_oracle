@@ -21,10 +21,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnEliminarLibro" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="btnModificarLibro" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnAbrirDialogoImpresion" min="-2" max="-2" attributes="0"/>
@@ -46,7 +44,6 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnModificarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnEliminarLibro" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAbrirDialogoImpresion" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -55,20 +52,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnEliminarLibro">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/images/basura_32x32.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Eliminar libro"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarLibroActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="btnModificarLibro">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -77,7 +60,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/images/modificar_32x32.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Modificar libro"/>
+        <Property name="text" type="java.lang.String" value="Modificar prestamo"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarLibroActionPerformed"/>
@@ -135,7 +118,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Listado de Libros"/>
+            <Property name="text" type="java.lang.String" value="Listado de prestamos"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
