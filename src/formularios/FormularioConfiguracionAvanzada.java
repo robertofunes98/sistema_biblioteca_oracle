@@ -36,6 +36,7 @@ public class FormularioConfiguracionAvanzada extends javax.swing.JInternalFrame 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         tfUrlDB = new javax.swing.JTextField();
@@ -48,99 +49,141 @@ public class FormularioConfiguracionAvanzada extends javax.swing.JInternalFrame 
         btnActualizarClave = new javax.swing.JButton();
         lblUrlDB = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(233, 242, 241));
+
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(1, 64, 46));
         jLabel1.setText("Configuracion de la Base de datos (Manipular con cuidado)");
 
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(1, 64, 46));
         jLabel2.setText("URL de la base de datos");
 
+        tfUrlDB.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tfUrlDB.setForeground(new java.awt.Color(1, 64, 46));
+
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(1, 64, 46));
         jLabel3.setText("Usuario de la DB");
 
+        tfUsuarioDB.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tfUsuarioDB.setForeground(new java.awt.Color(1, 64, 46));
+
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(1, 64, 46));
         jLabel4.setText("Clave del usuario");
 
-        btnActualizarUrl.setBackground(new java.awt.Color(255, 255, 255));
+        tfClaveDB.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tfClaveDB.setForeground(new java.awt.Color(1, 64, 46));
+
+        btnActualizarUrl.setBackground(new java.awt.Color(1, 64, 46));
+        btnActualizarUrl.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnActualizarUrl.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarUrl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/actualizar_32x32.png"))); // NOI18N
         btnActualizarUrl.setText("Actualizar URL");
+        btnActualizarUrl.setBorder(null);
         btnActualizarUrl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarUrlActionPerformed(evt);
             }
         });
 
-        btnActualizarUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        btnActualizarUsuario.setBackground(new java.awt.Color(1, 64, 46));
+        btnActualizarUsuario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnActualizarUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/actualizar_32x32.png"))); // NOI18N
         btnActualizarUsuario.setText("Actualizar usuario");
+        btnActualizarUsuario.setBorder(null);
         btnActualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarUsuarioActionPerformed(evt);
             }
         });
 
-        btnActualizarClave.setBackground(new java.awt.Color(255, 255, 255));
+        btnActualizarClave.setBackground(new java.awt.Color(1, 64, 46));
+        btnActualizarClave.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnActualizarClave.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarClave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/actualizar_32x32.png"))); // NOI18N
         btnActualizarClave.setText("Actualizar clave");
+        btnActualizarClave.setBorder(null);
         btnActualizarClave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarClaveActionPerformed(evt);
             }
         });
 
+        lblUrlDB.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblUrlDB.setForeground(new java.awt.Color(1, 64, 46));
         lblUrlDB.setText("Actual: ");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfUrlDB, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnActualizarUrl))
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(lblUrlDB))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tfUrlDB, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnActualizarUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(tfUsuarioDB, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnActualizarUsuario))
-                    .addComponent(jLabel3)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(tfClaveDB, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnActualizarClave))
-                    .addComponent(jLabel4))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addComponent(btnActualizarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(245, 245, 245))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(lblUrlDB))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfUrlDB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizarUrl))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(btnActualizarUrl)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfUsuarioDB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizarUsuario))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(btnActualizarUsuario)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfClaveDB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizarClave))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(btnActualizarClave)))
+                .addContainerGap())
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -227,6 +270,7 @@ public class FormularioConfiguracionAvanzada extends javax.swing.JInternalFrame 
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblUrlDB;
     private javax.swing.JTextField tfClaveDB;
     private javax.swing.JTextField tfUrlDB;

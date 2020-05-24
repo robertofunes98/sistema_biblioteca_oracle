@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author funes
  */
-public class ListadoLibros extends javax.swing.JInternalFrame {
+public class PrestarLibro extends javax.swing.JInternalFrame {
     
     ConexionDB conexion;
     DefaultTableModel modeloLibros;
@@ -34,7 +34,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     /**
      * Creates new form ListadoLibros
      */
-    public ListadoLibros() {
+    public PrestarLibro() {
         initComponents();
         
         try{
@@ -74,9 +74,9 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         }
         
         
-        //TODO: temp
+        
         cargarTabla();
-        //TODO: temp
+        
         ocultarBuscadores();
         
         //ocultando objetos a usuarios
@@ -98,8 +98,6 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        btnEliminarLibro = new javax.swing.JButton();
-        btnModificarLibro = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -113,35 +111,11 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         cbBuscador = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         cbOrdenarPor = new javax.swing.JComboBox<>();
-        btnAbrirDialogoImpresion = new javax.swing.JButton();
+        btnModificarLibro = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        btnEliminarLibro.setBackground(new java.awt.Color(1, 64, 46));
-        btnEliminarLibro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        btnEliminarLibro.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basura_32x32.png"))); // NOI18N
-        btnEliminarLibro.setText("Eliminar libro");
-        btnEliminarLibro.setBorder(null);
-        btnEliminarLibro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarLibroActionPerformed(evt);
-            }
-        });
-
-        btnModificarLibro.setBackground(new java.awt.Color(1, 64, 46));
-        btnModificarLibro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        btnModificarLibro.setForeground(new java.awt.Color(255, 255, 255));
-        btnModificarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
-        btnModificarLibro.setText("Modificar libro");
-        btnModificarLibro.setBorder(null);
-        btnModificarLibro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarLibroActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBackground(new java.awt.Color(1, 64, 46));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -149,7 +123,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Listado de Libros");
+        jLabel1.setText("Prestar Libro");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/libros_32x32.png"))); // NOI18N
 
@@ -182,6 +156,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(233, 242, 241));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblLibros.setBorder(new javax.swing.border.MatteBorder(null));
         tblLibros.setModel(new javax.swing.table.DefaultTableModel(
@@ -215,10 +190,13 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblLibros);
 
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 389, 280));
+
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 64, 46));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/buscar_16x16.png"))); // NOI18N
         jLabel2.setText("Buscar por:");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         tfBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -228,6 +206,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 tfBuscadorKeyTyped(evt);
             }
         });
+        jPanel2.add(tfBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 241, -1));
 
         cbBuscarPor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No buscar", "id libro", "nombre", "autor", "categoria" }));
@@ -236,17 +215,20 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 cbBuscarPorItemStateChanged(evt);
             }
         });
+        jPanel2.add(cbBuscarPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 124, -1));
 
         cbBuscador.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbBuscadorItemStateChanged(evt);
             }
         });
+        jPanel2.add(cbBuscador, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 241, -1));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(1, 64, 46));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ordenar_32_32.png"))); // NOI18N
         jLabel5.setText("Ordenar por:");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         cbOrdenarPor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         cbOrdenarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No ordenar", "id libro", "nombre", "autor", "categoria", "precio" }));
@@ -255,58 +237,20 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 cbOrdenarPorItemStateChanged(evt);
             }
         });
+        jPanel2.add(cbOrdenarPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 96, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tfBuscador)
-                    .addComponent(cbBuscador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbOrdenarPor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cbBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cbOrdenarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(150, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        );
-
-        btnAbrirDialogoImpresion.setBackground(new java.awt.Color(1, 64, 46));
-        btnAbrirDialogoImpresion.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        btnAbrirDialogoImpresion.setForeground(new java.awt.Color(255, 255, 255));
-        btnAbrirDialogoImpresion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print_32_32.png"))); // NOI18N
-        btnAbrirDialogoImpresion.setText("Imprimir reporte");
-        btnAbrirDialogoImpresion.setBorder(null);
-        btnAbrirDialogoImpresion.setName("btnImprimirReporte"); // NOI18N
-        btnAbrirDialogoImpresion.addActionListener(new java.awt.event.ActionListener() {
+        btnModificarLibro.setBackground(new java.awt.Color(1, 64, 46));
+        btnModificarLibro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnModificarLibro.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
+        btnModificarLibro.setText("Prestar libro");
+        btnModificarLibro.setBorder(null);
+        btnModificarLibro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbrirDialogoImpresionActionPerformed(evt);
+                btnModificarLibroActionPerformed(evt);
             }
         });
+        jPanel2.add(btnModificarLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 136, 37));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -314,16 +258,10 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnEliminarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(btnModificarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(668, 668, 668)
-                        .addComponent(btnAbrirDialogoImpresion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,16 +269,11 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEliminarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModificarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAbrirDialogoImpresion, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -425,45 +358,22 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tblLibrosMouseClicked
 
-    private void btnEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarLibroActionPerformed
+    private void cbOrdenarPorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbOrdenarPorItemStateChanged
         // TODO add your handling code here:
-        
-        if (tblLibros.getSelectedRows().length > 0) {
-            JPanel pnlAdvertencia = new JPanel();
-
-            JLabel lblAdvertencia = new JLabel();
-
-            lblAdvertencia.setText("¿Esta seguro que desea eliminar el libro?\n Esta accion no se puede deshacer");
-
-            lblAdvertencia.setForeground(Color.red);
-
-            pnlAdvertencia.add(lblAdvertencia);
-
-            int dialogResult = JOptionPane.showConfirmDialog(rootPane, pnlAdvertencia, "Warning", JOptionPane.YES_NO_OPTION);
-
-            if (dialogResult == JOptionPane.YES_OPTION) {
-                try {
-                    conexion.ejecutarComando("delete from libro where id_libro = '" + modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0) + "'");
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(rootPane, "error: " + e);
-                }
-                cargarTabla();
-            }
-
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "No se ha seleccionado ningún registro", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        if(evt.getStateChange() ==  ItemEvent.SELECTED)
+        {
+            cargarTabla(cbOrdenarPor.getSelectedIndex());
         }
-
-    }//GEN-LAST:event_btnEliminarLibroActionPerformed
+    }//GEN-LAST:event_cbOrdenarPorItemStateChanged
 
     private void btnModificarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibroActionPerformed
         // TODO add your handling code here:
         if (tblLibros.getSelectedRows().length > 0) {
             ModificarLibroDialog jDialog = new ModificarLibroDialog(FormularioPrincipal.contex, true, modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0).toString(),
-                    modeloLibros.getValueAt(tblLibros.getSelectedRow(), 1).toString(),
-                    Integer.parseInt(modeloLibros.getValueAt(tblLibros.getSelectedRow(), 4).toString()),
-                    alLibros.get(tblLibros.getSelectedRow()).get(5), alLibros.get(tblLibros.getSelectedRow()).get(6), 
-                    Double.parseDouble(alLibros.get(tblLibros.getSelectedRow()).get(7)));
+                modeloLibros.getValueAt(tblLibros.getSelectedRow(), 1).toString(),
+                Integer.parseInt(modeloLibros.getValueAt(tblLibros.getSelectedRow(), 4).toString()),
+                alLibros.get(tblLibros.getSelectedRow()).get(5), alLibros.get(tblLibros.getSelectedRow()).get(6),
+                Double.parseDouble(alLibros.get(tblLibros.getSelectedRow()).get(7)));
             jDialog.setLocationRelativeTo(this);
             jDialog.setVisible(true);
 
@@ -478,27 +388,8 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnModificarLibroActionPerformed
 
-    private void btnAbrirDialogoImpresionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirDialogoImpresionActionPerformed
-        // TODO add your handling code here:
-        
-        ImprimirReporteDialog jDialog = new ImprimirReporteDialog(FormularioPrincipal.contex, true);
-        jDialog.setLocationRelativeTo(this);
-        jDialog.setVisible(true);
-
-    }//GEN-LAST:event_btnAbrirDialogoImpresionActionPerformed
-
-    private void cbOrdenarPorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbOrdenarPorItemStateChanged
-        // TODO add your handling code here:
-        if(evt.getStateChange() ==  ItemEvent.SELECTED)
-        {
-            cargarTabla(cbOrdenarPor.getSelectedIndex());
-        }
-    }//GEN-LAST:event_cbOrdenarPorItemStateChanged
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAbrirDialogoImpresion;
-    private javax.swing.JButton btnEliminarLibro;
     private javax.swing.JButton btnModificarLibro;
     private javax.swing.JComboBox<String> cbBuscador;
     private javax.swing.JComboBox<String> cbBuscarPor;
