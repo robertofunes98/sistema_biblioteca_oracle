@@ -72,7 +72,7 @@
                   <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnEliminarAutor" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="btnModificarAutor" alignment="3" max="32767" attributes="0"/>
+                      <Component id="btnModificarAutor" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
