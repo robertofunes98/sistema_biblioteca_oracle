@@ -92,7 +92,7 @@ public class ImprimirReporteDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel2.setBackground(new java.awt.Color(52, 128, 118));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());

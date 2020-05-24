@@ -82,12 +82,8 @@ public class Logeo extends javax.swing.JFrame {
     
     private void initConfig(){
         this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(Color.WHITE);
-        
-        revisarArchivosConfiguracion();
-        
-        
-        
+        this.getContentPane().setBackground(Color.WHITE);     
+        revisarArchivosConfiguracion();       
     }
 
     /**

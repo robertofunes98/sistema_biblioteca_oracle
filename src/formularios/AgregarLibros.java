@@ -182,7 +182,6 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel4 = new javax.swing.JPanel();
-        btnAgregarLibro = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -213,22 +212,11 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        btnAgregarLibro = new javax.swing.JButton();
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnAgregarLibro.setBackground(new java.awt.Color(1, 64, 46));
-        btnAgregarLibro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        btnAgregarLibro.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar_32x32.png"))); // NOI18N
-        btnAgregarLibro.setText("Agregar");
-        btnAgregarLibro.setBorder(null);
-        btnAgregarLibro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarLibroActionPerformed(evt);
-            }
-        });
-
-        jPanel1.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel1.setBackground(new java.awt.Color(52, 128, 118));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel7.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
@@ -458,6 +446,19 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
         jLabel17.setText("Seleccionar");
         jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 106, -1, -1));
 
+        btnAgregarLibro.setBackground(new java.awt.Color(52, 128, 118));
+        btnAgregarLibro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnAgregarLibro.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar_32x32.png"))); // NOI18N
+        btnAgregarLibro.setText("Agregar");
+        btnAgregarLibro.setBorder(null);
+        btnAgregarLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarLibroActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAgregarLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 117, 41));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -466,10 +467,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1164, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnAgregarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -478,9 +476,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAgregarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

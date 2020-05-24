@@ -116,7 +116,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
 
         jPanel4.setBackground(new java.awt.Color(233, 242, 241));
 
-        btnEliminarAutor.setBackground(new java.awt.Color(1, 64, 46));
+        btnEliminarAutor.setBackground(new java.awt.Color(52, 128, 118));
         btnEliminarAutor.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnEliminarAutor.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basura_32x32.png"))); // NOI18N
@@ -128,7 +128,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
             }
         });
 
-        btnModificarAutor.setBackground(new java.awt.Color(1, 64, 46));
+        btnModificarAutor.setBackground(new java.awt.Color(52, 128, 118));
         btnModificarAutor.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnModificarAutor.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
@@ -140,10 +140,10 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel1.setBackground(new java.awt.Color(52, 128, 118));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setBackground(new java.awt.Color(233, 242, 241));
+        jLabel1.setBackground(new java.awt.Color(52, 128, 118));
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(233, 242, 241));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -178,7 +178,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel2.setBackground(new java.awt.Color(52, 128, 118));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         tblAutores.setBorder(new javax.swing.border.MatteBorder(null));
@@ -237,7 +237,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel3.setBackground(new java.awt.Color(52, 128, 118));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         tblCategorias.setBorder(new javax.swing.border.MatteBorder(null));
@@ -296,7 +296,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        btnModificarCategoria.setBackground(new java.awt.Color(1, 64, 46));
+        btnModificarCategoria.setBackground(new java.awt.Color(52, 128, 118));
         btnModificarCategoria.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnModificarCategoria.setForeground(new java.awt.Color(255, 255, 255));
         btnModificarCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
@@ -308,7 +308,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
             }
         });
 
-        btnEliminarCategoria.setBackground(new java.awt.Color(1, 64, 46));
+        btnEliminarCategoria.setBackground(new java.awt.Color(52, 128, 118));
         btnEliminarCategoria.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnEliminarCategoria.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basura_32x32.png"))); // NOI18N

@@ -81,7 +81,7 @@ public class ModificarUsuarioDialog extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(233, 242, 241));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jPanel1.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel1.setBackground(new java.awt.Color(52, 128, 118));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -138,7 +138,7 @@ public class ModificarUsuarioDialog extends javax.swing.JDialog {
         cbTipoUsuario.setForeground(new java.awt.Color(1, 64, 46));
         cbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione una opcion--", "Usuario", "Administrador" }));
 
-        btnModificarUsuario.setBackground(new java.awt.Color(1, 64, 46));
+        btnModificarUsuario.setBackground(new java.awt.Color(52, 128, 118));
         btnModificarUsuario.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnModificarUsuario.setForeground(new java.awt.Color(233, 242, 241));
         btnModificarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N

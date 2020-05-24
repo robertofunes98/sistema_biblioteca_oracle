@@ -84,7 +84,7 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(233, 242, 241));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jPanel1.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel1.setBackground(new java.awt.Color(52, 128, 118));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -164,7 +164,7 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
         spnCantidadLibros.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         spnCantidadLibros.setRequestFocusEnabled(false);
 
-        btnModificarLibro.setBackground(new java.awt.Color(1, 64, 46));
+        btnModificarLibro.setBackground(new java.awt.Color(52, 128, 118));
         btnModificarLibro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnModificarLibro.setForeground(new java.awt.Color(233, 242, 241));
         btnModificarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N

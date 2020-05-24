@@ -115,7 +115,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel1.setBackground(new java.awt.Color(52, 128, 118));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -188,7 +188,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblLibros);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 389, 280));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 400, 280));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 64, 46));

@@ -65,7 +65,7 @@ public class ModificarAutorDialog extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(233, 242, 241));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jPanel3.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel3.setBackground(new java.awt.Color(52, 128, 118));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N

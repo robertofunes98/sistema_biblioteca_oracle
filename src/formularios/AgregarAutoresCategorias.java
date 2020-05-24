@@ -112,7 +112,7 @@ public class AgregarAutoresCategorias extends javax.swing.JInternalFrame {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(1, 64, 46));
+        jPanel1.setBackground(new java.awt.Color(52, 128, 118));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/autor_32x32.png"))); // NOI18N
@@ -171,7 +171,7 @@ public class AgregarAutoresCategorias extends javax.swing.JInternalFrame {
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/autor_32x32.png"))); // NOI18N
 
-        btnAgregarAutor.setBackground(new java.awt.Color(1, 64, 46));
+        btnAgregarAutor.setBackground(new java.awt.Color(52, 128, 118));
         btnAgregarAutor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnAgregarAutor.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar_32x32.png"))); // NOI18N
@@ -252,7 +252,7 @@ public class AgregarAutoresCategorias extends javax.swing.JInternalFrame {
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/categorias_32x32.png"))); // NOI18N
 
-        btnAgregarCategoria.setBackground(new java.awt.Color(1, 64, 46));
+        btnAgregarCategoria.setBackground(new java.awt.Color(52, 128, 118));
         btnAgregarCategoria.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnAgregarCategoria.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar_32x32.png"))); // NOI18N
