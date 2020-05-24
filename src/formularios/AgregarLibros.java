@@ -94,15 +94,15 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
         switch(opcion)
         {
             case 0:
-                sql="select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
-                        + "categoria.id_categoria from libro inner join autor on autor.id_autor = libro.id_autor "
-                        + "INNER JOIN categoria on categoria.id_categoria = libro.id_categoria where libro.id_libro LIKE '"+busqueda+"%'";
+                sql="select oina_libro.id_libro, oina_libro.nombre, oina_autor.nombre, oina_categoria.nombre, oina_libro.cantidad, oina_autor.id_autor, "
+                        + "oina_categoria.id_categoria from oina_libro inner join oina_autor on oina_autor.id_autor = oina_libro.id_autor "
+                        + "INNER JOIN oina_categoria on oina_categoria.id_categoria = oina_libro.id_categoria where oina_libro.id_libro LIKE '"+busqueda+"%'";
                 break;
                 
                 case 1:
-                sql="select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
-                        + "categoria.id_categoria from libro inner join autor on autor.id_autor = libro.id_autor "
-                        + "INNER JOIN categoria on categoria.id_categoria = libro.id_categoria where libro.nombre LIKE '"+busqueda+"%'";
+                sql="select oina_libro.id_libro, oina_libro.nombre, oina_autor.nombre, oina_categoria.nombre, oina_libro.cantidad, oina_autor.id_autor, "
+                        + "oina_categoria.id_categoria from oina_libro inner join oina_autor on oina_autor.id_autor = oina_libro.id_autor "
+                        + "INNER JOIN oina_categoria on oina_categoria.id_categoria = oina_libro.id_categoria where oina_libro.nombre LIKE '"+busqueda+"%'";
                 break;
         }
         try{
@@ -131,7 +131,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
     }
     
     private void cargarCBoxAutores() throws SQLException{
-        ResultSet resultadoAutores = conexion.ejecutar("SELECT id_autor, nombre FROM autor");
+        ResultSet resultadoAutores = conexion.ejecutar("SELECT id_autor, nombre FROM oina_autor");
         alAutores = conexion.convertirRsToArrayList(resultadoAutores);
         
         cboxAutor.addItem("-- Seleccionar Autor --");
@@ -144,7 +144,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
     }
     
     private void cargarCBoxCategorias() throws SQLException{
-        ResultSet resultadoCategorias = conexion.ejecutar("SELECT id_categoria, nombre FROM categoria");
+        ResultSet resultadoCategorias = conexion.ejecutar("SELECT id_categoria, nombre FROM oina_categoria");
         alCategorias = conexion.convertirRsToArrayList(resultadoCategorias);
         
         cboxCategoria.addItem("-- Seleccionar Categoria --");
@@ -157,7 +157,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
     }
     
     private boolean codigoExistente(String codigo) throws SQLException{
-        ResultSet resultado = conexion.ejecutar("SELECT id_libro FROM libro WHERE id_libro = '" + codigo + "'");
+        ResultSet resultado = conexion.ejecutar("SELECT id_libro FROM oina_libro WHERE id_libro = '" + codigo + "'");
         LinkedList<LinkedList<String>> codigos = conexion.convertirRsToArrayList(resultado);
         
         return (!codigos.isEmpty());
@@ -519,13 +519,13 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
                         String nombreCategoria = txtAgregarCategoria.getText().trim();
         
                         try {
-                            String sql = "INSERT INTO categoria(nombre) VALUES ('" + nombreCategoria + "')";
+                            String sql = "INSERT INTO oina_categoria(nombre) VALUES ('" + nombreCategoria + "')";
                             int filasAfectadas = conexion.ejecutarComando(sql);
                             if (filasAfectadas > 0) {
                                 JOptionPane.showMessageDialog(rootPane, "La categoría ha sido agregada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
                                 txtAgregarCategoria.setText("");
                                 
-                                ResultSet rsResultados=conexion.ejecutar("SELECT MAX(id_categoria) AS id FROM categoria");
+                                ResultSet rsResultados=conexion.ejecutar("SELECT MAX(id_categoria) AS id FROM oina_categoria");
                                 
                                 rsResultados.next();
                                 
@@ -546,13 +546,13 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
                         String nombreAutor = txtAgregarAutor.getText().trim();
         
                         try {
-                            String sql = "INSERT INTO autor(nombre) VALUES ('" + nombreAutor + "')";
+                            String sql = "INSERT INTO oina_autor(nombre) VALUES ('" + nombreAutor + "')";
                             int filasAfectadas = conexion.ejecutarComando(sql);
                             if (filasAfectadas > 0) {
                                 JOptionPane.showMessageDialog(rootPane, "El autor ha sido agregado con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
                                 txtAgregarAutor.setText("");
                                 
-                                ResultSet rsResultados=conexion.ejecutar("SELECT MAX(id_autor) AS id FROM autor");
+                                ResultSet rsResultados=conexion.ejecutar("SELECT MAX(id_autor) AS id FROM oina_autor");
                                 
                                 rsResultados.next();
                                 
@@ -575,7 +575,7 @@ public class AgregarLibros extends javax.swing.JInternalFrame {
                         idAutor = alAutores.get(indiceAutor - 1).get(0);
                     
                     
-                    String sql = "INSERT INTO libro(id_libro, nombre, cantidad, id_autor, id_categoria, precio) VALUES ('"+codigo+"','"+nombre+"','"+sCantidad+"','"+idAutor+"','"+idCategoria+"','"+sPrecio+"')";
+                    String sql = "INSERT INTO oina_libro(id_libro, nombre, cantidad, id_autor, id_categoria, precio) VALUES ('"+codigo+"','"+nombre+"','"+sCantidad+"','"+idAutor+"','"+idCategoria+"','"+sPrecio+"')";
                     int filasAfectadas = conexion.ejecutarComando(sql);
                     if(filasAfectadas>0){
                         JOptionPane.showMessageDialog(rootPane, "El libro ha sido agregado con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);

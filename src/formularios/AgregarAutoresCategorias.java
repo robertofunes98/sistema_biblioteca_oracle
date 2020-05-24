@@ -49,11 +49,11 @@ public class AgregarAutoresCategorias extends javax.swing.JInternalFrame {
         switch(opcion)
         {
             case 0:
-                sql="Select autor.nombre from autor where nombre LIKE '"+busqueda+"%'";
+                sql="Select oina_autor.nombre from oina_autor where nombre LIKE '"+busqueda+"%'";
                 break;
                 
             case 1:
-                sql="Select categoria.nombre from categoria where nombre LIKE '"+busqueda+"%'";
+                sql="Select oina_categoria.nombre from oina_categoria where nombre LIKE '"+busqueda+"%'";
                 break;
         }
         try{
@@ -400,7 +400,7 @@ public class AgregarAutoresCategorias extends javax.swing.JInternalFrame {
         
         if (!nombre.isEmpty()) {
             try {
-                String sql = "INSERT INTO autor(nombre) VALUES ('" + nombre + "')";
+                String sql = "INSERT INTO oina_autor(nombre) VALUES ('" + nombre + "')";
                 int filasAfectadas = conexion.ejecutarComando(sql);
                 if (filasAfectadas > 0) {
                     JOptionPane.showMessageDialog(rootPane, "El autor ha sido agregado con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -423,7 +423,7 @@ public class AgregarAutoresCategorias extends javax.swing.JInternalFrame {
         
         if (!nombre.isEmpty()) {
             try {
-                String sql = "INSERT INTO categoria(nombre) VALUES ('" + nombre + "')";
+                String sql = "INSERT INTO oina_categoria(nombre) VALUES ('" + nombre + "')";
                 int filasAfectadas = conexion.ejecutarComando(sql);
                 if (filasAfectadas > 0) {
                     JOptionPane.showMessageDialog(rootPane, "La categoría ha sido agregada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);

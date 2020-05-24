@@ -54,7 +54,7 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
     private void cargarTabla() {
         limpiarTabla();
         try{
-            ResultSet rsResultado=conexion.ejecutar("select usuario.nombre, usuario.tipo_usuario from usuario");
+            ResultSet rsResultado=conexion.ejecutar("select nombre, tipo_usuario from oina_usuario");
 
             alResultados=conexion.convertirRsToArrayList(rsResultado);
 
@@ -400,7 +400,7 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
         else 
         {
             try {
-                String sql = "INSERT INTO usuario VALUES ('" + nombre + "','"+Encriptacion.encrypt(tbClave.getText())+"',"
+                String sql = "INSERT INTO oina_usuario VALUES ('" + nombre + "','"+Encriptacion.encrypt(tbClave.getText())+"',"
                         +(cbTipoUsuario.getSelectedIndex()-1)+")";
                 int filasAfectadas = conexion.ejecutarComando(sql);
                 if (filasAfectadas > 0) {
@@ -455,7 +455,7 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
 
             if (dialogResult == JOptionPane.YES_OPTION) {
                 try {
-                    conexion.ejecutarComando("delete from usuario where nombre = '" + modelousuarios.getValueAt(tblusuarios.getSelectedRow(), 0) + "'");
+                    conexion.ejecutarComando("delete from oina_usuario where nombre = '" + modelousuarios.getValueAt(tblusuarios.getSelectedRow(), 0) + "'");
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(rootPane, "error: " + e);
                 }
