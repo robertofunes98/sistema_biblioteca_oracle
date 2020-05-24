@@ -82,8 +82,6 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         //ocultando objetos a usuarios
         if(Variables.user.tipoUsuario==0)
         {
-            btnAbrirDialogoImpresion.setVisible(false);
-            btnEliminarLibro.setVisible(false);
             btnModificarLibro.setVisible(false);
         }
     }
@@ -190,7 +188,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblLibros);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 389, 280));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 400, 280));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 64, 46));
