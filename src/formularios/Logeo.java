@@ -293,7 +293,7 @@ public class Logeo extends javax.swing.JFrame {
         {
             try 
             {
-                ResultSet rsResultado=conexion.ejecutar("Select * from usuario where nombre='"+tfUsuario.getText() +"'");
+                ResultSet rsResultado=conexion.ejecutar("Select * from oina_usuario where nombre='"+tfUsuario.getText() +"'");
                 
                 alResultados=conexion.convertirRsToArrayList(rsResultado);
                 
