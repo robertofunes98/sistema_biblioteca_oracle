@@ -91,18 +91,14 @@ commit;
 
 /*Procedimiento cambiar a estado inactivo una categoria completa de libro (para dar mantenimiento)*/
 
-CREATE OR REPLACE PROCEDURE proc_mant_cat (id_cat NUMBER) IS
-    DECLARE
-        CURSOR c_lib IS SELECT id_libro FROM oina_libro WHERE id_categoria=idcat;
-        id NUMBER;         
+CREATE OR REPLACE PROCEDURE proc_mant_cat (id_cat IN NUMBER) AS
+    CURSOR c_lib IS SELECT id_libro FROM oina_libro WHERE id_categoria=id_cat;  
+    idlib NUMBER;
         BEGIN
-            OPEN c_lib;
-            LOOP
-            FETCH c_lib INTO id;
-            UPDATE oina_libro SET estado = 0 WHERE id_libro = id;
-            EXIT WHEN c_lib%NOTFOUND;
+            FOR v_lib IN c_lib LOOP
+            idlib := v_lib.id_libro;
+            UPDATE oina_libro SET estado = 0 WHERE id_libro = idlib;
             END LOOP;
-            CLOSE c_lib;
         END;
 
 /*Procedimiento para revisar libro por libro, 
@@ -110,20 +106,17 @@ para cambiar su estado a no disponible si ya no hay
 en existencia en la biblioteca*/
 
 CREATE OR REPLACE PROCEDURE proc_check_disp IS
-    DECLARE
-        CURSOR c_estado IS SELECT id_libro, cantidad FROM oina_libro;
-        cant NUMBER;
-        id VARCHAR2(10 BYTE);
+    CURSOR c_estado IS SELECT id_libro, cantidad FROM oina_libro;
+    cant NUMBER;
+    id_lib VARCHAR2(10 BYTE);
         BEGIN
-            OPEN c_estado;
-            LOOP
-            FETCH c_estado INTO id,cant;
+            FOR v_estado IN c_estado LOOP
+            id_lib := v_estado.id_libro;
+            cant := v_estado.cantidad;
             IF cant < 1 THEN
-                UPDATE oina_libro SET estado = 0 WHERE id_libro = id;
+                UPDATE oina_libro SET estado = 0 WHERE id_libro = id_lib;
             END IF;
-            EXIT WHEN c_estado%NOTFOUND;
             END LOOP;
-            CLOSE c_lib;
         END;
 
 /*TRIGGER PARA INVOCARLO*/
