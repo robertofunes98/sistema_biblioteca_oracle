@@ -125,3 +125,58 @@ CREATE OR REPLACE TRIGGER trigg_check_dispo AFTER INSERT ON oina_prestamo
 BEGIN
     proc_check_disp();
 END;
+
+/*VISTA LISTA DE LIBROS*/
+CREATE OR REPLACE VIEW v_lista_libros as
+select l.id_libro, 
+       l.nombre,
+       l.cantidad,
+       l.precio,
+       l.id_autor,
+       l.id_categoria
+from oina_libro l
+order by l.id_libro asc;
+
+
+select * from v_lista_libros;
+
+/*VISTA  LISTA AUTORES*/
+CREATE OR REPLACE VIEW v_lista_autores as 
+select a.id_autor,
+       a.nombre
+from oina_autor a
+order by a.id_autor asc;
+
+select * from v_lista_autores
+
+/*VISTA LISTA DE CATEGORIAS*/
+CREATE OR REPLACE VIEW v_lista_categorias as
+select c.id_categoria,
+       c.nombre
+from oina_categoria c
+order by c.id_categoria asc;
+
+select * from v_lista_categorias;
+
+/*FUNCION TOTAL LIBROS POR AUTOR*/
+CREATE OR REPLACE FUNCTION libros_autor(autor in number)
+RETURN NUMBER
+IS libros NUMBER;
+BEGIN
+  select count(oina_libro.nombre) as "Cantidad de libros" into libros from oina_autor
+  inner join oina_libro on oina_libro.id_autor = oina_autor.id_autor
+  where oina_autor.id_autor = autor
+  group by oina_autor.nombre;
+  RETURN (libros);
+END;
+
+/*FUNCION TOTAL PRECIO CONJUNTO DE LIBROS*/
+CREATE OR REPLACE FUNCTION f_mayor_precio 
+RETURN NUMBER
+IS mayor_precio NUMBER;
+BEGIN   
+    select maximo into mayor_precio from(select precio * cantidad as maximo from oina_libro
+    order by maximo desc)
+    where rownum = 1;
+    RETURN (mayor_precio);
+END;
