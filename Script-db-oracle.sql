@@ -35,7 +35,8 @@ CREATE TABLE oina_libro(
     id_libro VARCHAR2(10 BYTE) NOT NULL,
     nombre VARCHAR2(50 BYTE) NOT NULL, 
     cantidad NUMBER(9) NOT NULL,
-    precio NUMBER(9,2) NOT NULL, 
+    precio NUMBER(9,2) NOT NULL,
+    estado NUMBER NOT NULL /* 0=No disponible, 1= disponible*/,
     id_autor NUMBER (9),
     id_categoria NUMBER(9), 
     CONSTRAINT pk_libro PRIMARY KEY (id_libro)
@@ -86,3 +87,48 @@ insert into oina_categoria values(null, 'Tragedia');
 insert into oina_libro values('F-001','La República - Tomo 1',1,60.58,1,1);
 insert into oina_libro values('T-001','Hamlet',1,89.26,2,2);
 commit;
+
+
+/*Procedimiento cambiar a estado inactivo una categoria completa de libro (para dar mantenimiento)*/
+
+CREATE OR REPLACE PROCEDURE proc_mant_cat (id_cat NUMBER) IS
+    DECLARE
+        CURSOR c_lib IS SELECT id_libro FROM oina_libro WHERE id_categoria=idcat;
+        id NUMBER;         
+        BEGIN
+            OPEN c_lib;
+            LOOP
+            FETCH c_lib INTO id;
+            UPDATE oina_libro SET estado = 0 WHERE id_libro = id;
+            EXIT WHEN c_lib%NOTFOUND;
+            END LOOP;
+            CLOSE c_lib;
+        END;
+
+/*Procedimiento para revisar libro por libro, 
+para cambiar su estado a no disponible si ya no hay 
+en existencia en la biblioteca*/
+
+CREATE OR REPLACE PROCEDURE proc_check_disp IS
+    DECLARE
+        CURSOR c_estado IS SELECT id_libro, cantidad FROM oina_libro;
+        cant NUMBER;
+        id VARCHAR2(10 BYTE);
+        BEGIN
+            OPEN c_estado;
+            LOOP
+            FETCH c_estado INTO id,cant;
+            IF cant < 1 THEN
+                UPDATE oina_libro SET estado = 0 WHERE id_libro = id;
+            END IF;
+            EXIT WHEN c_estado%NOTFOUND;
+            END LOOP;
+            CLOSE c_lib;
+        END;
+
+/*TRIGGER PARA INVOCARLO*/
+
+CREATE OR REPLACE TRIGGER trigg_check_dispo AFTER INSERT ON oina_prestamo
+BEGIN
+    proc_check_disp();
+END;
