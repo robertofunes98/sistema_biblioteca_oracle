@@ -157,7 +157,7 @@ public class ModificarAutorDialog extends javax.swing.JDialog {
 
         if (!nombre.isEmpty()) {
             try {
-                String sql = "UPDATE autor SET nombre = '" + nombre + "' WHERE id_autor = '" + idAutor + "'";
+                String sql = "UPDATE oina_autor SET nombre = '" + nombre + "' WHERE id_autor = '" + idAutor + "'";
                 int filasAfectadas = conexion.ejecutarComando(sql);
                 if (filasAfectadas > 0) {
                     JOptionPane.showMessageDialog(rootPane, "El autor ha sido actualizado con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);

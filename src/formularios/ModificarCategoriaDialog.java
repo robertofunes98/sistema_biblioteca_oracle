@@ -160,7 +160,7 @@ public class ModificarCategoriaDialog extends javax.swing.JDialog {
 
         if (!nombre.isEmpty()) {
             try {
-                String sql = "UPDATE categoria SET nombre = '" + nombre + "' WHERE id_categoria = '" + idCategoria + "'";
+                String sql = "UPDATE oina_categoria SET nombre = '" + nombre + "' WHERE id_categoria = '" + idCategoria + "'";
                 int filasAfectadas = conexion.ejecutarComando(sql);
                 if (filasAfectadas > 0) {
                     JOptionPane.showMessageDialog(rootPane, "La categoría ha sido actualizada con éxito", "Información", JOptionPane.INFORMATION_MESSAGE);

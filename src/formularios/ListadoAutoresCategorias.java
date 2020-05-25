@@ -53,7 +53,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
         limpiarTablas();
         try{
             //cargar datos autores
-            ResultSet rsResultadoAutores=conexion.ejecutar("select id_autor, nombre from autor");
+            ResultSet rsResultadoAutores=conexion.ejecutar("select id_autor, nombre from oina_autor");
 
             alAutores=conexion.convertirRsToArrayList(rsResultadoAutores);
 
@@ -63,7 +63,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
             }
             
             //cargar datos categorias
-            ResultSet rsResultadoCategorias=conexion.ejecutar("select id_categoria, nombre from categoria");
+            ResultSet rsResultadoCategorias=conexion.ejecutar("select id_categoria, nombre from oina_categoria");
 
             alCategorias=conexion.convertirRsToArrayList(rsResultadoCategorias);
 
@@ -386,7 +386,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
 
             if (dialogResult == JOptionPane.YES_OPTION) {
                 try {
-                    conexion.ejecutarComando("delete from autor where id_autor = '" + modeloAutores.getValueAt(tblAutores.getSelectedRow(), 0) + "'");
+                    conexion.ejecutarComando("delete from oina_autor where id_autor = '" + modeloAutores.getValueAt(tblAutores.getSelectedRow(), 0) + "'");
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(rootPane, "error: " + e);
                 }
@@ -465,7 +465,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
 
             if (dialogResult == JOptionPane.YES_OPTION) {
                 try {
-                    conexion.ejecutarComando("delete from categoria where id_categoria = '" + modeloCategorias.getValueAt(tblCategorias.getSelectedRow(), 0) + "'");
+                    conexion.ejecutarComando("delete from oina_categoria where id_categoria = '" + modeloCategorias.getValueAt(tblCategorias.getSelectedRow(), 0) + "'");
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(rootPane, "error: " + e);
                 }
@@ -479,7 +479,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
 
     private void buscarAutorPorNombre(String nombre){
         try{
-            ResultSet rsResultado=conexion.ejecutar("select id_autor, nombre from autor where nombre LIKE '"+nombre+"%'");
+            ResultSet rsResultado=conexion.ejecutar("select id_autor, nombre from oina_autor where nombre LIKE '"+nombre+"%'");
 
             LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
             
@@ -498,7 +498,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
     
     private void buscarCategoriaPorNombre(String nombre){
         try{
-            ResultSet rsResultado=conexion.ejecutar("select id_categoria, nombre from categoria where nombre LIKE '"+nombre+"%'");
+            ResultSet rsResultado=conexion.ejecutar("select id_categoria, nombre from oina_categoria where nombre LIKE '"+nombre+"%'");
 
             LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
             

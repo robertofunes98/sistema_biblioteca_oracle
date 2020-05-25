@@ -234,10 +234,10 @@ public class ModificarUsuarioDialog extends javax.swing.JDialog {
             try{
                 String sql="";
                 if(chbModificarClave.isSelected())
-                    sql="update usuario set clave = '"+Encriptacion.encrypt(tfClave.getText())+"', tipo_usuario="
+                    sql="update oina_usuario set clave = '"+Encriptacion.encrypt(tfClave.getText())+"', tipo_usuario="
                         +(cbTipoUsuario.getSelectedIndex()-1)+" where nombre='"+nombre+"'";
                 else
-                    sql="update usuario set tipo_usuario="+(cbTipoUsuario.getSelectedIndex()-1)+" where nombre='"+nombre+"'";
+                    sql="update oina_usuario set tipo_usuario="+(cbTipoUsuario.getSelectedIndex()-1)+" where nombre='"+nombre+"'";
 
                 conexion.ejecutarComando(sql);
 
