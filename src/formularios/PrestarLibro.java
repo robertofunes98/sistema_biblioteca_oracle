@@ -117,6 +117,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cmbuser = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -197,10 +198,10 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 780, 280));
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 8)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(1, 64, 46));
-        jLabel2.setText("Fecha Devolución:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+        jLabel2.setText("Formato de Fecha dd/MM/yyyy ");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, -1));
 
         tfBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -269,6 +270,11 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
 
         jPanel2.add(cmbuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 110, -1));
+
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(1, 64, 46));
+        jLabel8.setText("Fecha Devolución:");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -387,10 +393,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
     private void btnPrestarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarLibroActionPerformed
         // TODO add your handling code here:
         if (tblLibros.getSelectedRows().length > 0) {
-//            tblLibros.getSelectedRow(), 0).toString()
          try {
-             Date fecha = new Date();
-             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
              String sql = "INSERT INTO OINA_PRESTAMO (id_usuario, fecha_prestamo, fecha_devolucion_estimada, id_libro) VALUES "
                         + "('" + (String) cmbuser.getSelectedItem() + "', "+ "SYSDATE" +", '" + txtfecha_es.getText()+"', '"
                         +(String) modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0) +"')";
@@ -426,6 +429,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
