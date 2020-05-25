@@ -62,6 +62,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         opcListadoAutoresCategorias = new javax.swing.JMenuItem();
         opcAgregarAutoresCategorias = new javax.swing.JMenuItem();
         opcListadoPrestamos = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         opcSalir = new javax.swing.JMenuItem();
         opcAdministracion = new javax.swing.JMenu();
         opcAgregarusuario = new javax.swing.JMenuItem();
@@ -126,6 +127,14 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(opcListadoPrestamos);
 
+        jMenuItem2.setText("Prestar Libro");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         opcSalir.setText("Salir");
         opcSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,7 +183,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dpPrincipal)
+            .addComponent(dpPrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -262,11 +271,21 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_opcListadoPrestamosActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        PrestarLibro frm = new PrestarLibro();
+        frm.setClosable(true);
+        frm.setResizable(false);
+        dpPrincipal.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dpPrincipal;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu opcAcercaDe;
     private javax.swing.JMenu opcAdministracion;
     private javax.swing.JMenuItem opcAgregarAutoresCategorias;

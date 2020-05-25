@@ -43,13 +43,9 @@ public class Logeo extends javax.swing.JFrame {
     
     ConexionDB conexion;
     LinkedList<LinkedList<String>> alResultados;
-    boolean conected=false;
-    
+    boolean conected=false;   
     Timer timer;
-
-
-
-        
+       
     /**
      * Creates new form Logeo
      */

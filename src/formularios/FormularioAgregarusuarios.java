@@ -159,7 +159,7 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
         });
 
         cbTipoUsuario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        cbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione una opcion--", "Usuario", "Administrador" }));
+        cbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione una opcion--", "Usuario", "Administrador", "Prestamista" }));
 
         tbNombre.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tbNombre.addKeyListener(new java.awt.event.KeyAdapter() {
