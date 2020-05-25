@@ -126,6 +126,7 @@ BEGIN
     proc_check_disp();
 END;
 
+
 /*VISTA LISTA DE LIBROS*/
 CREATE OR REPLACE VIEW v_lista_libros as
 select l.id_libro, 
@@ -138,7 +139,7 @@ from oina_libro l
 order by l.id_libro asc;
 
 
-select * from v_lista_libros;
+
 
 /*VISTA  LISTA AUTORES*/
 CREATE OR REPLACE VIEW v_lista_autores as 
@@ -147,7 +148,7 @@ select a.id_autor,
 from oina_autor a
 order by a.id_autor asc;
 
-select * from v_lista_autores
+
 
 /*VISTA LISTA DE CATEGORIAS*/
 CREATE OR REPLACE VIEW v_lista_categorias as
@@ -156,7 +157,7 @@ select c.id_categoria,
 from oina_categoria c
 order by c.id_categoria asc;
 
-select * from v_lista_categorias;
+
 
 /*FUNCION TOTAL LIBROS POR AUTOR*/
 CREATE OR REPLACE FUNCTION libros_autor(autor in number)
