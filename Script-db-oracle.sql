@@ -1,4 +1,5 @@
-/**descomentar si se borraran tablas para pruebas**/
+/**comentar si es la primera vez que corres el script, 
+asegurate de no tener ninguna tabla en la base da datos a usar**/
 DROP TABLE oina_prestamo;
 
 DROP TABLE oina_usuario;
@@ -8,8 +9,8 @@ DROP TABLE oina_categoria;
 DROP TABLE oina_datos;
 DROP TABLE oina_logs;
 
-drop table oina_libro_registro;
-drop table oina_modificacion;
+drop table oina_libros_borrados;
+drop table oina_libros_modificados;
 
 
 --creación de la tabla usuario
