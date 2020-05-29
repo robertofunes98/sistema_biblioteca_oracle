@@ -8,6 +8,9 @@ DROP TABLE oina_categoria;
 DROP TABLE oina_datos;
 DROP TABLE oina_logs;
 
+drop table oina_libro_registro;
+drop table oina_modificacion;
+
 
 --creación de la tabla usuario
 CREATE TABLE oina_usuario(
@@ -89,6 +92,9 @@ insert into oina_usuario values('admin', 'NFZDYXgzUTMvdnBkbnF6QWVtd1hRdz09OjoAAA
 
 insert into oina_datos values(null,'precio en euros',null);
 insert into oina_datos values(null,'precio en dolares',null);
+insert into oina_datos values(null,'cantidad total de libros',null);
+insert into oina_datos values(null,'cantidad total de autores',null);
+insert into oina_datos values(null,'promedio libros por autor',null);
 
 insert into oina_autor values(null,'Platón');
 insert into oina_autor values(null,'Shakespeare');
@@ -138,7 +144,7 @@ BEGIN
     oina_proc_check_disp();
 END;
 /
-/*VISTA LISTADO DE LIBROS*/
+/*VISTA LISTADO DE LIBROS ----- no se usara*/
 CREATE OR REPLACE VIEW v_lista_libros as
 select l.id_libro, 
        l.nombre,
@@ -167,7 +173,7 @@ order by c.id_categoria asc;
 
 
 /*FUNCION TOTAL LIBROS POR AUTOR*/
-CREATE OR REPLACE FUNCTION libros_autor(autor in number)
+CREATE OR REPLACE FUNCTION oina_funct_libros_autor(autor in number)
 RETURN NUMBER
 IS libros NUMBER;
 BEGIN
@@ -178,8 +184,9 @@ BEGIN
   RETURN (libros);
 END;
 /
+
 /*FUNCION TOTAL PRECIO CONJUNTO DE LIBROS*/
-CREATE OR REPLACE FUNCTION f_mayor_precio 
+CREATE OR REPLACE FUNCTION oina_func_mayor_precio 
 RETURN NUMBER
 IS mayor_precio NUMBER;
 BEGIN   
@@ -188,6 +195,34 @@ BEGIN
     where rownum = 1;
     RETURN (mayor_precio);
 END;
+/
+
+--funcion que se encarga de crear nuevos usarios revisando que este no exista en la base de datos
+create or replace function oina_func_crearNuevoUsuario(username in VARCHAR2, password in VARCHAR2, user_type in number, user_thats_create in varchar2) 
+return number
+is total number;
+begin
+    select count(*) into total from oina_usuario where oina_usuario.nombre = username;
+    
+    if total > 0 then
+        raise_application_error( -20001, 'el usuario ya existe en la base de datos');
+        dbms_output.put_line('el usuario ya existe en la base de datos');
+    else
+        insert into oina_usuario values(username, password, user_type);
+        
+        insert into oina_logs values(null, 'usuario nuevo creado', SYSDATE, user_thats_create);
+    end if;
+    
+    COMMIT;
+
+    RETURN 1;
+exception
+    WHEN OTHERS THEN
+    dbms_output.put_line('Error en la transaccion:' || SQLERRM);
+    dbms_output.put_line('Se deshacen las modificaciones');
+    ROLLBACK;
+    RETURN 0;
+end;
 /
 /*Triggers********************/
 
@@ -293,22 +328,23 @@ exception
 end;
 /
 
---este se encarga de crear nuevos usarios revisando que este no exista en la base de datos
-create or replace procedure oina_proc_crearNuevoUsuario(username in VARCHAR2, password in VARCHAR2, user_type in number, user_thats_create in varchar2) 
+--este se encarga de actualizar los datos de la DB, especificamente el total de libros, el total de autores
+--, el promedio de libros por autor. Estos se guardan en un tabla para su consulta rapida, evitando hacer 
+--los procesois cada vez que se necesten saber
+create or replace procedure oina_proc_actualizarDatosLibros
 as
-total number(10);
+total_libros number;
+total_autores number;
 begin
-    select count(*) into total from oina_usuario where oina_usuario.nombre = username;
-    
-    if total > 0 then
-        raise_application_error( -20001, 'el usuario ya existe en la base de datos');
-        dbms_output.put_line('el usuario ya existe en la base de datos');
-    else
-        insert into oina_usuario values(username, password, user_type);
-        
-        insert into oina_logs values(null, 'usuario nuevo creado', SYSDATE, user_thats_create);
-    end if;
-    
+    select sum(l.cantidad) into total_libros from oina_libro l;
+
+    select count(a.id_autor) into total_autores from oina_autor a;
+
+    update oina_datos set valor = total_libros where id_datos = 3;
+    update oina_datos set valor = total_autores where id_datos = 4;
+
+    update oina_datos set valor = (total_libros/total_autores) where id_datos = 5;
+
     COMMIT;
 exception
     WHEN OTHERS THEN
