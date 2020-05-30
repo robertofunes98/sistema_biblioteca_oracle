@@ -139,6 +139,7 @@ public class Logeo extends javax.swing.JFrame {
 
         tfUsuario.setBackground(new java.awt.Color(233, 242, 241));
         tfUsuario.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tfUsuario.setText("admin");
         tfUsuario.setBorder(null);
         tfUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +150,7 @@ public class Logeo extends javax.swing.JFrame {
 
         ptfClave.setBackground(new java.awt.Color(233, 242, 241));
         ptfClave.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        ptfClave.setText("admin");
         ptfClave.setBorder(null);
         ptfClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -299,7 +301,7 @@ public class Logeo extends javax.swing.JFrame {
                 {
                     if((new String(ptfClave.getPassword())).equals(Encriptacion.decrypt(alResultados.get(0).get(1))))
                     {
-                        Variables.user=new UserModel(alResultados.get(0).get(0),Integer.parseInt(alResultados.get(0).get(2)));
+                        Variables.user=new UserModel(alResultados.get(0).get(0),Integer.parseInt(alResultados.get(0).get(4)));
                         new FormularioPrincipal().setVisible(true);
                         this.dispose();
                     }

@@ -11,12 +11,19 @@ import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -45,33 +52,16 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
             JOptionPane.showInternalMessageDialog(rootPane, "Error en la conexion a la base de datos. Contacte a su administrador", "Error",JOptionPane.ERROR_MESSAGE);
         }
         
-        if(Variables.user.tipoUsuario==1)
-        {
-            modeloLibros=(DefaultTableModel) tblLibros.getModel();
-            
-            modeloLibros.addColumn("Precio");
-            
-            modeloLibros.addColumn("Precio total");
-        
-            tblLibros.getColumnModel().getColumn(0).setPreferredWidth(65);
-            tblLibros.getColumnModel().getColumn(1).setPreferredWidth(270);
-            tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
-            tblLibros.getColumnModel().getColumn(3).setPreferredWidth(75);
-            tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
-            
-            tblLibros.getColumnModel().getColumn(5).setPreferredWidth(55);
-            tblLibros.getColumnModel().getColumn(5).setPreferredWidth(55);
-        }
-        else
-        {
-            modeloLibros=(DefaultTableModel) tblLibros.getModel();
-        
-            tblLibros.getColumnModel().getColumn(0).setPreferredWidth(65);
-            tblLibros.getColumnModel().getColumn(1).setPreferredWidth(415);
-            tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
-            tblLibros.getColumnModel().getColumn(3).setPreferredWidth(75);
-            tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
-        }
+     
+        modeloLibros=(DefaultTableModel) tblLibros.getModel();
+
+        tblLibros.getColumnModel().getColumn(0).setPreferredWidth(55);
+        tblLibros.getColumnModel().getColumn(1).setPreferredWidth(240);
+        tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
+        tblLibros.getColumnModel().getColumn(3).setPreferredWidth(90);
+        tblLibros.getColumnModel().getColumn(4).setPreferredWidth(90);
+        tblLibros.getColumnModel().getColumn(5).setPreferredWidth(90);
+        tblLibros.getColumnModel().getColumn(6).setPreferredWidth(60);
         
         
         //TODO: temp
@@ -83,8 +73,28 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
         if(Variables.user.tipoUsuario==0)
         {
             btnAbrirDialogoImpresion.setVisible(false);
-            btnModificarLibro.setVisible(false);
+            btnModificarPrestamo.setVisible(false);
         }
+        
+        ((JTextField)dcBuscador.getDateEditor()).setEditable(false);
+        
+        dcBuscador.getDateEditor().addPropertyChangeListener(
+            new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                if ("date".equals(e.getPropertyName())) 
+                {
+                    System.out.println(e.getPropertyName()
+                        + ": " + (Date) e.getNewValue());
+                    
+                    SimpleDateFormat parser=new SimpleDateFormat("yyyy-MM-dd");
+                    
+                    System.out.println(parser.format(e.getNewValue()));
+                    
+                    buscarPor(tipoBusqueda, parser.format(e.getNewValue()));
+                }
+            }
+        });
     }
 
     /**
@@ -96,7 +106,7 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnModificarLibro = new javax.swing.JButton();
+        btnModificarPrestamo = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -107,17 +117,17 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         tfBuscador = new javax.swing.JTextField();
         cbBuscarPor = new javax.swing.JComboBox<>();
-        cbBuscador = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         cbOrdenarPor = new javax.swing.JComboBox<>();
+        dcBuscador = new com.toedter.calendar.JDateChooser();
         btnAbrirDialogoImpresion = new javax.swing.JButton();
 
-        btnModificarLibro.setBackground(new java.awt.Color(255, 255, 255));
-        btnModificarLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
-        btnModificarLibro.setText("Modificar prestamo");
-        btnModificarLibro.addActionListener(new java.awt.event.ActionListener() {
+        btnModificarPrestamo.setBackground(new java.awt.Color(255, 255, 255));
+        btnModificarPrestamo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
+        btnModificarPrestamo.setText("Marcar como devuelto");
+        btnModificarPrestamo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarLibroActionPerformed(evt);
+                btnModificarPrestamoActionPerformed(evt);
             }
         });
 
@@ -167,11 +177,11 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID libro", "Nombre", "Autor", "Categoria", "Cantidad"
+                "ID prestamo", "Prestamista", "Libro", "Fecha prestado", "Fecha esperada de devolucion", "Fecha de devolucion", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -207,16 +217,10 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
             }
         });
 
-        cbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No buscar", "id libro", "nombre", "autor", "categoria" }));
+        cbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No buscar", "Prestamista", "Libro", "Fecha de prestamo", "Fecha estimada de devolución", "Fecha real de devolución" }));
         cbBuscarPor.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbBuscarPorItemStateChanged(evt);
-            }
-        });
-
-        cbBuscador.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbBuscadorItemStateChanged(evt);
             }
         });
 
@@ -225,7 +229,7 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ordenar_32_32.png"))); // NOI18N
         jLabel5.setText("Ordenar por:");
 
-        cbOrdenarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No ordenar", "id libro", "nombre", "autor", "categoria", "precio" }));
+        cbOrdenarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No ordenar", "Prestamista", "Libro", "Fecha de prestamo", "Fecha estimada de devolución", "Fecha real de devolucion" }));
         cbOrdenarPor.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbOrdenarPorItemStateChanged(evt);
@@ -240,17 +244,17 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(cbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(tfBuscador)
-                        .addComponent(cbBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(cbOrdenarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbOrdenarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(dcBuscador, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(cbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfBuscador, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -263,8 +267,8 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(cbBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(dcBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cbOrdenarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -290,7 +294,7 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnModificarLibro)
+                        .addComponent(btnModificarPrestamo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAbrirDialogoImpresion))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -306,7 +310,7 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnModificarLibro)
+                    .addComponent(btnModificarPrestamo)
                     .addComponent(btnAbrirDialogoImpresion))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -337,14 +341,12 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
                     break;
                 case 3:
                     ocultarBuscadores();
-                    cbBuscador.setVisible(true);
-                    cargarAutores();
+                    dcBuscador.setVisible(true);
                     tipoBusqueda=3;
                     break;
                 case 4:
                     ocultarBuscadores();
-                    cbBuscador.setVisible(true);
-                    cargarCategorias();
+                    dcBuscador.setVisible(true);
                     tipoBusqueda=4;
                     break;
             }
@@ -359,32 +361,8 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
 
     private void tfBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscadorKeyReleased
         // TODO add your handling code here:
-        switch(tipoBusqueda)
-        {
-            case 1:
-                buscarPorId(tfBuscador.getText());
-                break;
-            case 2:
-                buscarPorNombre(tfBuscador.getText());
-                break;
-        }
+        buscarPor(tipoBusqueda, tfBuscador.getText());
     }//GEN-LAST:event_tfBuscadorKeyReleased
-
-    private void cbBuscadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbBuscadorItemStateChanged
-        // TODO add your handling code here:
-        if(evt.getStateChange() ==  ItemEvent.SELECTED)
-        {
-            switch(tipoBusqueda)
-            {
-                case 3:
-                    buscarPorAutor(Integer.parseInt(alAutores.get(cbBuscador.getSelectedIndex()).get(0)));
-                    break;
-                case 4:
-                    buscarPorCategoria(Integer.parseInt(alCategorias.get(cbBuscador.getSelectedIndex()).get(0)));
-            }
-            
-        }
-    }//GEN-LAST:event_cbBuscadorItemStateChanged
 
     private void tblLibrosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblLibrosFocusLost
         // TODO add your handling code he
@@ -394,27 +372,23 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tblLibrosMouseClicked
 
-    private void btnModificarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibroActionPerformed
+    private void btnModificarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarPrestamoActionPerformed
         // TODO add your handling code here:
         if (tblLibros.getSelectedRows().length > 0) {
-            ModificarLibroDialog jDialog = new ModificarLibroDialog(FormularioPrincipal.contex, true, modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0).toString(),
-                    modeloLibros.getValueAt(tblLibros.getSelectedRow(), 1).toString(),
-                    Integer.parseInt(modeloLibros.getValueAt(tblLibros.getSelectedRow(), 4).toString()),
-                    alLibros.get(tblLibros.getSelectedRow()).get(5), alLibros.get(tblLibros.getSelectedRow()).get(6), 
-                    Double.parseDouble(alLibros.get(tblLibros.getSelectedRow()).get(7)));
-            jDialog.setLocationRelativeTo(this);
-            jDialog.setVisible(true);
-
-            jDialog.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    cargarTabla();
+            int dialogResult = JOptionPane.showConfirmDialog (null, "¿Desea marcar como devuelto este libro? No podra volverlo a activar","Alerta",JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                try {
+                    conexion.ejecutarComando("update oina_prestamo set estado = 'inactivo' where id_prestamo = "
+                            + modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0));
+                } catch (SQLException ex) {
+                   JOptionPane.showMessageDialog(rootPane, "error: " + ex);
                 }
-            });
+                cargarTabla();
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "No se ha seleccionado ningún registro", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_btnModificarLibroActionPerformed
+    }//GEN-LAST:event_btnModificarPrestamoActionPerformed
 
     private void btnAbrirDialogoImpresionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirDialogoImpresionActionPerformed
         // TODO add your handling code here:
@@ -436,10 +410,10 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbrirDialogoImpresion;
-    private javax.swing.JButton btnModificarLibro;
-    private javax.swing.JComboBox<String> cbBuscador;
+    private javax.swing.JButton btnModificarPrestamo;
     private javax.swing.JComboBox<String> cbBuscarPor;
     private javax.swing.JComboBox<String> cbOrdenarPor;
+    private com.toedter.calendar.JDateChooser dcBuscador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -455,16 +429,19 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
     private void cargarTabla() {
         limpiarTabla();
         try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as 'Precio total' from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on categoria.id_categoria = libro.id_categoria");
+            ResultSet rsResultado=conexion.ejecutar(
+                    "select p.id_prestamo, (u.nombres || ' ' || u.apellidos) as prestamista, l.nombre, TO_CHAR(p.fecha_prestamo, 'yyyy-mm-dd'), TO_CHAR(p.fecha_devolucion_estimada, 'yyyy-mm-dd'), TO_CHAR(p.fecha_devolucion_real, 'yyyy-mm-dd'), p.estado" +
+                    " from oina_prestamo p" +
+                    " inner join oina_usuario u" +
+                    " on u.nombre = p.id_usuario" +
+                    " inner join oina_libro l" +
+                    " on l.id_libro = p.id_libro");
 
             alLibros=conexion.convertirRsToArrayList(rsResultado);
 
             for(LinkedList<String> aux : alLibros)
             {
-                if(Variables.user.tipoUsuario==1)
-                    modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4),"$"+aux.get(7),"$"+aux.get(8)});
-                else
-                    modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
+                modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4),aux.get(5),aux.get(6)});
             }
         }
         catch(SQLException e)
@@ -475,30 +452,38 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
     
     private void cargarTabla(int tipoOrden) {
         limpiarTabla();
-        String sql="select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
-                        + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as 'Precio total' from libro inner join autor on autor.id_autor = libro.id_autor "
-                        + "INNER JOIN categoria on categoria.id_categoria = libro.id_categoria ";
+        String sql="select p.id_prestamo, (u.nombres || ' ' || u.apellidos) as prestamista, " +
+                    " l.nombre, TO_CHAR(p.fecha_prestamo, 'yyyy-mm-dd') as fecha_prestamo, TO_CHAR(p.fecha_devolucion_estimada, 'yyyy-mm-dd') as fecha_devolucion_estimada,"+
+                    " TO_CHAR(p.fecha_devolucion_real, 'yyyy-mm-dd') as fecha_devolucion_real, p.estado" +
+                    " from oina_prestamo p" +
+                    " inner join oina_usuario u" +
+                    " on u.nombre = p.id_usuario" +
+                    " inner join oina_libro l" +
+                    " on l.id_libro = p.id_libro";
         
         switch(tipoOrden)
         {
             case 1:
-                sql+="ORDER BY libro.id_libro ASC";
+                sql+=" ORDER BY p.id_prestamo ASC";
                 break;
                 
             case 2:
-                sql+="ORDER BY libro.nombre ASC";
+                sql+=" ORDER BY prestamista ASC";
                 break;
                 
             case 3:
-                sql+="ORDER BY autor.nombre ASC";
+                sql+=" ORDER BY l.nombre ASC";
                 break;
                 
             case 4:
-                sql+="ORDER BY categoria.nombre ASC";
+                sql+=" ORDER BY fecha_prestamo ASC";
                 break;
                 
             case 5:
-                sql+="ORDER BY libro.precio ASC";
+                sql+=" ORDER BY fecha_devolucion_estimada ASC";
+                break;
+            case 6:
+                sql+=" ORDER BY fecha_devolucion_real ASC";
                 break;
         }
         
@@ -509,10 +494,7 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
 
             for(LinkedList<String> aux : alLibros)
             {
-                if(Variables.user.tipoUsuario==1)
-                    modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4),"$"+aux.get(7)});
-                else
-                    modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
+                modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4),aux.get(5),aux.get(6)});
             }
         }
         catch(SQLException e)
@@ -523,24 +505,52 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
 
     private void ocultarBuscadores() {
         tfBuscador.setVisible(false);
-        cbBuscador.setVisible(false);
+        dcBuscador.setVisible(false);
     }
 
     
-
-    private void buscarPorNombre(String nombre) {
+    private void buscarPor(int tipoBusqueda, String parametro) {
+        limpiarTabla();
+        String sql="select p.id_prestamo, (u.nombres || ' ' || u.apellidos) as prestamista, " +
+                    " l.nombre, TO_CHAR(p.fecha_prestamo, 'yyyy-mm-dd') as fecha_prestamo, TO_CHAR(p.fecha_devolucion_estimada, 'yyyy-mm-dd') as fecha_devolucion_estimada,"+
+                    " TO_CHAR(p.fecha_devolucion_real, 'yyyy-mm-dd') as fecha_devolucion_real, p.estado" +
+                    " from oina_prestamo p" +
+                    " inner join oina_usuario u" +
+                    " on u.nombre = p.id_usuario" +
+                    " inner join oina_libro l" +
+                    " on l.id_libro = p.id_libro";
+        
+        switch(tipoBusqueda)
+        {
+            case 1:
+                sql += " where (u.nombres || ' ' || u.apellidos) LIKE '%"+parametro.toLowerCase()+"%'";
+                break;
+                
+            case 2:
+                sql += " where l.nombre LIKE '%"+parametro.toLowerCase()+"%'";
+                break;
+                
+            case 3:
+                sql += " where p.fecha_prestamo = TO_DATE('"+parametro.toLowerCase()+"', 'YYYY-MM-DD')";
+                break;
+                
+            case 4:
+                sql += " where p.fecha_devolucion_estimada = TO_DATE('"+parametro.toLowerCase()+"', 'YYYY-MM-DD')";
+                break;
+                
+            case 5:
+                sql += " where p.fecha_devolucion_real = TO_DATE('"+parametro.toLowerCase()+"', 'YYYY-MM-DD')";
+                break;
+        }
+        
         try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
-                    + "from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where libro.nombre LIKE '%"+nombre+"%'");
+            ResultSet rsResultado=conexion.ejecutar(sql);
 
-            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
-            
-            limpiarTabla();
+            alLibros=conexion.convertirRsToArrayList(rsResultado);
 
-            for(LinkedList<String> aux : alResultados)
+            for(LinkedList<String> aux : alLibros)
             {
-                modeloLibros.addRow(aux.toArray());
+                modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4),aux.get(5),aux.get(6)});
             }
         }
         catch(SQLException e)
@@ -548,111 +558,10 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "error: "+e);
         }
     }
+    
 
     private void limpiarTabla() {
         modeloLibros.setRowCount(0);
     }
 
-    private void buscarPorId(String idLibro) {
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
-                    + "from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where libro.id_libro LIKE '"+idLibro+"%'");
-
-            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
-            
-            limpiarTabla();
-
-            for(LinkedList<String> aux : alResultados)
-            {
-                modeloLibros.addRow(aux.toArray());
-            }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
-        }
-    }
-
-    private void cargarAutores() {
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select * from autor ORDER BY nombre ASC");
-
-            alAutores=conexion.convertirRsToArrayList(rsResultado);
-            
-            cbBuscador.removeAllItems();
-
-            for(LinkedList<String> aux : alAutores)
-            {
-                cbBuscador.addItem(aux.get(1));
-            }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
-        }
-    }
-
-    private void buscarPorAutor(int idAutor) {
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
-                    + "from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where libro.id_autor ="+idAutor);
-
-            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
-            
-            limpiarTabla();
-
-            for(LinkedList<String> aux : alResultados)
-            {
-                modeloLibros.addRow(aux.toArray());
-            }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
-        }
-    }
-
-    private void cargarCategorias() {
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select * from categoria ORDER BY nombre ASC");
-
-            alCategorias=conexion.convertirRsToArrayList(rsResultado);
-            
-            cbBuscador.removeAllItems();
-
-            for(LinkedList<String> aux : alCategorias)
-            {
-                cbBuscador.addItem(aux.get(1));
-            }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
-        }
-    }
-
-    private void buscarPorCategoria(int idcategoria) {
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
-                    + "from libro inner join autor on autor.id_autor = libro.id_autor INNER JOIN categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where libro.id_categoria ="+idcategoria);
-
-            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
-            
-            limpiarTabla();
-
-            for(LinkedList<String> aux : alResultados)
-            {
-                modeloLibros.addRow(aux.toArray());
-            }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
-        }
-    }
-
-    
 }
