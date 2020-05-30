@@ -378,7 +378,11 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
             int dialogResult = JOptionPane.showConfirmDialog (null, "¿Desea marcar como devuelto este libro? No podra volverlo a activar","Alerta",JOptionPane.YES_NO_OPTION);
             if(dialogResult == JOptionPane.YES_OPTION){
                 try {
-                    conexion.ejecutarComando("update oina_prestamo set estado = 'inactivo' where id_prestamo = "
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+                    Date date = new Date();  
+                    System.out.println(formatter.format(date));  
+    
+                    conexion.ejecutarComando("update oina_prestamo set estado = 'inactivo', fecha_devolucion_real = TO_DATE('"+formatter.format(date)+"', 'YYYY-MM-DD') where id_prestamo = "
                             + modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0));
                 } catch (SQLException ex) {
                    JOptionPane.showMessageDialog(rootPane, "error: " + ex);
