@@ -375,19 +375,25 @@ public class ListadoPrestamos extends javax.swing.JInternalFrame {
     private void btnModificarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarPrestamoActionPerformed
         // TODO add your handling code here:
         if (tblLibros.getSelectedRows().length > 0) {
-            int dialogResult = JOptionPane.showConfirmDialog (null, "¿Desea marcar como devuelto este libro? No podra volverlo a activar","Alerta",JOptionPane.YES_NO_OPTION);
-            if(dialogResult == JOptionPane.YES_OPTION){
-                try {
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
-                    Date date = new Date();  
-                    System.out.println(formatter.format(date));  
-    
-                    conexion.ejecutarComando("update oina_prestamo set estado = 'inactivo', fecha_devolucion_real = TO_DATE('"+formatter.format(date)+"', 'YYYY-MM-DD') where id_prestamo = "
-                            + modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0));
-                } catch (SQLException ex) {
-                   JOptionPane.showMessageDialog(rootPane, "error: " + ex);
+            
+            if("inactivo".equals(((String) modeloLibros.getValueAt(tblLibros.getSelectedRow(), 6)).toLowerCase()))
+                JOptionPane.showMessageDialog(rootPane, "Este prestamo ya esta inactivo", "Error", JOptionPane.ERROR_MESSAGE);
+            else
+            {
+                int dialogResult = JOptionPane.showConfirmDialog (null, "¿Desea marcar como devuelto este libro? No podra volverlo a activar","Alerta",JOptionPane.YES_NO_OPTION);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    try {
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+                        Date date = new Date();  
+                        System.out.println(formatter.format(date));  
+
+                        conexion.ejecutarComando("update oina_prestamo set estado = 'inactivo', fecha_devolucion_real = TO_DATE('"+formatter.format(date)+"', 'YYYY-MM-DD') where id_prestamo = "
+                                + modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0));
+                    } catch (SQLException ex) {
+                       JOptionPane.showMessageDialog(rootPane, "error: " + ex);
+                    }
+                    cargarTabla();
                 }
-                cargarTabla();
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "No se ha seleccionado ningún registro", "Advertencia", JOptionPane.WARNING_MESSAGE);
