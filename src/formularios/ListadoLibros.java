@@ -19,69 +19,62 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author funes
  */
 public class ListadoLibros extends javax.swing.JInternalFrame {
-    
+
     ConexionDB conexion;
     DefaultTableModel modeloLibros;
     int tipoBusqueda = 0;//0=no buscar, 1=por id, 2=por nombre, 3=por autor, 4=por categoria
     LinkedList<LinkedList<String>> alAutores, alCategorias, alLibros;
-
 
     /**
      * Creates new form ListadoLibros
      */
     public ListadoLibros() {
         initComponents();
-        
-        try{
-            conexion=new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
+
+        try {
+            conexion = new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
+            JOptionPane.showInternalMessageDialog(rootPane, "Error en la conexion a la base de datos. Contacte a su administrador", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e)
-        {
-            JOptionPane.showInternalMessageDialog(rootPane, "Error en la conexion a la base de datos. Contacte a su administrador", "Error",JOptionPane.ERROR_MESSAGE);
-        }
-        
-        if(Variables.user.tipoUsuario==1)
-        {
-            modeloLibros=(DefaultTableModel) tblLibros.getModel();
-            
+
+        if (Variables.user.tipoUsuario == 1) {
+            modeloLibros = (DefaultTableModel) tblLibros.getModel();
+
             modeloLibros.addColumn("Precio");
-            
+
             modeloLibros.addColumn("Precio total");
-        
+
             tblLibros.getColumnModel().getColumn(0).setPreferredWidth(65);
             tblLibros.getColumnModel().getColumn(1).setPreferredWidth(270);
             tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
             tblLibros.getColumnModel().getColumn(3).setPreferredWidth(75);
             tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
-            
+
             tblLibros.getColumnModel().getColumn(5).setPreferredWidth(55);
             tblLibros.getColumnModel().getColumn(5).setPreferredWidth(55);
-        }
-        else
-        {
-            modeloLibros=(DefaultTableModel) tblLibros.getModel();
-        
+        } else {
+            modeloLibros = (DefaultTableModel) tblLibros.getModel();
+
             tblLibros.getColumnModel().getColumn(0).setPreferredWidth(65);
             tblLibros.getColumnModel().getColumn(1).setPreferredWidth(415);
             tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
             tblLibros.getColumnModel().getColumn(3).setPreferredWidth(75);
             tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
         }
-        
-        
+
         //TODO: temp
         cargarTabla();
         //TODO: temp
         ocultarBuscadores();
-        
+
         //ocultando objetos a usuarios
-        if(Variables.user.tipoUsuario==0)
-        {
+        if (Variables.user.tipoUsuario == 0) {
             btnAbrirDialogoImpresion.setVisible(false);
             btnEliminarLibro.setVisible(false);
             btnModificarLibro.setVisible(false);
@@ -114,6 +107,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         cbOrdenarPor = new javax.swing.JComboBox<>();
         btnAbrirDialogoImpresion = new javax.swing.JButton();
+        btnModificarLibro1 = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -308,6 +302,18 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModificarLibro1.setBackground(new java.awt.Color(52, 128, 118));
+        btnModificarLibro1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnModificarLibro1.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificarLibro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
+        btnModificarLibro1.setText("Actualizar Valor de  (€) ");
+        btnModificarLibro1.setBorder(null);
+        btnModificarLibro1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarLibro1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -321,7 +327,9 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                         .addComponent(btnEliminarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(btnModificarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(668, 668, 668)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnModificarLibro1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(474, 474, 474)
                         .addComponent(btnAbrirDialogoImpresion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -335,7 +343,9 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEliminarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModificarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnModificarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnModificarLibro1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnAbrirDialogoImpresion, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -347,36 +357,34 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void cbBuscarPorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbBuscarPorItemStateChanged
         // TODO add your handling code here:
-        if(evt.getStateChange() ==  ItemEvent.SELECTED)
-        {
-            switch(cbBuscarPor.getSelectedIndex())
-            {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            switch (cbBuscarPor.getSelectedIndex()) {
                 case 0:
                     cargarTabla();
                     ocultarBuscadores();
-                    tipoBusqueda=0;
+                    tipoBusqueda = 0;
                     break;
                 case 1:
                     ocultarBuscadores();
                     tfBuscador.setVisible(true);
-                    tipoBusqueda=1;
+                    tipoBusqueda = 1;
                     break;
                 case 2:
                     ocultarBuscadores();
                     tfBuscador.setVisible(true);
-                    tipoBusqueda=2;
+                    tipoBusqueda = 2;
                     break;
                 case 3:
                     ocultarBuscadores();
                     cbBuscador.setVisible(true);
                     cargarAutores();
-                    tipoBusqueda=3;
+                    tipoBusqueda = 3;
                     break;
                 case 4:
                     ocultarBuscadores();
                     cbBuscador.setVisible(true);
                     cargarCategorias();
-                    tipoBusqueda=4;
+                    tipoBusqueda = 4;
                     break;
             }
             SwingUtilities.updateComponentTreeUI(this);
@@ -385,13 +393,12 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void tfBuscadorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscadorKeyTyped
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_tfBuscadorKeyTyped
 
     private void tfBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscadorKeyReleased
         // TODO add your handling code here:
-        switch(tipoBusqueda)
-        {
+        switch (tipoBusqueda) {
             case 1:
                 buscarPorId(tfBuscador.getText());
                 break;
@@ -403,17 +410,15 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void cbBuscadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbBuscadorItemStateChanged
         // TODO add your handling code here:
-        if(evt.getStateChange() ==  ItemEvent.SELECTED)
-        {
-            switch(tipoBusqueda)
-            {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            switch (tipoBusqueda) {
                 case 3:
                     buscarPorAutor(Integer.parseInt(alAutores.get(cbBuscador.getSelectedIndex()).get(0)));
                     break;
                 case 4:
                     buscarPorCategoria(Integer.parseInt(alCategorias.get(cbBuscador.getSelectedIndex()).get(0)));
             }
-            
+
         }
     }//GEN-LAST:event_cbBuscadorItemStateChanged
 
@@ -427,7 +432,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void btnEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarLibroActionPerformed
         // TODO add your handling code here:
-        
+
         if (tblLibros.getSelectedRows().length > 0) {
             JPanel pnlAdvertencia = new JPanel();
 
@@ -450,7 +455,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 cargarTabla();
             }
 
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "No se ha seleccionado ningún registro", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
 
@@ -462,7 +467,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             ModificarLibroDialog jDialog = new ModificarLibroDialog(FormularioPrincipal.contex, true, modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0).toString(),
                     modeloLibros.getValueAt(tblLibros.getSelectedRow(), 1).toString(),
                     Integer.parseInt(modeloLibros.getValueAt(tblLibros.getSelectedRow(), 4).toString()),
-                    alLibros.get(tblLibros.getSelectedRow()).get(5), alLibros.get(tblLibros.getSelectedRow()).get(6), 
+                    alLibros.get(tblLibros.getSelectedRow()).get(5), alLibros.get(tblLibros.getSelectedRow()).get(6),
                     Double.parseDouble(alLibros.get(tblLibros.getSelectedRow()).get(7)));
             jDialog.setLocationRelativeTo(this);
             jDialog.setVisible(true);
@@ -480,7 +485,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void btnAbrirDialogoImpresionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirDialogoImpresionActionPerformed
         // TODO add your handling code here:
-        
+
         ImprimirReporteDialog jDialog = new ImprimirReporteDialog(FormularioPrincipal.contex, true);
         jDialog.setLocationRelativeTo(this);
         jDialog.setVisible(true);
@@ -489,17 +494,24 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void cbOrdenarPorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbOrdenarPorItemStateChanged
         // TODO add your handling code here:
-        if(evt.getStateChange() ==  ItemEvent.SELECTED)
-        {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
             cargarTabla(cbOrdenarPor.getSelectedIndex());
         }
     }//GEN-LAST:event_cbOrdenarPorItemStateChanged
+
+    private void btnModificarLibro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibro1ActionPerformed
+
+            ModificarValorEuro jDialog = new ModificarValorEuro();
+            jDialog.setLocationRelativeTo(this);
+            jDialog.setVisible(true);
+    }//GEN-LAST:event_btnModificarLibro1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbrirDialogoImpresion;
     private javax.swing.JButton btnEliminarLibro;
     private javax.swing.JButton btnModificarLibro;
+    private javax.swing.JButton btnModificarLibro1;
     private javax.swing.JComboBox<String> cbBuscador;
     private javax.swing.JComboBox<String> cbBuscarPor;
     private javax.swing.JComboBox<String> cbOrdenarPor;
@@ -518,70 +530,65 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void cargarTabla() {
         limpiarTabla();
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria");
+        try {
+            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria");
 
-            alLibros=conexion.convertirRsToArrayList(rsResultado);
+            alLibros = conexion.convertirRsToArrayList(rsResultado);
 
-            for(LinkedList<String> aux : alLibros)
-            {
-                if(Variables.user.tipoUsuario==1)
-                    modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4),"$"+aux.get(7),"$"+aux.get(8)});
-                else
-                    modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
+            for (LinkedList<String> aux : alLibros) {
+                if (Variables.user.tipoUsuario == 1) {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4), "$" + aux.get(7), "$" + aux.get(8)});
+                } else {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
+                }
             }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "error: " + e);
         }
     }
-    
+
     private void cargarTabla(int tipoOrden) {
         limpiarTabla();
-        String sql="select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
-                        + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor "
-                        + "INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria ";
-        
-        switch(tipoOrden)
-        {
+        String sql = "select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
+                + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor "
+                + "INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria ";
+
+        switch (tipoOrden) {
             case 1:
-                sql+="ORDER BY libro.id_libro ASC";
+                sql += "ORDER BY libro.id_libro ASC";
                 break;
-                
+
             case 2:
-                sql+="ORDER BY libro.nombre ASC";
+                sql += "ORDER BY libro.nombre ASC";
                 break;
-                
+
             case 3:
-                sql+="ORDER BY autor.nombre ASC";
+                sql += "ORDER BY autor.nombre ASC";
                 break;
-                
+
             case 4:
-                sql+="ORDER BY categoria.nombre ASC";
+                sql += "ORDER BY categoria.nombre ASC";
                 break;
-                
+
             case 5:
-                sql+="ORDER BY libro.precio ASC";
+                sql += "ORDER BY libro.precio ASC";
                 break;
         }
-        
-        try{
-            ResultSet rsResultado=conexion.ejecutar(sql);
 
-            alLibros=conexion.convertirRsToArrayList(rsResultado);
+        try {
+            ResultSet rsResultado = conexion.ejecutar(sql);
 
-            for(LinkedList<String> aux : alLibros)
-            {
-                if(Variables.user.tipoUsuario==1)
-                    modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4),"$"+aux.get(7)});
-                else
-                    modeloLibros.addRow(new String[] {aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
+            alLibros = conexion.convertirRsToArrayList(rsResultado);
+
+            for (LinkedList<String> aux : alLibros) {
+                if (Variables.user.tipoUsuario == 1) {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4), "$" + aux.get(7)});
+                } else {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
+                }
             }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "error: " + e);
         }
     }
 
@@ -590,26 +597,21 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         cbBuscador.setVisible(false);
     }
 
-    
-
     private void buscarPorNombre(String nombre) {
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+        try {
+            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where libro.nombre LIKE '%"+nombre+"%'");
+                    + "categoria.id_categoria = libro.id_categoria where libro.nombre LIKE '%" + nombre + "%'");
 
-            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
-            
+            LinkedList<LinkedList<String>> alResultados = conexion.convertirRsToArrayList(rsResultado);
+
             limpiarTabla();
 
-            for(LinkedList<String> aux : alResultados)
-            {
+            for (LinkedList<String> aux : alResultados) {
                 modeloLibros.addRow(aux.toArray());
             }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "error: " + e);
         }
     }
 
@@ -618,105 +620,89 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     }
 
     private void buscarPorId(String idLibro) {
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+        try {
+            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where libro.id_libro LIKE '"+idLibro+"%'");
+                    + "categoria.id_categoria = libro.id_categoria where libro.id_libro LIKE '" + idLibro + "%'");
 
-            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
-            
+            LinkedList<LinkedList<String>> alResultados = conexion.convertirRsToArrayList(rsResultado);
+
             limpiarTabla();
 
-            for(LinkedList<String> aux : alResultados)
-            {
+            for (LinkedList<String> aux : alResultados) {
                 modeloLibros.addRow(aux.toArray());
             }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "error: " + e);
         }
     }
 
     private void cargarAutores() {
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select * from oina_autor ORDER BY nombre ASC");
+        try {
+            ResultSet rsResultado = conexion.ejecutar("select * from oina_autor ORDER BY nombre ASC");
 
-            alAutores=conexion.convertirRsToArrayList(rsResultado);
-            
+            alAutores = conexion.convertirRsToArrayList(rsResultado);
+
             cbBuscador.removeAllItems();
 
-            for(LinkedList<String> aux : alAutores)
-            {
+            for (LinkedList<String> aux : alAutores) {
                 cbBuscador.addItem(aux.get(1));
             }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "error: " + e);
         }
     }
 
     private void buscarPorAutor(int idAutor) {
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+        try {
+            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where libro.id_autor ="+idAutor);
+                    + "categoria.id_categoria = libro.id_categoria where libro.id_autor =" + idAutor);
 
-            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
-            
+            LinkedList<LinkedList<String>> alResultados = conexion.convertirRsToArrayList(rsResultado);
+
             limpiarTabla();
 
-            for(LinkedList<String> aux : alResultados)
-            {
+            for (LinkedList<String> aux : alResultados) {
                 modeloLibros.addRow(aux.toArray());
             }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "error: " + e);
         }
     }
 
     private void cargarCategorias() {
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select * from oina_categoria ORDER BY nombre ASC");
+        try {
+            ResultSet rsResultado = conexion.ejecutar("select * from oina_categoria ORDER BY nombre ASC");
 
-            alCategorias=conexion.convertirRsToArrayList(rsResultado);
-            
+            alCategorias = conexion.convertirRsToArrayList(rsResultado);
+
             cbBuscador.removeAllItems();
 
-            for(LinkedList<String> aux : alCategorias)
-            {
+            for (LinkedList<String> aux : alCategorias) {
                 cbBuscador.addItem(aux.get(1));
             }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "error: " + e);
         }
     }
 
     private void buscarPorCategoria(int idcategoria) {
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+        try {
+            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where libro.id_categoria ="+idcategoria);
+                    + "categoria.id_categoria = libro.id_categoria where libro.id_categoria =" + idcategoria);
 
-            LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
-            
+            LinkedList<LinkedList<String>> alResultados = conexion.convertirRsToArrayList(rsResultado);
+
             limpiarTabla();
 
-            for(LinkedList<String> aux : alResultados)
-            {
+            for (LinkedList<String> aux : alResultados) {
                 modeloLibros.addRow(aux.toArray());
             }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "error: "+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "error: " + e);
         }
     }
 
-    
 }

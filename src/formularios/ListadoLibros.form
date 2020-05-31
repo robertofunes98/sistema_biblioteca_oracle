@@ -45,7 +45,9 @@
                           <Component id="btnEliminarLibro" min="-2" pref="125" max="-2" attributes="0"/>
                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                           <Component id="btnModificarLibro" min="-2" pref="136" max="-2" attributes="0"/>
-                          <EmptySpace min="668" pref="668" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnModificarLibro1" min="-2" pref="184" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="474" max="-2" attributes="0"/>
                           <Component id="btnAbrirDialogoImpresion" min="-2" pref="150" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -63,7 +65,10 @@
                   <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnEliminarLibro" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="btnModificarLibro" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnModificarLibro" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="btnModificarLibro1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      </Group>
                       <Component id="btnAbrirDialogoImpresion" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -433,6 +438,29 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAbrirDialogoImpresionActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnModificarLibro1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="76" green="80" red="34" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Century Gothic" size="12" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/modificar_32x32.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Actualizar Valor de  (&#x20ac;) "/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarLibro1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

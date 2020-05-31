@@ -7,6 +7,7 @@ package formularios;
 
 import core.ConexionDB;
 import core.Variables;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -21,35 +22,33 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
     String idLibro, nombreLibro, idAutor, idCategoria;
     Integer cantidadLibros;
     double precio;
-    
+
     ConexionDB conexion;
-    
+
     LinkedList<LinkedList<String>> alAutores, alCategorias;
-    
+
     /**
      * Creates new form Prueba
      */
     public ModificarLibroDialog(java.awt.Frame parent, boolean modal, String idLibroR, String nombreLibroR, int cantidadLibrosR, String idAutorR, String idCategoriaR, double precioR) {
         super(parent, modal);
         initComponents();
-        
+
         this.setTitle("Modificar Libro");
         this.setResizable(false);
-        
-        try{
-            conexion=new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
-        }
-        catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e)
-        {
+
+        try {
+            conexion = new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        idLibro=idLibroR;
-        nombreLibro=nombreLibroR;
-        idAutor=idAutorR;
-        idCategoria=idCategoriaR;
-        cantidadLibros=cantidadLibrosR;
-        precio=precioR;
-        
+        idLibro = idLibroR;
+        nombreLibro = nombreLibroR;
+        idAutor = idAutorR;
+        idCategoria = idCategoriaR;
+        cantidadLibros = cantidadLibrosR;
+        precio = precioR;
+
         cargarDatos();
     }
 
@@ -200,9 +199,9 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
                                         .addComponent(jLabel10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(spnPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(235, Short.MAX_VALUE))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
                         .addComponent(btnModificarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -226,9 +225,9 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnModificarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -247,25 +246,22 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
 
     private void btnModificarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibroActionPerformed
         // TODO add your handling code here:
-        try{
-            conexion.ejecutarComando("update oina_libro set id_libro = '"+tfIdLibro.getText()+"', nombre = '"+tfNombreLibro.getText()+"', cantidad='"
-                +spnCantidadLibros.getValue()+"', id_autor="+alAutores.get(cbAutor.getSelectedIndex()).get(0)+", id_categoria="
-                +alCategorias.get(cbCategoria.getSelectedIndex()).get(0)+", precio='"+spnPrecio.getValue()+"' where id_libro='"+idLibro+"'");
+        try {
+            conexion.ejecutarComando("update oina_libro set id_libro = '" + tfIdLibro.getText() + "', nombre = '" + tfNombreLibro.getText() + "', cantidad='"
+                    + spnCantidadLibros.getValue() + "', id_autor=" + alAutores.get(cbAutor.getSelectedIndex()).get(0) + ", id_categoria="
+                    + alCategorias.get(cbCategoria.getSelectedIndex()).get(0) + ", precio='" + spnPrecio.getValue() + "' where id_libro='" + idLibro + "'");
 
             JOptionPane.showMessageDialog(this, "Libro modificado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            
+
             this.dispose();
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(this, "error: "+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "error: " + e);
         }
     }//GEN-LAST:event_btnModificarLibroActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnModificarLibro;
@@ -290,49 +286,41 @@ public class ModificarLibroDialog extends javax.swing.JDialog {
         tfNombreLibro.setText(nombreLibro);
         spnCantidadLibros.setValue(cantidadLibros);
         spnPrecio.setValue(precio);
-        
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select * from oina_autor ORDER BY nombre ASC");
 
-            alAutores=conexion.convertirRsToArrayList(rsResultado);
-            
+        try {
+            ResultSet rsResultado = conexion.ejecutar("select * from oina_autor ORDER BY nombre ASC");
+
+            alAutores = conexion.convertirRsToArrayList(rsResultado);
+
             cbAutor.removeAllItems();
 
-            for(int i=0; i<alAutores.size(); i++)
-            {
+            for (int i = 0; i < alAutores.size(); i++) {
                 cbAutor.addItem(alAutores.get(i).get(1));
-                
-                if(alAutores.get(i).get(0).equals(idAutor))
-                {
+
+                if (alAutores.get(i).get(0).equals(idAutor)) {
                     cbAutor.setSelectedIndex(i);
                 }
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "error: " + e);
         }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(this, "error: "+e);
-        }
-        
-        try{
-            ResultSet rsResultado=conexion.ejecutar("select * from oina_categoria ORDER BY nombre ASC");
 
-            alCategorias=conexion.convertirRsToArrayList(rsResultado);
-            
+        try {
+            ResultSet rsResultado = conexion.ejecutar("select * from oina_categoria ORDER BY nombre ASC");
+
+            alCategorias = conexion.convertirRsToArrayList(rsResultado);
+
             cbCategoria.removeAllItems();
 
-            for(int i=0; i<alCategorias.size(); i++)
-            {
+            for (int i = 0; i < alCategorias.size(); i++) {
                 cbCategoria.addItem(alCategorias.get(i).get(1));
-                
-                if(alCategorias.get(i).get(0).equals(idCategoria))
-                {
+
+                if (alCategorias.get(i).get(0).equals(idCategoria)) {
                     cbCategoria.setSelectedIndex(i);
                 }
             }
-        }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(this, "error: "+e);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "error: " + e);
         }
     }
 }

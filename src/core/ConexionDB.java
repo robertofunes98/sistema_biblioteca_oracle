@@ -47,6 +47,10 @@ public class ConexionDB{
         return cantidadFilas;
     }
     
+    public Connection getConex() {
+        return conexion;
+    }
+    
     public void cerrarConexion() throws SQLException {
         this.conexion.close();
     }
