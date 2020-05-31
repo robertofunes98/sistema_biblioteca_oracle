@@ -14,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -87,6 +89,8 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         {
             btnPrestarLibro.setVisible(false);
         }
+        
+        ((JTextField) dcFechaDevolucion.getDateEditor()).setEditable(false);
     }
 
     /**
@@ -106,18 +110,17 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLibros = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         tfBuscador = new javax.swing.JTextField();
         cbBuscarPor = new javax.swing.JComboBox<>();
         cbBuscador = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         cbOrdenarPor = new javax.swing.JComboBox<>();
         btnPrestarLibro = new javax.swing.JButton();
-        txtfecha_es = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cmbuser = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        dcFechaDevolucion = new com.toedter.calendar.JDateChooser();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -198,11 +201,6 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 780, 280));
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 8)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(1, 64, 46));
-        jLabel2.setText("Formato de Fecha dd/MM/yyyy ");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, -1));
-
         tfBuscador.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tfBuscadorKeyReleased(evt);
@@ -256,7 +254,6 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btnPrestarLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 136, 37));
-        jPanel2.add(txtfecha_es, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 110, -1));
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(1, 64, 46));
@@ -269,12 +266,13 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         jLabel7.setText("Usuario:");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
 
-        jPanel2.add(cmbuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 110, -1));
+        jPanel2.add(cmbuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 130, -1));
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(1, 64, 46));
         jLabel8.setText("Fecha Devolución:");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
+        jPanel2.add(dcFechaDevolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 130, -1));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -394,11 +392,16 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (tblLibros.getSelectedRows().length > 0) {
          try {
-             String sql = "INSERT INTO OINA_PRESTAMO (id_usuario, fecha_prestamo, fecha_devolucion_estimada, id_libro) VALUES "
-                        + "('" + (String) cmbuser.getSelectedItem() + "', "+ "SYSDATE" +", '" + txtfecha_es.getText()+"', '"
-                        +(String) modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0) +"')";
+                SimpleDateFormat parser=new SimpleDateFormat("yyyy-MM-dd");
+                    
+                String sql = "INSERT INTO OINA_PRESTAMO "
+                     + "VALUES(null, SYSDATE, TO_DATE('" + parser.format(dcFechaDevolucion.getDate())+"', 'YYYY-MM-DD'), null, 'activo', '" 
+                     + (String) cmbuser.getSelectedItem() + "', '" +(String) modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0) +"')";
+                
+                JOptionPane.showMessageDialog(rootPane, sql, "Error",JOptionPane.ERROR_MESSAGE);
              
                 int filasAfectadas = conexion.ejecutarComando(sql);
+                
                 if (filasAfectadas > 0) {
                     JOptionPane.showMessageDialog(rootPane, "Prestamo Realizado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
 //                    cargarTabla();
@@ -407,7 +410,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
             } 
             catch (Exception ex) 
             {
-                JOptionPane.showMessageDialog(rootPane, "Ocurrio un error. Por favor tome en cuenta que 2 usuarios no pueden tener el mismo nombre. Si esto no resuelve su error contacte con su administrador", "Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Ocurrio un error:"+ex, "Error",JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(FormularioAgregarusuarios.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
@@ -422,8 +425,8 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbBuscarPor;
     private javax.swing.JComboBox<String> cbOrdenarPor;
     private javax.swing.JComboBox<String> cmbuser;
+    private com.toedter.calendar.JDateChooser dcFechaDevolucion;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -436,7 +439,6 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblLibros;
     private javax.swing.JTextField tfBuscador;
-    private javax.swing.JTextField txtfecha_es;
     // End of variables declaration//GEN-END:variables
 
     private void cargarTabla() {
@@ -643,7 +645,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
     
     private void cargarUsuarios() {
         try{
-            ResultSet rsResultado=conexion.ejecutar("select TIPO_USUARIO, NOMBRE from oina_usuario WHERE TIPO_USUARIO=2 ORDER BY nombre ASC");
+            ResultSet rsResultado=conexion.ejecutar("select TIPO_USUARIO, NOMBRE from oina_usuario ORDER BY nombre ASC");
 
             alUsuarios=conexion.convertirRsToArrayList(rsResultado);
             
