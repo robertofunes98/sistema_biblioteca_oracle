@@ -45,22 +45,22 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
         if (Variables.user.tipoUsuario == 1) {
             modeloLibros = (DefaultTableModel) tblLibros.getModel();
-
-            modeloLibros.addColumn("Precio");
-
-            modeloLibros.addColumn("Precio total");
-
-            tblLibros.getColumnModel().getColumn(0).setPreferredWidth(65);
-            tblLibros.getColumnModel().getColumn(1).setPreferredWidth(270);
-            tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
-            tblLibros.getColumnModel().getColumn(3).setPreferredWidth(75);
+            btnActualizarEuro.setVisible(true);
+            modeloLibros.addColumn("Precio $");
+            modeloLibros.addColumn("Precio $ total");
+            modeloLibros.addColumn("Precio €");
+            modeloLibros.addColumn("Precio € total");
+            tblLibros.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tblLibros.getColumnModel().getColumn(1).setPreferredWidth(205);
+            tblLibros.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tblLibros.getColumnModel().getColumn(3).setPreferredWidth(70);
             tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
-
-            tblLibros.getColumnModel().getColumn(5).setPreferredWidth(55);
-            tblLibros.getColumnModel().getColumn(5).setPreferredWidth(55);
+            tblLibros.getColumnModel().getColumn(5).setPreferredWidth(60);
+            tblLibros.getColumnModel().getColumn(6).setPreferredWidth(60);
+            tblLibros.getColumnModel().getColumn(7).setPreferredWidth(60);
         } else {
             modeloLibros = (DefaultTableModel) tblLibros.getModel();
-
+            btnActualizarEuro.setVisible(false);
             tblLibros.getColumnModel().getColumn(0).setPreferredWidth(65);
             tblLibros.getColumnModel().getColumn(1).setPreferredWidth(415);
             tblLibros.getColumnModel().getColumn(2).setPreferredWidth(163);
@@ -107,8 +107,25 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         cbOrdenarPor = new javax.swing.JComboBox<>();
         btnAbrirDialogoImpresion = new javax.swing.JButton();
-        btnModificarLibro1 = new javax.swing.JButton();
+        btnActualizarEuro = new javax.swing.JButton();
 
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -255,7 +272,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -267,13 +284,14 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(cbOrdenarPor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cbOrdenarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(cbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -285,8 +303,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cbOrdenarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(150, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnAbrirDialogoImpresion.setBackground(new java.awt.Color(52, 128, 118));
@@ -302,15 +319,15 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             }
         });
 
-        btnModificarLibro1.setBackground(new java.awt.Color(52, 128, 118));
-        btnModificarLibro1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
-        btnModificarLibro1.setForeground(new java.awt.Color(255, 255, 255));
-        btnModificarLibro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
-        btnModificarLibro1.setText("Actualizar Valor de  (€) ");
-        btnModificarLibro1.setBorder(null);
-        btnModificarLibro1.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarEuro.setBackground(new java.awt.Color(52, 128, 118));
+        btnActualizarEuro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnActualizarEuro.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizarEuro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
+        btnActualizarEuro.setText("Actualizar Valor de  (€) ");
+        btnActualizarEuro.setBorder(null);
+        btnActualizarEuro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarLibro1ActionPerformed(evt);
+                btnActualizarEuroActionPerformed(evt);
             }
         });
 
@@ -328,7 +345,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                         .addGap(6, 6, 6)
                         .addComponent(btnModificarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnModificarLibro1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnActualizarEuro, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(474, 474, 474)
                         .addComponent(btnAbrirDialogoImpresion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -345,12 +362,12 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
                     .addComponent(btnEliminarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnModificarLibro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnModificarLibro1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnActualizarEuro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnAbrirDialogoImpresion, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -5, -1, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -499,19 +516,30 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_cbOrdenarPorItemStateChanged
 
-    private void btnModificarLibro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarLibro1ActionPerformed
+    private void btnActualizarEuroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEuroActionPerformed
 
-            ModificarValorEuro jDialog = new ModificarValorEuro();
-            jDialog.setLocationRelativeTo(this);
-            jDialog.setVisible(true);
-    }//GEN-LAST:event_btnModificarLibro1ActionPerformed
+        ModificarValorEuro jDialog = new ModificarValorEuro();
+        jDialog.setLocationRelativeTo(this);
+        jDialog.setVisible(true);
+
+        jDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                cargarTabla();
+            }
+        });
+    }//GEN-LAST:event_btnActualizarEuroActionPerformed
+
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        cargarTabla();
+    }//GEN-LAST:event_formInternalFrameActivated
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAbrirDialogoImpresion;
+    private javax.swing.JButton btnActualizarEuro;
     private javax.swing.JButton btnEliminarLibro;
     private javax.swing.JButton btnModificarLibro;
-    private javax.swing.JButton btnModificarLibro1;
     private javax.swing.JComboBox<String> cbBuscador;
     private javax.swing.JComboBox<String> cbBuscarPor;
     private javax.swing.JComboBox<String> cbOrdenarPor;
@@ -531,13 +559,13 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     private void cargarTabla() {
         limpiarTabla();
         try {
-            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria");
+            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total, libro.PRECIO_EUROS, (libro.PRECIO_EUROS*libro.cantidad) as precio_total_euro from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria");
 
             alLibros = conexion.convertirRsToArrayList(rsResultado);
 
             for (LinkedList<String> aux : alLibros) {
                 if (Variables.user.tipoUsuario == 1) {
-                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4), "$" + aux.get(7), "$" + aux.get(8)});
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4), "$" + aux.get(7), "$" + aux.get(8) + aux.get(8), "€" + aux.get(9), "€" + aux.get(10)});
                 } else {
                     modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
                 }
@@ -550,7 +578,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     private void cargarTabla(int tipoOrden) {
         limpiarTabla();
         String sql = "select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
-                + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor "
+                + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total , libro.PRECIO_EUROS, (libro.PRECIO_EUROS*libro.cantidad) as precio_total_euro from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor "
                 + "INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria ";
 
         switch (tipoOrden) {
@@ -582,7 +610,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
             for (LinkedList<String> aux : alLibros) {
                 if (Variables.user.tipoUsuario == 1) {
-                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4), "$" + aux.get(7)});
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4), "$" + aux.get(7), "$" + aux.get(8), "€" + aux.get(9), "€" + aux.get(10)});
                 } else {
                     modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
                 }
@@ -599,7 +627,8 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void buscarPorNombre(String nombre) {
         try {
-            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
+                    + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total , libro.PRECIO_EUROS, (libro.PRECIO_EUROS*libro.cantidad) as precio_total_euro "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
                     + "categoria.id_categoria = libro.id_categoria where libro.nombre LIKE '%" + nombre + "%'");
 
@@ -608,7 +637,11 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             limpiarTabla();
 
             for (LinkedList<String> aux : alResultados) {
-                modeloLibros.addRow(aux.toArray());
+                if (Variables.user.tipoUsuario == 1) {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4), "$" + aux.get(7), "$" + aux.get(8), "€" + aux.get(9), "€" + aux.get(10)});
+                } else {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
+                }
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, "error: " + e);
@@ -621,7 +654,8 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void buscarPorId(String idLibro) {
         try {
-            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
+                    + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total , libro.PRECIO_EUROS, (libro.PRECIO_EUROS*libro.cantidad) as precio_total_euro "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
                     + "categoria.id_categoria = libro.id_categoria where libro.id_libro LIKE '" + idLibro + "%'");
 
@@ -630,7 +664,11 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             limpiarTabla();
 
             for (LinkedList<String> aux : alResultados) {
-                modeloLibros.addRow(aux.toArray());
+                if (Variables.user.tipoUsuario == 1) {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4), "$" + aux.get(7), "$" + aux.get(8), "€" + aux.get(9), "€" + aux.get(10)});
+                } else {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
+                }
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, "error: " + e);
@@ -655,7 +693,8 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void buscarPorAutor(int idAutor) {
         try {
-            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
+                    + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total , libro.PRECIO_EUROS, (libro.PRECIO_EUROS*libro.cantidad) as precio_total_euro "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
                     + "categoria.id_categoria = libro.id_categoria where libro.id_autor =" + idAutor);
 
@@ -664,7 +703,11 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             limpiarTabla();
 
             for (LinkedList<String> aux : alResultados) {
-                modeloLibros.addRow(aux.toArray());
+                if (Variables.user.tipoUsuario == 1) {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4), "$" + aux.get(7), "$" + aux.get(8), "€" + aux.get(9), "€" + aux.get(10)});
+                } else {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
+                }
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, "error: " + e);
@@ -689,7 +732,8 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
 
     private void buscarPorCategoria(int idcategoria) {
         try {
-            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
+            ResultSet rsResultado = conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
+                    + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total , libro.PRECIO_EUROS, (libro.PRECIO_EUROS*libro.cantidad) as precio_total_euro "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
                     + "categoria.id_categoria = libro.id_categoria where libro.id_categoria =" + idcategoria);
 
@@ -698,7 +742,11 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
             limpiarTabla();
 
             for (LinkedList<String> aux : alResultados) {
-                modeloLibros.addRow(aux.toArray());
+                if (Variables.user.tipoUsuario == 1) {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4), "$" + aux.get(7), "$" + aux.get(8), "€" + aux.get(9), "€" + aux.get(10)});
+                } else {
+                    modeloLibros.addRow(new String[]{aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4)});
+                }
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, "error: " + e);
