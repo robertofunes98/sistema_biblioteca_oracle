@@ -85,6 +85,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcAgregarusuarioActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opcMantenimientoLibros">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mantenimiento de libros"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcMantenimientoLibrosActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="opcConfiguracionAvanzada">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Configuraci&#xf3;n avanzada (Precauci&#xf3;n)"/>
