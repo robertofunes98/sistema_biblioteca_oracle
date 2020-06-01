@@ -14,7 +14,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -394,20 +396,18 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
          try {
                 SimpleDateFormat parser=new SimpleDateFormat("yyyy-MM-dd");
                     
-                String sql = "INSERT INTO OINA_PRESTAMO "
-                     + "VALUES(null, SYSDATE, TO_DATE('" + parser.format(dcFechaDevolucion.getDate())+"', 'YYYY-MM-DD'), null, 'activo', '" 
-                     + (String) cmbuser.getSelectedItem() + "', '" +(String) modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0) +"')";
+                String sql = "{? = call oina_func_registrarPrestamo (?,?,?)}";
                 
-                JOptionPane.showMessageDialog(rootPane, sql, "Error",JOptionPane.ERROR_MESSAGE);
-             
-                int filasAfectadas = conexion.ejecutarComando(sql);
+                ArrayList<String> alParametros =new ArrayList<>();
                 
-                if (filasAfectadas > 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Prestamo Realizado con exito", "Información", JOptionPane.INFORMATION_MESSAGE);
-//                    cargarTabla();
-                } else
-                    JOptionPane.showMessageDialog(rootPane, "Lo sentimos, ha ocurrido un error. Contacte con su administrador", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            } 
+                alParametros.add("" + parser.format(dcFechaDevolucion.getDate())+"");
+                alParametros.add("" + (String) cmbuser.getSelectedItem() + "");
+                alParametros.add("" +(String) modeloLibros.getValueAt(tblLibros.getSelectedRow(), 0) +"");
+               
+                String retorno = conexion.ejecutarFuncionOracle(sql, alParametros, Types.VARCHAR);
+                
+                JOptionPane.showMessageDialog(rootPane, retorno, "Info",JOptionPane.ERROR_MESSAGE);
+             } 
             catch (Exception ex) 
             {
                 JOptionPane.showMessageDialog(rootPane, "Ocurrio un error:"+ex, "Error",JOptionPane.ERROR_MESSAGE);

@@ -1,6 +1,7 @@
 package core;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 
@@ -45,6 +46,36 @@ public class ConexionDB{
         //Ejecuta el comando.
         int cantidadFilas=com.executeUpdate(comando);
         return cantidadFilas;
+    }
+    
+    private boolean isNumeric(String cadena){
+	try {
+		Integer.parseInt(cadena);
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+    }
+    
+    public String ejecutarFuncionOracle(String comando, ArrayList<String> alParametros, int typeReturn) throws SQLException {
+        CallableStatement cs = null;
+        
+        //Se realiza la llamada a la funcion de BBDD que retornará un String
+        cs = this.conexion.prepareCall(comando);
+
+        cs.registerOutParameter(1, typeReturn); 
+        
+        for(int i=0; i < alParametros.size(); i++)
+        {
+            if(isNumeric(alParametros.get(i)))
+                cs.setInt(i+2, Integer.parseInt(alParametros.get(i)));
+            else
+                cs.setString(i+2, alParametros.get(i));
+        }
+        
+        cs.execute(); 
+        //se recupera el resultado de la funcion pl/sql
+        return cs.getString(1);
     }
     
     public Connection getConex() {

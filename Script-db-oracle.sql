@@ -149,8 +149,10 @@ END;
 /*TRIGGER PARA INVOCARLO*/
 
 CREATE OR REPLACE TRIGGER oina_trigg_check_dispo AFTER INSERT ON oina_prestamo
+FOR EACH ROW
 BEGIN
-    oina_proc_check_disp();
+    UPDATE oina_libro set cantidad = (cantidad-1) where id_libro = :NEW.id_libro;
+    oina_proc_check_disp;
 END;
 /
 /*VISTA LISTADO DE LIBROS ----- no se usara*/
@@ -376,4 +378,43 @@ exception
 end;
 /
 
+--funcion que se encarga de crear nuevos usarios revisando que este no exista en la base de datos
+create or replace function oina_func_registrarPrestamo(
+    fechaDevolucionEstimada in VARCHAR2, 
+    usuario in VARCHAR2, 
+    idLibro in varchar2
+) 
+return varchar2 
+is
+total number(10);
+retorno varchar2(100 BYTE);
+begin
+
+    select sum(cantidad) into total from oina_libro where id_libro = idLibro;
+
+    if total > 0 then
+        INSERT INTO OINA_PRESTAMO VALUES(null, SYSDATE, TO_DATE(fechaDevolucionEstimada, 'YYYY-MM-DD'), null, 'activo', usuario, idLibro);
+        retorno:= 'Prestamo registrado correctamente';
+    else
+        retorno:= 'No hay suficientes existencias de este libro para registrar su prestamo';
+    end if;
+    
+    COMMIT;
+
+    RETURN retorno;
+exception
+    WHEN OTHERS THEN
+    dbms_output.put_line('Error en la transaccion:' || SQLERRM);
+    dbms_output.put_line('Se deshacen las modificaciones');
+    ROLLBACK;
+    retorno:= 'Hubo un error interno: ' || SQLERRM;
+    RETURN retorno;
+end;
+/
+CREATE OR REPLACE TRIGGER oina_trigg_actualizarDisponibilidad AFTER UPDATE ON oina_prestamo
+FOR EACH ROW
+BEGIN
+    UPDATE oina_libro set cantidad = (cantidad+1) where id_libro = :NEW.id_libro;
+END;
+/
 set serveroutput on;
