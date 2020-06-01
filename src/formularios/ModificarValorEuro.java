@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Martinez
@@ -109,9 +110,10 @@ public class ModificarValorEuro extends javax.swing.JDialog {
             st.executeUpdate();
             JOptionPane.showMessageDialog(this, "Precio Actualizado exitosamente", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "error: " + e);
-        }      
+        }
     }//GEN-LAST:event_btnModificarLibroActionPerformed
 
 
