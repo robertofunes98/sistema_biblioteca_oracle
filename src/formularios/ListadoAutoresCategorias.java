@@ -11,8 +11,10 @@ import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,11 +24,14 @@ import javax.swing.JPanel;
  *
  * @author FA
  */
+
+
 public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ListadoAutoresCategorias
      */
+    public int autorSeleccionado = -1;
     
     ConexionDB conexion;
     DefaultTableModel modeloAutores, modeloCategorias;
@@ -34,7 +39,6 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
     
     public ListadoAutoresCategorias() {
         initComponents();
-        
         modeloAutores = (DefaultTableModel) tblAutores.getModel();
         modeloCategorias = (DefaultTableModel) tblCategorias.getModel();
         
@@ -111,6 +115,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
         tfBuscadorCategorias = new javax.swing.JTextField();
         btnModificarCategoria = new javax.swing.JButton();
         btnEliminarCategoria = new javax.swing.JButton();
+        btnContarLibros = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -200,6 +205,11 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
         });
         tblAutores.setRowHeight(32);
         tblAutores.setSelectionBackground(new java.awt.Color(0, 153, 153));
+        tblAutores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAutoresMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblAutores);
 
         jLabel2.setBackground(new java.awt.Color(233, 242, 241));
@@ -320,6 +330,18 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
             }
         });
 
+        btnContarLibros.setBackground(new java.awt.Color(52, 128, 118));
+        btnContarLibros.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        btnContarLibros.setForeground(new java.awt.Color(255, 255, 255));
+        btnContarLibros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book.png"))); // NOI18N
+        btnContarLibros.setText("Mostrar Libros");
+        btnContarLibros.setBorder(null);
+        btnContarLibros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContarLibrosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -339,7 +361,9 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(btnEliminarAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnModificarAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnModificarAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnContarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -353,14 +377,15 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminarAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModificarAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnModificarAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnContarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnModificarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminarCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 640));
@@ -477,6 +502,24 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarCategoriaActionPerformed
 
+    private void tblAutoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAutoresMouseClicked
+        // TODO add your handling code here:
+        this.autorSeleccionado = this.tblAutores.getSelectedRow() + 1;
+    }//GEN-LAST:event_tblAutoresMouseClicked
+
+    private void btnContarLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContarLibrosActionPerformed
+        // TODO add your handling code here:
+        try    {
+                ResultSet rsResultadoLibros=conexion.ejecutar("select oina_funct_libros_autor(" + this.autorSeleccionado + ") from dual");
+                while(rsResultadoLibros.next()){
+                    JOptionPane.showMessageDialog(null, rsResultadoLibros.getInt(1));
+                }
+                
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "error: " + e);
+            }
+    }//GEN-LAST:event_btnContarLibrosActionPerformed
+
     private void buscarAutorPorNombre(String nombre){
         try{
             ResultSet rsResultado=conexion.ejecutar("select id_autor, nombre from oina_autor where nombre LIKE '"+nombre+"%'");
@@ -516,6 +559,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnContarLibros;
     private javax.swing.JButton btnEliminarAutor;
     private javax.swing.JButton btnEliminarCategoria;
     private javax.swing.JButton btnModificarAutor;
