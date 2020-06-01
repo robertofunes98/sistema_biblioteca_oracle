@@ -56,9 +56,7 @@ public class FormularioMantenimeintoDeLibros extends javax.swing.JInternalFrame 
             lblCantidadLibros.setText("Cantidad de libros: "+alLibros.get(0).get(2));
             lblCantidadAutores.setText("Cantidad de autores: "+alLibros.get(1).get(2));
             lblPromedioLibros.setText("Promedio libros X Autor: "+alLibros.get(2).get(2));
-            
-            
-            JOptionPane.showMessageDialog(rootPane, "Acción ejecutada","Información",JOptionPane.INFORMATION_MESSAGE);
+           
         }
         catch(SQLException e)
         {

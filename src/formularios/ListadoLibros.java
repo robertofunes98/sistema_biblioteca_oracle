@@ -32,7 +32,7 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
     LinkedList<LinkedList<String>> alAutores, alCategorias, alLibros;
 
     /**
-     * Creates new form ListadoLibros
+     * Creates new form ListadoLibros]
      */
     public ListadoLibros() {
         initComponents();
@@ -44,20 +44,41 @@ public class ListadoLibros extends javax.swing.JInternalFrame {
         }
 
         if (Variables.user.tipoUsuario == 1) {
-            modeloLibros = (DefaultTableModel) tblLibros.getModel();
+            
+            DefaultTableModel modeloNuevo = new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "ID libro", "Nombre", "Autor", "Categoria", "Cantidad", "Precio $", "Precio $ total", "Precio €", "Precio € total"
+                }
+            ) {
+                boolean[] canEdit = new boolean [] {
+                    false, false, false, false, false, false, false, false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            };
+            
+            tblLibros.setModel(modeloNuevo);
+            
+            modeloLibros = modeloNuevo;
+            
             btnActualizarEuro.setVisible(true);
-            modeloLibros.addColumn("Precio $");
-            modeloLibros.addColumn("Precio $ total");
-            modeloLibros.addColumn("Precio €");
-            modeloLibros.addColumn("Precio € total");
+            
             tblLibros.getColumnModel().getColumn(0).setPreferredWidth(60);
-            tblLibros.getColumnModel().getColumn(1).setPreferredWidth(205);
-            tblLibros.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tblLibros.getColumnModel().getColumn(1).setPreferredWidth(195);
+            tblLibros.getColumnModel().getColumn(2).setPreferredWidth(140);
             tblLibros.getColumnModel().getColumn(3).setPreferredWidth(70);
             tblLibros.getColumnModel().getColumn(4).setPreferredWidth(60);
             tblLibros.getColumnModel().getColumn(5).setPreferredWidth(60);
-            tblLibros.getColumnModel().getColumn(6).setPreferredWidth(60);
+            tblLibros.getColumnModel().getColumn(6).setPreferredWidth(85);
             tblLibros.getColumnModel().getColumn(7).setPreferredWidth(60);
+            tblLibros.getColumnModel().getColumn(8).setPreferredWidth(85);
+            
+            
         } else {
             modeloLibros = (DefaultTableModel) tblLibros.getModel();
             btnActualizarEuro.setVisible(false);
