@@ -197,14 +197,14 @@ END;
 /
 
 /*FUNCION TOTAL PRECIO CONJUNTO DE LIBROS*/
-CREATE OR REPLACE FUNCTION oina_func_mayor_precio 
-RETURN NUMBER
-IS mayor_precio NUMBER;
+CREATE OR REPLACE FUNCTION f_mayor_precio 
+RETURN VARCHAR
+IS libro_mayor_precio VARCHAR(30);
 BEGIN   
-    select maximo into mayor_precio from(select precio * cantidad as maximo from oina_libro
+    select nombre into libro_mayor_precio from(select nombre, (precio * cantidad) as maximo from oina_libro
     order by maximo desc)
     where rownum = 1;
-    RETURN (mayor_precio);
+    RETURN (libro_mayor_precio);
 END;
 /
 

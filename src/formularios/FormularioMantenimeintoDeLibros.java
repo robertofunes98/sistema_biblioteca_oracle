@@ -11,8 +11,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -24,44 +26,41 @@ import javax.swing.JOptionPane;
  * @author funes
  */
 public class FormularioMantenimeintoDeLibros extends javax.swing.JInternalFrame {
-    
+
     ConexionDB conexion;
+    CallableStatement cs = null;
 
     /**
      * Creates new form FormularioConfiguracion
      */
     public FormularioMantenimeintoDeLibros() {
         initComponents();
-        
-        try{
-            conexion=new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
+
+        try {
+            conexion = new ConexionDB(Variables.rutaDB, Variables.userDB, Variables.claveDB);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
+            JOptionPane.showInternalMessageDialog(rootPane, "Error en la conexion a la base de datos. Contacte a su administrador", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        catch(ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e)
-        {
-            JOptionPane.showInternalMessageDialog(rootPane, "Error en la conexion a la base de datos. Contacte a su administrador", "Error",JOptionPane.ERROR_MESSAGE);
-        }
-        
+
         cargarDatosLibros();
     }
-    
-    private void cargarDatosLibros()
-    {
-        try{
-            String sql = "select * from oina_datos where id_datos in (3, 4, 5)";
-            
-            ResultSet rsResultado = conexion.ejecutar(sql);
-            
-            LinkedList<LinkedList<String>>  alLibros=conexion.convertirRsToArrayList(rsResultado);
 
-            lblCantidadLibros.setText("Cantidad de libros: "+alLibros.get(0).get(2));
-            lblCantidadAutores.setText("Cantidad de autores: "+alLibros.get(1).get(2));
-            lblPromedioLibros.setText("Promedio libros X Autor: "+alLibros.get(2).get(2));
-           
+    private void cargarDatosLibros() {
+        try {
+            String sql = "select * from oina_datos where id_datos in (3, 4, 5)";
+
+            ResultSet rsResultado = conexion.ejecutar(sql);
+
+            LinkedList<LinkedList<String>> alLibros = conexion.convertirRsToArrayList(rsResultado);
+
+            lblCantidadLibros.setText("Cantidad de libros: " + alLibros.get(0).get(2));
+            lblCantidadAutores.setText("Cantidad de autores: " + alLibros.get(1).get(2));
+            lblPromedioLibros.setText("Promedio libros X Autor: " + alLibros.get(2).get(2));
+            lblMaxPrecio.setText("El libro con costo mas alto: " + MayorPrecio());
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "Error en la escritura. Contacte a su administrador" + e.getMessage());
         }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane,"Error en la escritura. Contacte a su administrador"+e.getMessage());
-        } 
     }
 
     /**
@@ -79,6 +78,7 @@ public class FormularioMantenimeintoDeLibros extends javax.swing.JInternalFrame 
         lblCantidadLibros = new javax.swing.JLabel();
         lblCantidadAutores = new javax.swing.JLabel();
         lblPromedioLibros = new javax.swing.JLabel();
+        lblMaxPrecio = new javax.swing.JLabel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -100,63 +100,97 @@ public class FormularioMantenimeintoDeLibros extends javax.swing.JInternalFrame 
             }
         });
 
-        lblCantidadLibros.setText("Cantidad de libros: 123");
+        lblCantidadLibros.setBackground(new java.awt.Color(0, 0, 255));
+        lblCantidadLibros.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblCantidadLibros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCantidadLibros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/autor_32x32.png"))); // NOI18N
+        lblCantidadLibros.setText("            Cantidad de libros: 123");
+        lblCantidadLibros.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        lblCantidadAutores.setText("Cantidad de autores: 123");
+        lblCantidadAutores.setBackground(new java.awt.Color(0, 51, 255));
+        lblCantidadAutores.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblCantidadAutores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCantidadAutores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/autores_32x32.png"))); // NOI18N
+        lblCantidadAutores.setText("          Cantidad de autores: 123");
+        lblCantidadAutores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        lblPromedioLibros.setText("Promedio libros X Autor: 12");
+        lblPromedioLibros.setBackground(new java.awt.Color(51, 51, 255));
+        lblPromedioLibros.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblPromedioLibros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPromedioLibros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/modificar_32x32.png"))); // NOI18N
+        lblPromedioLibros.setText("       Promedio libros X Autor: 12");
+        lblPromedioLibros.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblMaxPrecio.setBackground(new java.awt.Color(0, 51, 255));
+        lblMaxPrecio.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblMaxPrecio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMaxPrecio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/libros_32x32.png"))); // NOI18N
+        lblMaxPrecio.setText("   El libro con costo mas alto: ABC");
+        lblMaxPrecio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnActualizardatosLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblCantidadAutores, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCantidadLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblPromedioLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(35, 35, 35)
+                            .addComponent(lblMaxPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(btnActualizardatosLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(jLabel1)))
+                .addContainerGap(42, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnActualizardatosLibros)
+                .addGap(18, 18, 18)
+                .addComponent(lblMaxPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblPromedioLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblCantidadLibros)
                 .addGap(18, 18, 18)
                 .addComponent(lblCantidadAutores)
-                .addGap(18, 18, 18)
-                .addComponent(lblPromedioLibros)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizardatosLibros)
-                    .addComponent(lblCantidadLibros)
-                    .addComponent(lblCantidadAutores)
-                    .addComponent(lblPromedioLibros))
-                .addGap(244, 244, 244))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -11, 710, 330));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -11, 450, 330));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizardatosLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizardatosLibrosActionPerformed
         // TODO add your handling code here:
-        try{
+        try {
             conexion.ejecutarComando("begin oina_proc_actualizarDatosLibros; end;");
-            
+
             cargarDatosLibros();
-            
-            JOptionPane.showInternalMessageDialog(rootPane, "Acción ejecutada","Información",JOptionPane.INFORMATION_MESSAGE);
+
+            JOptionPane.showInternalMessageDialog(rootPane, "Acción ejecutada", "Información", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "Error en la escritura. Contacte a su administrador" + e.getMessage());
         }
-        catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(rootPane,"Error en la escritura. Contacte a su administrador"+e.getMessage());
-        } 
     }//GEN-LAST:event_btnActualizardatosLibrosActionPerformed
 
+    public String MayorPrecio() throws SQLException {
+        cs = conexion.getConex().prepareCall("{? = call f_mayor_precio ()}");
+        cs.registerOutParameter(1, Types.VARCHAR);
+        cs.execute();
+        return cs.getString(1);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizardatosLibros;
@@ -164,6 +198,7 @@ public class FormularioMantenimeintoDeLibros extends javax.swing.JInternalFrame 
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCantidadAutores;
     private javax.swing.JLabel lblCantidadLibros;
+    private javax.swing.JLabel lblMaxPrecio;
     private javax.swing.JLabel lblPromedioLibros;
     // End of variables declaration//GEN-END:variables
 }

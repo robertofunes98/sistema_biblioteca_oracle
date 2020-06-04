@@ -57,7 +57,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
         limpiarTablas();
         try{
             //cargar datos autores
-            ResultSet rsResultadoAutores=conexion.ejecutar("select id_autor, nombre from oina_autor");
+            ResultSet rsResultadoAutores=conexion.ejecutar("select * from v_lista_autores");
 
             alAutores=conexion.convertirRsToArrayList(rsResultadoAutores);
 
@@ -67,7 +67,7 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
             }
             
             //cargar datos categorias
-            ResultSet rsResultadoCategorias=conexion.ejecutar("select id_categoria, nombre from oina_categoria");
+            ResultSet rsResultadoCategorias=conexion.ejecutar("select * from v_lista_categorias");
 
             alCategorias=conexion.convertirRsToArrayList(rsResultadoCategorias);
 
