@@ -13,6 +13,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -185,6 +187,11 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
         cbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione una opcion--", "Usuario", "Administrador", "Prestamista" }));
 
         tbUserName.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tbUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbUserNameActionPerformed(evt);
+            }
+        });
         tbUserName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tbUserNameKeyPressed(evt);
@@ -494,9 +501,11 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
                 
                 String apellidos = tbApellidos.getText().trim().equals("") ? "null" : tbApellidos.getText().trim();
                 
-                String sql = "INSERT INTO oina_usuario VALUES ('" + usuario + "','"
+               /* String sql = "INSERT INTO oina_usuario VALUES ('" + usuario + "','"
                         +Encriptacion.encrypt(tbClave.getText())+"','"+nombres+"', '"+apellidos+"',"
                         +(cbTipoUsuario.getSelectedIndex()-1)+")";
+               
+               
                 
                 int filasAfectadas = conexion.ejecutarComando(sql);
                 if (filasAfectadas > 0) {
@@ -505,6 +514,42 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
                     cargarTabla();
                 } else
                     JOptionPane.showMessageDialog(rootPane, "Lo sentimos, ha ocurrido un error. Contacte con su administrador", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                 */
+               
+                try {
+                    
+                    String sql = "{? = call oina_func_crearNuevoUsuario(?, ?, ?, ?, ?, ?)}";
+                    ArrayList<String> alParametros =new ArrayList<>();
+                    alParametros.add(""+usuario+"");
+                    alParametros.add(""+Encriptacion.encrypt(tbClave.getText())+"");
+                    alParametros.add(""+nombres+"");
+                    alParametros.add(""+apellidos+"");
+                    alParametros.add(""+(cbTipoUsuario.getSelectedIndex()-1)+"");
+                    alParametros.add(""+"yo"+"");
+                    
+                    String retorno = conexion.ejecutarFuncionOracle(sql, alParametros, Types.INTEGER);
+                    int validacion = Integer.parseInt(retorno);
+                    if(validacion == 1){
+                        cargarTabla();
+                        JOptionPane.showMessageDialog(rootPane, "Nuevo usuario: " + usuario, "Usuario agregado correctamente",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        this.tbUserName.setText("");
+                        this.tbNombres.setText("");
+                        this.tbApellidos.setText("");
+                        this.tbClave.setText("");
+                        this.cbTipoUsuario.setSelectedIndex(0);
+                        
+                    }else if (validacion == 0){
+                        JOptionPane.showMessageDialog(rootPane, "Ocurrio un error."
+                                + " Por favor tome en cuenta que 2 usuarios no pueden tener el mismo nombre. "
+                                + "Si esto no resuelve su error contacte con su administrador", "Error al agregar usuario!",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                    
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "Ocurrio un error:"+e, "Error",JOptionPane.ERROR_MESSAGE);
+                }
             } 
             catch (Exception ex) 
             {
@@ -578,6 +623,10 @@ public class FormularioAgregarusuarios extends javax.swing.JInternalFrame {
     private void tbApellidosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbApellidosKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_tbApellidosKeyReleased
+
+    private void tbUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbUserNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbUserNameActionPerformed
 
     private void limpiarCampos() {
         tbUserName.setText("");
