@@ -155,6 +155,13 @@ BEGIN
     oina_proc_check_disp;
 END;
 /
+
+CREATE OR REPLACE TRIGGER oina_trigg_check_dispo_update AFTER UPDATE ON oina_prestamo
+BEGIN
+    oina_proc_check_disp;
+END;
+/
+
 /*VISTA LISTADO DE LIBROS ----- no se usara*/
 CREATE OR REPLACE VIEW v_lista_libros as
 select l.id_libro, 
