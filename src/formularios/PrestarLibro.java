@@ -444,7 +444,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
     private void cargarTabla() {
         limpiarTabla();
         try{
-            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria where oina_libro.estado = 1");
+            ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria where libro.estado = 1");
 
             alLibros=conexion.convertirRsToArrayList(rsResultado);
 
@@ -466,7 +466,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         limpiarTabla();
         String sql="select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad, autor.id_autor, "
                         + "categoria.id_categoria, libro.precio, (libro.precio*libro.cantidad) as precio_total from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor "
-                        + "INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria where oina_libro.estado = 1 ";
+                        + "INNER JOIN oina_categoria categoria on categoria.id_categoria = libro.id_categoria where libro.estado = 1 ";
         
         switch(tipoOrden)
         {
@@ -521,7 +521,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         try{
             ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where oina_libro.estado = 1 && libro.nombre LIKE '%"+nombre+"%'");
+                    + "categoria.id_categoria = libro.id_categoria where libro.estado = 1 && libro.nombre LIKE '%"+nombre+"%'");
 
             LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
             
@@ -546,7 +546,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         try{
             ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where oina_libro.estado = 1 && libro.id_libro LIKE '"+idLibro+"%'");
+                    + "categoria.id_categoria = libro.id_categoria where libro.estado = 1 && libro.id_libro LIKE '"+idLibro+"%'");
 
             LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
             
@@ -586,7 +586,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         try{
             ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where oina_libro.estado = 1 && libro.id_autor ="+idAutor);
+                    + "categoria.id_categoria = libro.id_categoria where libro.estado = 1 && libro.id_autor ="+idAutor);
 
             LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
             
@@ -626,7 +626,7 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
         try{
             ResultSet rsResultado=conexion.ejecutar("select libro.id_libro, libro.nombre, autor.nombre, categoria.nombre, libro.cantidad "
                     + "from oina_libro libro inner join oina_autor autor on autor.id_autor = libro.id_autor INNER JOIN oina_categoria categoria on "
-                    + "categoria.id_categoria = libro.id_categoria where oina_libro.estado = 1 && libro.id_categoria ="+idcategoria);
+                    + "categoria.id_categoria = libro.id_categoria where libro.estado = 1 && libro.id_categoria ="+idcategoria);
 
             LinkedList<LinkedList<String>> alResultados=conexion.convertirRsToArrayList(rsResultado);
             

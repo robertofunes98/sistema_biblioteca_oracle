@@ -142,6 +142,8 @@ BEGIN
     cant := v_estado.cantidad;
     IF cant < 1 THEN
         UPDATE oina_libro SET estado = 0 WHERE id_libro = id_lib;
+    ELSE
+        UPDATE oina_libro SET estado = 1 WHERE id_libro = id_lib;
     END IF;
     END LOOP;
 END;
