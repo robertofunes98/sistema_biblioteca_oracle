@@ -79,6 +79,8 @@ public class FormularioMantenimeintoDeLibros extends javax.swing.JInternalFrame 
         lblCantidadAutores = new javax.swing.JLabel();
         lblPromedioLibros = new javax.swing.JLabel();
         lblMaxPrecio = new javax.swing.JLabel();
+        btnMantenimientoCat = new javax.swing.JButton();
+        btnMantenimientoCat1 = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -128,25 +130,54 @@ public class FormularioMantenimeintoDeLibros extends javax.swing.JInternalFrame 
         lblMaxPrecio.setText("   El libro con costo mas alto: ABC");
         lblMaxPrecio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        btnMantenimientoCat.setBackground(new java.awt.Color(52, 128, 118));
+        btnMantenimientoCat.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnMantenimientoCat.setForeground(new java.awt.Color(255, 255, 255));
+        btnMantenimientoCat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-maintenance-32.png"))); // NOI18N
+        btnMantenimientoCat.setBorder(null);
+        btnMantenimientoCat.setLabel("Establecer Mantenimiento a Categoría");
+        btnMantenimientoCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMantenimientoCatActionPerformed(evt);
+            }
+        });
+
+        btnMantenimientoCat1.setBackground(new java.awt.Color(52, 128, 118));
+        btnMantenimientoCat1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnMantenimientoCat1.setForeground(new java.awt.Color(255, 255, 255));
+        btnMantenimientoCat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-maintenance-32.png"))); // NOI18N
+        btnMantenimientoCat1.setText("Restablecer Disponibilidad a Categoría");
+        btnMantenimientoCat1.setBorder(null);
+        btnMantenimientoCat1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMantenimientoCat1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblCantidadAutores, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblCantidadLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblPromedioLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(35, 35, 35)
-                            .addComponent(lblMaxPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(116, 116, 116)
                         .addComponent(btnActualizardatosLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
-                        .addComponent(jLabel1)))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCantidadAutores, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCantidadLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPromedioLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblMaxPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMantenimientoCat1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMantenimientoCat, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -157,6 +188,10 @@ public class FormularioMantenimeintoDeLibros extends javax.swing.JInternalFrame 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnActualizardatosLibros)
                 .addGap(18, 18, 18)
+                .addComponent(btnMantenimientoCat)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnMantenimientoCat1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(lblMaxPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblPromedioLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,10 +199,10 @@ public class FormularioMantenimeintoDeLibros extends javax.swing.JInternalFrame 
                 .addComponent(lblCantidadLibros)
                 .addGap(18, 18, 18)
                 .addComponent(lblCantidadAutores)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -11, 450, 330));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -11, 450, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -185,6 +220,48 @@ public class FormularioMantenimeintoDeLibros extends javax.swing.JInternalFrame 
         }
     }//GEN-LAST:event_btnActualizardatosLibrosActionPerformed
 
+    private void btnMantenimientoCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenimientoCatActionPerformed
+        try {
+            String vals = "";//inicializando la variable
+            //Query
+            ResultSet rVals = conexion.ejecutar("SELECT id_categoria || ' - ' || nombre FROM oina_categoria;");
+            while (rVals.next()) {
+                /*Obteniendo las categorias desde la base de datos
+                */
+                vals += rVals.getNString(1) + "\n";
+            };
+            int cat_to_mant = Integer.parseInt(JOptionPane.showInputDialog("Seleccione una categoría a dar mantenimiento(Escriba el número de la categoría):\n" + vals));
+            //Ejecución del procedimiento almacenado
+            conexion.ejecutarComando("begin oina_proc_mant_cat(" + cat_to_mant + ",0); end;");
+            //Si funcionó:
+            JOptionPane.showInternalMessageDialog(rootPane, "Acción ejecutada", "Información", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException | NumberFormatException e) {
+            //Si NO funcionó:
+            JOptionPane.showMessageDialog(rootPane, "Error en la escritura. Contacte a su administrador" + e.getMessage());
+        }
+    }//GEN-LAST:event_btnMantenimientoCatActionPerformed
+
+    private void btnMantenimientoCat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenimientoCat1ActionPerformed
+        try {
+            String vals = "";//inicializando la variable
+            //Query
+            ResultSet rVals = conexion.ejecutar("SELECT id_categoria || ' - ' || nombre FROM oina_categoria;");
+            while (rVals.next()) {
+                /*Obteniendo las categorias desde la base de datos
+                */
+                vals += rVals.getNString(1) + "\n";
+            };
+            int cat_to_mant = Integer.parseInt(JOptionPane.showInputDialog("Seleccione una categoría a restablecer (Escriba el número de la categoría):\n" + vals));
+            //Ejecución del procedimiento almacenado
+            conexion.ejecutarComando("begin oina_proc_mant_cat(" + cat_to_mant + ",1); end;");
+            //Si funcionó:
+            JOptionPane.showInternalMessageDialog(rootPane, "Acción ejecutada", "Información", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException | NumberFormatException e) {
+            //Si NO funcionó:
+            JOptionPane.showMessageDialog(rootPane, "Error en la escritura. Contacte a su administrador" + e.getMessage());
+        }
+    }//GEN-LAST:event_btnMantenimientoCat1ActionPerformed
+
     public String MayorPrecio() throws SQLException {
         cs = conexion.getConex().prepareCall("{? = call f_mayor_precio ()}");
         cs.registerOutParameter(1, Types.VARCHAR);
@@ -194,6 +271,8 @@ public class FormularioMantenimeintoDeLibros extends javax.swing.JInternalFrame 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizardatosLibros;
+    private javax.swing.JButton btnMantenimientoCat;
+    private javax.swing.JButton btnMantenimientoCat1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCantidadAutores;

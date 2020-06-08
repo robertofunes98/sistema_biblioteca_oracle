@@ -118,13 +118,13 @@ commit;
 
 /*Procedimiento cambiar a estado inactivo una categoria completa de libro (para dar mantenimiento)*/
 
-CREATE OR REPLACE PROCEDURE oina_proc_mant_cat (id_cat IN NUMBER) AS
+CREATE OR REPLACE PROCEDURE oina_proc_mant_cat (id_cat IN NUMBER, status IN NUMBER) AS
 CURSOR c_lib IS SELECT id_libro FROM oina_libro WHERE id_categoria=id_cat;  
 idlib VARCHAR2(10 BYTE);
 BEGIN
     FOR v_lib IN c_lib LOOP
     idlib := v_lib.id_libro;
-    UPDATE oina_libro SET estado = 0 WHERE id_libro = idlib;
+    UPDATE oina_libro SET estado = status WHERE id_libro = idlib;
     END LOOP;
 END;
 /
