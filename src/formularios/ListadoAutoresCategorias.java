@@ -333,7 +333,6 @@ public class ListadoAutoresCategorias extends javax.swing.JInternalFrame {
         btnContarLibros.setBackground(new java.awt.Color(52, 128, 118));
         btnContarLibros.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         btnContarLibros.setForeground(new java.awt.Color(255, 255, 255));
-        btnContarLibros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book.png"))); // NOI18N
         btnContarLibros.setText("Mostrar Libros");
         btnContarLibros.setBorder(null);
         btnContarLibros.addActionListener(new java.awt.event.ActionListener() {

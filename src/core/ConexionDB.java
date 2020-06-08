@@ -23,7 +23,7 @@ public class ConexionDB{
         
         //instanciando la conexion.
         Class.forName("oracle.jdbc.driver.OracleDriver").newInstance();
-        conexion=DriverManager.getConnection("Conexion,Usuario,Clave");
+        conexion=DriverManager.getConnection(db,usuario,clave);
     }
 
     
