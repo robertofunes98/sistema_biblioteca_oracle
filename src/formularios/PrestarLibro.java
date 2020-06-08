@@ -406,6 +406,8 @@ public class PrestarLibro extends javax.swing.JInternalFrame {
                
                 String retorno = conexion.ejecutarFuncionOracle(sql, alParametros, Types.VARCHAR);
                 
+                cargarTabla();
+                
                 JOptionPane.showMessageDialog(rootPane, retorno, "Info",JOptionPane.ERROR_MESSAGE);
              } 
             catch (Exception ex) 

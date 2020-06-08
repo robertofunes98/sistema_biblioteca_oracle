@@ -268,6 +268,7 @@ CREATE TABLE oina_libros_borrados(
     precio NUMBER(9,2) NOT NULL,
     precio_euros NUMBER(9,2) NULL,
     estado NUMBER NOT NULL,
+    usuario VARCHAR2(50 BYTE) NOT NULL, 
     id_autor NUMBER (9),
     id_categoria NUMBER(9), 
     CONSTRAINT pk_libro_borrado PRIMARY KEY (id_libro_borrado)
@@ -277,9 +278,13 @@ CREATE TABLE oina_libros_borrados(
 CREATE OR REPLACE TRIGGER oina_registrar_cambios
 AFTER DELETE ON oina_libro
 FOR EACH ROW
+DECLARE
+  v_user VARCHAR (20);
 BEGIN
-  INSERT INTO oina_libros_borrados(id_libro_borrado, id_libro, nombre, cantidad, precio, precio_euros, estado, id_autor, id_categoria)
-  VALUES (null, :OLD.id_libro, :OLD.nombre, :OLD.cantidad, :OLD.precio, :OLD.precio_euros, :OLD.estado, :OLD.id_autor, :OLD.id_categoria);
+    SELECT user INTO v_user FROM dual;
+
+  INSERT INTO oina_libros_borrados(id_libro_borrado, id_libro, nombre, cantidad, precio, precio_euros, estado, usuario, id_autor, id_categoria)
+  VALUES (null, :OLD.id_libro, :OLD.nombre, :OLD.cantidad, :OLD.precio, :OLD.precio_euros, :OLD.estado, user, :OLD.id_autor, :OLD.id_categoria);
 END;
 /
 
